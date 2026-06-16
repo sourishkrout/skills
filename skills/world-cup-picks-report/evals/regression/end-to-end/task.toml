@@ -1,0 +1,34 @@
+schema_version = "1.1"
+
+[task]
+name = "sourishkrout/skills_world-cup-picks-report_end-to-end"
+description = "Evaluate the world-cup-picks-report skill end to end against a current World Cup picks request."
+authors = []
+keywords = ["skills", "harbor", "world-cup", "picks", "report"]
+
+[metadata]
+difficulty = "medium"
+category = "research"
+tags = ["skills", "world-cup", "predictions", "citations", "workflow"]
+
+[verifier]
+timeout_sec = 900.0
+
+[agent]
+timeout_sec = 3600.0
+
+[environment]
+build_timeout_sec = 60.0
+cpus = 1
+memory_mb = 1024
+storage_mb = 1024
+gpus = 0
+workdir = "/app/skills/world-cup-picks-report/evals/regression/end-to-end/workdir"
+skills_dir = "/app/skills/world-cup-picks-report/evals/regression/end-to-end/workdir/.agents/skills"
+
+[environment.env]
+
+[verifier.env]
+ANTHROPIC_API_KEY = "${ANTHROPIC_API_KEY}"
+
+[solution.env]

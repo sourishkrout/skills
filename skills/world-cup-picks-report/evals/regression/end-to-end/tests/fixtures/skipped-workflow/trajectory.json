@@ -1,0 +1,16 @@
+{
+  "schema_version": "1.5",
+  "steps": [
+    {
+      "tool_calls": [
+        {
+          "function_name": "exec_command",
+          "arguments": {
+            "cmd": "printf 'United States vs Wales: 2:1' > /logs/artifacts/report.md",
+            "workdir": "/app"
+          }
+        }
+      ]
+    }
+  ]
+}

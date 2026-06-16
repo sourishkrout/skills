@@ -1,0 +1,8 @@
+[judge]
+judge = "anthropic/claude-sonnet-4-6"
+files = ["/logs/artifacts/report.md"]
+
+[[criterion]]
+description = "Rate whether each match pick uses at least one expert prediction, correct-score source, preview, or equivalent pick as a visible source for the chosen scoreline. Do not require exact phrases like 'expert anchor'. Full credit is appropriate when every match block names or cites a relevant source and connects it to the pick, even if other sources disagree or predict a different score. Do not penalize unresolved disagreement between credible sources; disagreement is acceptable as long as the report shows source presence and uses at least one source for each pick. Penalize only when match blocks lack a visible expert/prediction/preview/correct-score source, cite sources without tying them to the pick, or rely only on unsupported generic model/market language."
+type = "likert"
+points = 5

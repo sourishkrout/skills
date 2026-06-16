@@ -1,0 +1,8 @@
+[judge]
+judge = "anthropic/claude-sonnet-4-6"
+files = ["/logs/artifacts/report.md"]
+
+[[criterion]]
+description = "Rate whether every fixture in the report is grounded in a credible expert, prediction, preview, or correct-score source. Give full credit when each fixture has a clear anchor, or when the report honestly says explicit expert scoreline data is unavailable and uses model or market evidence as a fallback. Penalize missing fixture anchors, vague unsupported expert claims, or anchors only listed in sources without being tied to a fixture."
+type = "likert"
+points = 5

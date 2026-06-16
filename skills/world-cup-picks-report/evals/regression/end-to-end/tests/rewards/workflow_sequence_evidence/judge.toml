@@ -1,0 +1,9 @@
+[judge]
+judge = "anthropic/claude-sonnet-4-6"
+files = ["/logs/artifacts/report.md"]
+atif-trajectory = "/logs/agent/trajectory.json"
+
+[[criterion]]
+description = "Rate whether the report and available trajectory show the intended workflow: identify the relevant FIFA fixtures for the date, collect expert scoreline or prediction anchors, compare with model probabilities, compare with market or odds evidence, check Elo or team-strength context, account for lineup/injury/current-match context, and synthesize final scoreline picks. Give credit for evidence in either the final report or trajectory. Penalize skipped phases or final picks that appear unsupported by the workflow."
+type = "likert"
+points = 5
