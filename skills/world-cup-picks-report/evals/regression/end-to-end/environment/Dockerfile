@@ -7,4 +7,6 @@ RUN apt-get update \
   && ln -s /root/.local/bin/uv /usr/local/bin/uv \
   && ln -s /root/.local/bin/uvx /usr/local/bin/uvx
 
+COPY workdir /app/skills/world-cup-picks-report/evals/regression/end-to-end/workdir
+
 WORKDIR /app/skills/world-cup-picks-report/evals/regression/end-to-end/workdir
