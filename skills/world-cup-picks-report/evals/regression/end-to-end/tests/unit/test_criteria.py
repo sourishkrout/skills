@@ -10,9 +10,38 @@ assert SPEC is not None and SPEC.loader is not None
 criteria = importlib.util.module_from_spec(SPEC)
 SPEC.loader.exec_module(criteria)
 
+ROLLUP_PATH = Path(__file__).parents[1] / "rollup_reward.py"
+ROLLUP_SPEC = importlib.util.spec_from_file_location("rollup_reward", ROLLUP_PATH)
+assert ROLLUP_SPEC is not None and ROLLUP_SPEC.loader is not None
+rollup_reward = importlib.util.module_from_spec(ROLLUP_SPEC)
+ROLLUP_SPEC.loader.exec_module(rollup_reward)
+
 
 def read_fixture(path: str) -> str:
     return (Path(__file__).parents[1] / path).read_text()
+
+
+def test_reward_rollup_uses_existing_emitted_scores(tmp_path: Path) -> None:
+    reward_path = tmp_path / "reward.json"
+    reward_path.write_text(
+        "{\n"
+        '  "artifact_written": 1.0,\n'
+        '  "skill_activation_evidence": 1.0,\n'
+        '  "citation_proximity": 0.5,\n'
+        '  "scoreline_format": 0.5,\n'
+        '  "guardrails": 1.0,\n'
+        '  "report_completeness": 0.75,\n'
+        '  "expert_anchor_coverage": 0.75,\n'
+        '  "expert_anchor_usage": 0.5,\n'
+        '  "source_quality": 0.75,\n'
+        '  "workflow_sequence_evidence": 0.75\n'
+        "}\n"
+    )
+
+    scores = rollup_reward.add_reward_rollup(reward_path)
+
+    assert scores["reward"] == 0.75
+    assert '"reward": 0.75' in reward_path.read_text()
 
 
 def test_commands_from_atif() -> None:

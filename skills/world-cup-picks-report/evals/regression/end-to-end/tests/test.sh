@@ -7,3 +7,6 @@ uvx --quiet --from harbor-rewardkit rewardkit \
   --output /logs/verifier/reward.json \
   /tests/rewards \
   2> /logs/verifier/uvx-stderr.txt
+
+uvx --quiet --from harbor-rewardkit python \
+  /tests/rollup_reward.py /logs/verifier/reward.json
