@@ -1,0 +1,76 @@
+{
+    "schema_version": 1,
+    "created_at": "2026-06-17T05:20:24.117848Z",
+    "harbor": {
+        "version": "0.13.1",
+        "is_editable": false
+    },
+    "invocation": [
+        "/Users/sourishkrout/Projects/personal/visr/runme/integrations/harbor/.venv/bin/harbor",
+        "run",
+        "--path",
+        "/Users/sourishkrout/Projects/personal/2026Q2/sourishkrout-skills/skills/world-cup-picks-report/evals/regression",
+        "--jobs-dir",
+        ".runme/evals/jobs",
+        "--environment-import-path",
+        "runme_harbor.environment:RunmeEnvironment",
+        "--agent-import-path",
+        "runme_harbor.runme_agents:RunmeClaudeCode",
+        "-y",
+        "--n-concurrent",
+        "1",
+        "--model",
+        "sonnet"
+    ],
+    "n_concurrent_trials": 1,
+    "retry": {
+        "max_retries": 0,
+        "exclude_exceptions": [
+            "RewardFileNotFoundError",
+            "VerifierOutputParseError",
+            "VerifierTimeoutError",
+            "AgentTimeoutError",
+            "RewardFileEmptyError"
+        ],
+        "wait_multiplier": 1.0,
+        "min_wait_sec": 1.0,
+        "max_wait_sec": 60.0
+    },
+    "trials": [
+        {
+            "task": {
+                "name": "end-to-end",
+                "type": "local",
+                "digest": "sha256:c4f5b4207959b937561e7be17d8b8a1412c5f5f4cfb8498427d795eade3b6191",
+                "source": "regression",
+                "path": "/Users/sourishkrout/Projects/personal/2026Q2/sourishkrout-skills/skills/world-cup-picks-report/evals/regression/end-to-end"
+            },
+            "timeout_multiplier": 1.0,
+            "agent": {
+                "import_path": "runme_harbor.runme_agents:RunmeClaudeCode",
+                "model_name": "sonnet",
+                "skills": [],
+                "extra_allowed_hosts": [],
+                "kwargs": {},
+                "env": {},
+                "mcp_servers": []
+            },
+            "skills": [],
+            "environment": {
+                "import_path": "runme_harbor.environment:RunmeEnvironment",
+                "force_build": false,
+                "delete": true,
+                "cpu_enforcement_policy": "auto",
+                "memory_enforcement_policy": "auto",
+                "extra_docker_compose": [],
+                "env": {},
+                "kwargs": {},
+                "extra_allowed_hosts": []
+            },
+            "verifier": {
+                "env": {},
+                "disable": false
+            }
+        }
+    ]
+}

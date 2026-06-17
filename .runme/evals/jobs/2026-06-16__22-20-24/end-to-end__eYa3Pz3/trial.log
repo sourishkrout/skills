@@ -1,0 +1,18 @@
+Running command: set -o pipefail
+claude --verbose --output-format=stream-json --permission-mode=bypassPermissions --model sonnet --print -- '# Current World Cup Scoreline Report
+
+Run this task from the skill root.
+
+Prepare today'"'"'s World Cup scoreline report for Discord. If there are no World Cup matches today, use the next scheduled matchday or round.
+
+Write the final report to:
+
+```text
+/logs/artifacts/report.md
+```
+
+Do not create, switch, stage, commit, push, or open a pull request.
+' 2>&1 </dev/null | tee /logs/agent/claude-code.txt
+Command outputs captured
+Wrote Claude Code trajectory to .runme/evals/jobs/2026-06-16__22-20-24/end-to-end__eYa3Pz3/agent/trajectory.json
+The verifier.env contains an API key (often the case for LLM-based verifiers). You will incur costs associated with the API calls.
