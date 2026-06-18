@@ -1,0 +1,197 @@
+{
+  "artifact_written": {
+    "score": 1.0,
+    "criteria": [
+      {
+        "name": "artifact_written",
+        "value": 1.0,
+        "raw": 1.0,
+        "weight": 1.0,
+        "description": "artifact_written"
+      }
+    ],
+    "kind": "programmatic"
+  },
+  "citation_proximity": {
+    "score": 0.75,
+    "criteria": [
+      {
+        "name": "citation_proximity",
+        "value": 0.75,
+        "raw": 0.75,
+        "weight": 1.0,
+        "description": "citation_proximity"
+      }
+    ],
+    "kind": "programmatic"
+  },
+  "expert_anchor_coverage": {
+    "score": 0.75,
+    "criteria": [
+      {
+        "name": "rate_whether_every_fixture_in_the_report",
+        "value": 0.75,
+        "raw": 4,
+        "weight": 1.0,
+        "description": "Rate whether every fixture in the report is grounded in a credible expert, prediction, preview, or correct-score source. Give full credit when each fixture has a clear anchor, or when the report honestly says explicit expert scoreline data is unavailable and uses model or market evidence as a fallback. Penalize missing fixture anchors, vague unsupported expert claims, or anchors only listed in sources without being tied to a fixture.",
+        "reasoning": "All four fixtures (France vs Senegal, Iraq vs Norway, Argentina vs Algeria, Austria vs Jordan) have clear, fixture-specific anchors tied directly to named or credible sources. France 2-1 is anchored to Opta's win probability and FanDuel Research's correct-score lean. Iraq 0:2 Norway is anchored to CBS's named expert Jon Eimer ('Norway by 3+') and market odds. Argentina 2:0 Algeria is anchored to SportsLine's named expert 'Green' and market data. Austria 2:0 Jordan is anchored to Squawka's explicit lean and Dimers/Kalshi figures. Sources in the list map clearly to individual fixtures. The minor deduction is that the Argentina/Algeria anchor uses a slightly vague phrase ('most commonly cited expert correct score is 2-0') without naming a specific expert who gave that exact scoreline, and the Squawka lean for Austria could be interpreted rather than a direct expert quote. These are small issues that keep it from a perfect 5."
+      }
+    ],
+    "kind": "llm",
+    "judge": {
+      "model": "anthropic/claude-sonnet-4-6",
+      "reasoning_effort": "medium",
+      "timeout": 300,
+      "files": [
+        "/Users/sourishkrout/Projects/personal/2026Q2/sourishkrout-skills/.runme/evals/jobs/2026-06-17__20-06-47/end-to-end__P57BTYD/artifacts/report.md"
+      ],
+      "atif_trajectory": null,
+      "reference": null,
+      "mode": "batched"
+    },
+    "judge_output": "{\"score\":4,\"reasoning\":\"All four fixtures (France vs Senegal, Iraq vs Norway, Argentina vs Algeria, Austria vs Jordan) have clear, fixture-specific anchors tied directly to named or credible sources. France 2-1 is anchored to Opta's win probability and FanDuel Research's correct-score lean. Iraq 0:2 Norway is anchored to CBS's named expert Jon Eimer ('Norway by 3+') and market odds. Argentina 2:0 Algeria is anchored to SportsLine's named expert 'Green' and market data. Austria 2:0 Jordan is anchored to Squawka's explicit lean and Dimers/Kalshi figures. Sources in the list map clearly to individual fixtures. The minor deduction is that the Argentina/Algeria anchor uses a slightly vague phrase ('most commonly cited expert correct score is 2-0') without naming a specific expert who gave that exact scoreline, and the Squawka lean for Austria could be interpreted rather than a direct expert quote. These are small issues that keep it from a perfect 5.\"}"
+  },
+  "expert_anchor_usage": {
+    "score": 0.75,
+    "criteria": [
+      {
+        "name": "rate_whether_each_match_pick_uses_at_lea",
+        "value": 0.75,
+        "raw": 4,
+        "weight": 1.0,
+        "description": "Rate whether each match pick uses at least one expert prediction, correct-score source, preview, or equivalent pick as a visible source for the chosen scoreline. Do not require exact phrases like 'expert anchor'. Full credit is appropriate when every match block names or cites a relevant source and connects it to the pick, even if other sources disagree or predict a different score. Do not penalize unresolved disagreement between credible sources; disagreement is acceptable as long as the report shows source presence and uses at least one source for each pick. Penalize only when match blocks lack a visible expert/prediction/preview/correct-score source, cite sources without tying them to the pick, or rely only on unsupported generic model/market language.",
+        "reasoning": "Three of the four match blocks have clear expert/correct-score sources directly tied to the chosen scoreline: France vs Senegal cites FanDuel Research's explicit 2-1 lean; Argentina vs Algeria cites SportsLine's Green backing a win-to-nil (2-0); Austria vs Jordan cites Squawka's 2-0 lean. Iraq vs Norway is slightly weaker\u2014the only named expert (CBS's Jon Eimer) says 'Norway by 3+,' not 0-2, so there is a mismatch between the cited expert and the chosen scoreline. However, the block does cite FanDuel Research and market odds as sources and connects them to the Norway win narrative, which partially anchors the 0-2 pick. The report does not rely purely on unsupported generic model/market language; named sources are referenced throughout and tied to the picks. The minor disconnect for Iraq vs Norway prevents a perfect score, but overall the sourcing practice is strong across the slate."
+      }
+    ],
+    "kind": "llm",
+    "judge": {
+      "model": "anthropic/claude-sonnet-4-6",
+      "reasoning_effort": "medium",
+      "timeout": 300,
+      "files": [
+        "/Users/sourishkrout/Projects/personal/2026Q2/sourishkrout-skills/.runme/evals/jobs/2026-06-17__20-06-47/end-to-end__P57BTYD/artifacts/report.md"
+      ],
+      "atif_trajectory": null,
+      "reference": null,
+      "mode": "batched"
+    },
+    "judge_output": "{\"score\":4,\"reasoning\":\"Three of the four match blocks have clear expert/correct-score sources directly tied to the chosen scoreline: France vs Senegal cites FanDuel Research's explicit 2-1 lean; Argentina vs Algeria cites SportsLine's Green backing a win-to-nil (2-0); Austria vs Jordan cites Squawka's 2-0 lean. Iraq vs Norway is slightly weaker\u2014the only named expert (CBS's Jon Eimer) says 'Norway by 3+,' not 0-2, so there is a mismatch between the cited expert and the chosen scoreline. However, the block does cite FanDuel Research and market odds as sources and connects them to the Norway win narrative, which partially anchors the 0-2 pick. The report does not rely purely on unsupported generic model/market language; named sources are referenced throughout and tied to the picks. The minor disconnect for Iraq vs Norway prevents a perfect score, but overall the sourcing practice is strong across the slate.\"}"
+  },
+  "guardrails": {
+    "score": 1.0,
+    "criteria": [
+      {
+        "name": "guardrails",
+        "value": 1.0,
+        "raw": 1.0,
+        "weight": 1.0,
+        "description": "guardrails"
+      }
+    ],
+    "kind": "programmatic"
+  },
+  "report_completeness": {
+    "score": 1.0,
+    "criteria": [
+      {
+        "name": "rate_whether_the_final_report_is_complet",
+        "value": 1.0,
+        "raw": 5,
+        "weight": 1.0,
+        "description": "Rate whether the final report is complete for a Discord World Cup scoreline report. It should include scope/date, all expected fixtures for Tuesday June 16 2026 in U.S. Pacific time, exact home:away scorelines, confidence levels, basis notes, risk notes, best scoreline leans, lineup or late-news caveats, and sources. Penalize omitted fixtures, stale date framing, missing risk/basis/confidence, or missing source context.",
+        "reasoning": "The report is exceptionally complete across all required dimensions. Scope and date framing are precise (Group stage Matchday 1, June 16 2026 PT), with a clear note explaining the Austria vs Jordan ET/PT date boundary. All four expected fixtures for June 16 PT are present (France vs Senegal, Iraq vs Norway, Argentina vs Algeria, Austria vs Jordan). Each fixture includes an exact home:away scoreline, a confidence level (Medium for all), detailed basis notes citing specific sources and statistics, risk notes highlighting upset potential and defensive vulnerabilities, and lineup/late-news caveats in a dedicated section. A 'Best Scoreline Leans' section and a 'Traps/Upsets To Avoid' section add analytical depth. The sources section is thorough, citing 15 named URLs across FIFA, ESPN, FOX Sports, Opta, FanDuel, CBS Sports, SportsLine, Oddspedia, Squawka, Elo Ratings, and Al Jazeera. No fixtures are omitted, the date framing is current and accurate, and all key report elements are addressed. The only minor note is that all confidence levels are uniformly 'Medium' without differentiation, but this is arguably accurate given uncertainty and does not constitute an omission. Overall an outstanding report."
+      }
+    ],
+    "kind": "llm",
+    "judge": {
+      "model": "anthropic/claude-sonnet-4-6",
+      "reasoning_effort": "medium",
+      "timeout": 300,
+      "files": [
+        "/Users/sourishkrout/Projects/personal/2026Q2/sourishkrout-skills/.runme/evals/jobs/2026-06-17__20-06-47/end-to-end__P57BTYD/artifacts/report.md"
+      ],
+      "atif_trajectory": null,
+      "reference": null,
+      "mode": "batched"
+    },
+    "judge_output": "{\"score\":5,\"reasoning\":\"The report is exceptionally complete across all required dimensions. Scope and date framing are precise (Group stage Matchday 1, June 16 2026 PT), with a clear note explaining the Austria vs Jordan ET/PT date boundary. All four expected fixtures for June 16 PT are present (France vs Senegal, Iraq vs Norway, Argentina vs Algeria, Austria vs Jordan). Each fixture includes an exact home:away scoreline, a confidence level (Medium for all), detailed basis notes citing specific sources and statistics, risk notes highlighting upset potential and defensive vulnerabilities, and lineup/late-news caveats in a dedicated section. A 'Best Scoreline Leans' section and a 'Traps/Upsets To Avoid' section add analytical depth. The sources section is thorough, citing 15 named URLs across FIFA, ESPN, FOX Sports, Opta, FanDuel, CBS Sports, SportsLine, Oddspedia, Squawka, Elo Ratings, and Al Jazeera. No fixtures are omitted, the date framing is current and accurate, and all key report elements are addressed. The only minor note is that all confidence levels are uniformly 'Medium' without differentiation, but this is arguably accurate given uncertainty and does not constitute an omission. Overall an outstanding report.\"}"
+  },
+  "scoreline_format": {
+    "score": 1.0,
+    "criteria": [
+      {
+        "name": "scoreline_format",
+        "value": 1.0,
+        "raw": 1.0,
+        "weight": 1.0,
+        "description": "scoreline_format"
+      }
+    ],
+    "kind": "programmatic"
+  },
+  "skill_activation_evidence": {
+    "score": 1.0,
+    "criteria": [
+      {
+        "name": "skill_activation_evidence",
+        "value": 1.0,
+        "raw": 1.0,
+        "weight": 1.0,
+        "description": "skill_activation_evidence"
+      }
+    ],
+    "kind": "programmatic"
+  },
+  "source_quality": {
+    "score": 0.75,
+    "criteria": [
+      {
+        "name": "rate_the_quality_and_coverage_of_sources",
+        "value": 0.75,
+        "raw": 4,
+        "weight": 1.0,
+        "description": "Rate the quality and coverage of sources used by the report. A strong report cites or clearly references official fixture information, expert previews or picks, model/probability sources such as Opta or equivalent, market/odds evidence, Elo or team-strength ratings, and current lineup/injury/team-news context. Penalize thin sourcing, missing source categories, untraceable claims, or reliance on low-quality/generic sources.",
+        "reasoning": "The report demonstrates broad and well-structured sourcing across nearly all required categories. Official fixture information is covered by FIFA.com and ESPN. Expert previews and picks are drawn from CBS Sports (four separate match articles), FanDuel Research (two articles), SportsLine, Squawka, and FOX Sports \u2014 solid expert coverage. Model/probability sources include Opta Analyst (theanalyst.com) with specific win/draw/loss percentages cited, Oddspedia, and probability markets via Kalshi and Oddschecker. Market/odds evidence is present with specific FanDuel lines quoted (-475, -230, -260, etc.). Elo/team-strength ratings are addressed through eloratings.net. Group context is provided via Al Jazeera. The sourcing is largely traceable with URLs provided for all 15 references. Deductions are warranted because: (1) 'Dimers' is mentioned in the Austria vs Jordan section but does not appear in the sources list; (2) lineup and injury sourcing is thin \u2014 Al-Naimat's injury is stated as fact without a traceable source, and the report itself acknowledges uncertainty about fitness by advising to 'wait for lineups,' suggesting this category was not fully researched at time of writing; (3) several statistical claims (France's last 10 matches scoring multiple goals, Argentina's seven clean sheets in eight) lack specific attributions beyond the general expert preview links. Overall, this is a high-quality sourcing effort that covers most required categories with credible, named, URL-backed references, but falls just short of a perfect score due to the lineup/injury gap and one unlinked source mention."
+      }
+    ],
+    "kind": "llm",
+    "judge": {
+      "model": "anthropic/claude-sonnet-4-6",
+      "reasoning_effort": "medium",
+      "timeout": 300,
+      "files": [
+        "/Users/sourishkrout/Projects/personal/2026Q2/sourishkrout-skills/.runme/evals/jobs/2026-06-17__20-06-47/end-to-end__P57BTYD/artifacts/report.md"
+      ],
+      "atif_trajectory": null,
+      "reference": null,
+      "mode": "batched"
+    },
+    "judge_output": "{\"score\":4,\"reasoning\":\"The report demonstrates broad and well-structured sourcing across nearly all required categories. Official fixture information is covered by FIFA.com and ESPN. Expert previews and picks are drawn from CBS Sports (four separate match articles), FanDuel Research (two articles), SportsLine, Squawka, and FOX Sports \u2014 solid expert coverage. Model/probability sources include Opta Analyst (theanalyst.com) with specific win/draw/loss percentages cited, Oddspedia, and probability markets via Kalshi and Oddschecker. Market/odds evidence is present with specific FanDuel lines quoted (-475, -230, -260, etc.). Elo/team-strength ratings are addressed through eloratings.net. Group context is provided via Al Jazeera. The sourcing is largely traceable with URLs provided for all 15 references. Deductions are warranted because: (1) 'Dimers' is mentioned in the Austria vs Jordan section but does not appear in the sources list; (2) lineup and injury sourcing is thin \u2014 Al-Naimat's injury is stated as fact without a traceable source, and the report itself acknowledges uncertainty about fitness by advising to 'wait for lineups,' suggesting this category was not fully researched at time of writing; (3) several statistical claims (France's last 10 matches scoring multiple goals, Argentina's seven clean sheets in eight) lack specific attributions beyond the general expert preview links. Overall, this is a high-quality sourcing effort that covers most required categories with credible, named, URL-backed references, but falls just short of a perfect score due to the lineup/injury gap and one unlinked source mention.\"}"
+  },
+  "workflow_sequence_evidence": {
+    "score": 1.0,
+    "criteria": [
+      {
+        "name": "rate_whether_the_report_and_available_tr",
+        "value": 1.0,
+        "raw": 5,
+        "weight": 1.0,
+        "description": "Rate whether the report and available trajectory show the intended workflow: identify the relevant FIFA fixtures for the date, collect expert scoreline or prediction anchors, compare with model probabilities, compare with market or odds evidence, check Elo or team-strength context, account for lineup/injury/current-match context, and synthesize final scoreline picks. Give credit for evidence in either the final report or trajectory. Penalize skipped phases or final picks that appear unsupported by the workflow.",
+        "reasoning": "The agent executes every phase of the intended workflow with clear evidence in both the trajectory and report. (1) Fixture identification: Two searches plus two WebFetch calls confirmed all four June 16 PT matches, including the cross-midnight Austria vs Jordan edge case, with correct ET\u2192PT conversions and venues. (2) Expert scoreline anchors: Separate searches per match retrieved FanDuel 2-1 for France, Squawka 2-0 for Austria, SportsLine Green 2-0 for Argentina, and CBS Eimer 'Norway 3+' for the Iraq match; multiple outlets cited per game. (3) Model probabilities: Opta probabilities (65.6/19.5/14.9) used for France vs Senegal; market-implied substituted and labeled for matches where Opta data wasn't surfaced. (4) Market/odds cross-check: FanDuel moneylines, Kalshi prediction-market percentages, and Oddschecker figures cited for all four matches with specific numbers. (5) Elo/team-strength: eloratings.net and Al Jazeera group-strength analysis cited; Argentina FIFA No. 1, Norway dark-horse qualifying record, and Austria sneaky-good midfield noted. (6) Lineup/injury context: Jordan striker Al-Naimat injury, Senegal front-line fitness questions, Norway rotation risk, and France's clean-sheet drought all flagged; a dedicated 'Wait For Lineups' section addresses them. (7) Synthesis: Each match has a scoreline pick in home:away format, confidence level, Basis: and Risk: lines, plus Best Leans, Traps/Upsets, and Wait sections. No phase is skipped and the picks are consistently grounded in the evidence gathered."
+      }
+    ],
+    "kind": "llm",
+    "judge": {
+      "model": "anthropic/claude-sonnet-4-6",
+      "reasoning_effort": "medium",
+      "timeout": 300,
+      "files": [
+        "/Users/sourishkrout/Projects/personal/2026Q2/sourishkrout-skills/.runme/evals/jobs/2026-06-17__20-06-47/end-to-end__P57BTYD/artifacts/report.md"
+      ],
+      "atif_trajectory": "/Users/sourishkrout/Projects/personal/2026Q2/sourishkrout-skills/.runme/evals/jobs/2026-06-17__20-06-47/end-to-end__P57BTYD/agent/trajectory.json",
+      "reference": null,
+      "mode": "batched"
+    },
+    "judge_output": "{\"score\": 5, \"reasoning\": \"The agent executes every phase of the intended workflow with clear evidence in both the trajectory and report. (1) Fixture identification: Two searches plus two WebFetch calls confirmed all four June 16 PT matches, including the cross-midnight Austria vs Jordan edge case, with correct ET\u2192PT conversions and venues. (2) Expert scoreline anchors: Separate searches per match retrieved FanDuel 2-1 for France, Squawka 2-0 for Austria, SportsLine Green 2-0 for Argentina, and CBS Eimer 'Norway 3+' for the Iraq match; multiple outlets cited per game. (3) Model probabilities: Opta probabilities (65.6/19.5/14.9) used for France vs Senegal; market-implied substituted and labeled for matches where Opta data wasn't surfaced. (4) Market/odds cross-check: FanDuel moneylines, Kalshi prediction-market percentages, and Oddschecker figures cited for all four matches with specific numbers. (5) Elo/team-strength: eloratings.net and Al Jazeera group-strength analysis cited; Argentina FIFA No. 1, Norway dark-horse qualifying record, and Austria sneaky-good midfield noted. (6) Lineup/injury context: Jordan striker Al-Naimat injury, Senegal front-line fitness questions, Norway rotation risk, and France's clean-sheet drought all flagged; a dedicated 'Wait For Lineups' section addresses them. (7) Synthesis: Each match has a scoreline pick in home:away format, confidence level, Basis: and Risk: lines, plus Best Leans, Traps/Upsets, and Wait sections. No phase is skipped and the picks are consistently grounded in the evidence gathered.\"}"
+  }
+}
