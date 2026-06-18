@@ -1,0 +1,197 @@
+{
+  "artifact_written": {
+    "score": 1.0,
+    "criteria": [
+      {
+        "name": "artifact_written",
+        "value": 1.0,
+        "raw": 1.0,
+        "weight": 1.0,
+        "description": "artifact_written"
+      }
+    ],
+    "kind": "programmatic"
+  },
+  "citation_proximity": {
+    "score": 1.0,
+    "criteria": [
+      {
+        "name": "citation_proximity",
+        "value": 1.0,
+        "raw": 1.0,
+        "weight": 1.0,
+        "description": "citation_proximity"
+      }
+    ],
+    "kind": "programmatic"
+  },
+  "expert_anchor_coverage": {
+    "score": 0.75,
+    "criteria": [
+      {
+        "name": "rate_whether_every_fixture_in_the_report",
+        "value": 0.75,
+        "raw": 4,
+        "weight": 1.0,
+        "description": "Rate whether every fixture in the report is grounded in a credible expert, prediction, preview, or correct-score source. Give full credit when each fixture has a clear anchor, or when the report honestly says explicit expert scoreline data is unavailable and uses model or market evidence as a fallback. Penalize missing fixture anchors, vague unsupported expert claims, or anchors only listed in sources without being tied to a fixture.",
+        "reasoning": "All six fixtures (Panama vs England, Croatia vs Ghana, Colombia vs Portugal, DR Congo vs Uzbekistan, Algeria vs Austria, Jordan vs Argentina) are each grounded in at least one named, specific source tied directly to that fixture. ESPN's full-tournament score grid is used as the primary scoreline anchor for every match, with explicit picks cited (e.g., 0:2 England, 2:0 Croatia, 2:1 Uzbekistan, 1:1 Algeria, 0:3 Argentina). Opta simulation percentages with specific group links support Panama vs England (Group L, 67.5%) and Colombia vs Portugal (Group K, Portugal favorite). Oddschecker market lines with fixture-specific URLs are cited for Panama/England, DR Congo/Uzbekistan, Algeria/Austria, and Jordan/Argentina. Elo ratings serve as a consistent sanity check across all fixtures. The report honestly acknowledges when signals split (DR Congo vs Uzbekistan, Colombia vs Portugal) and explains the conservative draw fallback rather than inventing a false consensus. The main deduction is that the Opta group-specific coverage for Croatia vs Ghana relies on the general tournament-wide Opta article rather than a dedicated Group J or equivalent preview, and the Croatia/Ghana Fox Sports URL in the sources appears to be a boxscore link rather than a pre-match prediction source. These are minor gaps, but the ESPN anchor plus market odds still provide adequate grounding for that fixture."
+      }
+    ],
+    "kind": "llm",
+    "judge": {
+      "model": "anthropic/claude-sonnet-4-6",
+      "reasoning_effort": "medium",
+      "timeout": 300,
+      "files": [
+        "/Users/sourishkrout/Projects/personal/2026Q2/sourishkrout-skills/.runme/evals/jobs/2026-06-17__22-43-52/end-to-end__oMoRrWW/artifacts/report.md"
+      ],
+      "atif_trajectory": null,
+      "reference": null,
+      "mode": "batched"
+    },
+    "judge_output": "{\"score\":4,\"reasoning\":\"All six fixtures (Panama vs England, Croatia vs Ghana, Colombia vs Portugal, DR Congo vs Uzbekistan, Algeria vs Austria, Jordan vs Argentina) are each grounded in at least one named, specific source tied directly to that fixture. ESPN's full-tournament score grid is used as the primary scoreline anchor for every match, with explicit picks cited (e.g., 0:2 England, 2:0 Croatia, 2:1 Uzbekistan, 1:1 Algeria, 0:3 Argentina). Opta simulation percentages with specific group links support Panama vs England (Group L, 67.5%) and Colombia vs Portugal (Group K, Portugal favorite). Oddschecker market lines with fixture-specific URLs are cited for Panama/England, DR Congo/Uzbekistan, Algeria/Austria, and Jordan/Argentina. Elo ratings serve as a consistent sanity check across all fixtures. The report honestly acknowledges when signals split (DR Congo vs Uzbekistan, Colombia vs Portugal) and explains the conservative draw fallback rather than inventing a false consensus. The main deduction is that the Opta group-specific coverage for Croatia vs Ghana relies on the general tournament-wide Opta article rather than a dedicated Group J or equivalent preview, and the Croatia/Ghana Fox Sports URL in the sources appears to be a boxscore link rather than a pre-match prediction source. These are minor gaps, but the ESPN anchor plus market odds still provide adequate grounding for that fixture.\"}"
+  },
+  "expert_anchor_usage": {
+    "score": 0.5,
+    "criteria": [
+      {
+        "name": "rate_whether_each_match_pick_uses_at_lea",
+        "value": 0.5,
+        "raw": 3,
+        "weight": 1.0,
+        "description": "Rate whether each match pick uses at least one expert prediction, correct-score source, preview, or equivalent pick as a visible source for the chosen scoreline. Do not require exact phrases like 'expert anchor'. Full credit is appropriate when every match block names or cites a relevant source and connects it to the pick, even if other sources disagree or predict a different score. Do not penalize unresolved disagreement between credible sources; disagreement is acceptable as long as the report shows source presence and uses at least one source for each pick. Penalize only when match blocks lack a visible expert/prediction/preview/correct-score source, cite sources without tying them to the pick, or rely only on unsupported generic model/market language.",
+        "reasoning": "Four of the six match blocks clearly cite an expert scoreline source tied directly to the chosen pick: Panama vs England (ESPN 0:2), Croatia vs Ghana (ESPN 2:0), Algeria vs Austria (ESPN 1:1), and Jordan vs Argentina (ESPN 0:3). These are well-anchored. However, two blocks fall short. Colombia vs Portugal picks 1:1, but the only ESPN score cited is Colombia 2:0\u2014a different result\u2014and Opta sources are referenced only for group advancement probabilities, not a specific 1:1 scoreline. The 1:1 is described as a 'scoreline-pool compromise' derived from market/Elo reasoning without any expert or correct-score source predicting that exact result. Similarly, DR Congo vs Uzbekistan picks 1:1 but the ESPN anchor cited is Uzbekistan 2:1; the 1:1 is again framed as the 'conservative pool play' based on conflicting signals, with no source directly predicting that scoreline. In both cases the report acknowledges the cited expert picks differ from the chosen score, and no alternate expert or preview source is brought in to specifically support the 1:1. This pattern\u2014two out of six picks lacking a visible expert/preview source tied to the chosen scoreline\u2014justifies a middle score."
+      }
+    ],
+    "kind": "llm",
+    "judge": {
+      "model": "anthropic/claude-sonnet-4-6",
+      "reasoning_effort": "medium",
+      "timeout": 300,
+      "files": [
+        "/Users/sourishkrout/Projects/personal/2026Q2/sourishkrout-skills/.runme/evals/jobs/2026-06-17__22-43-52/end-to-end__oMoRrWW/artifacts/report.md"
+      ],
+      "atif_trajectory": null,
+      "reference": null,
+      "mode": "batched"
+    },
+    "judge_output": "{\"score\":3,\"reasoning\":\"Four of the six match blocks clearly cite an expert scoreline source tied directly to the chosen pick: Panama vs England (ESPN 0:2), Croatia vs Ghana (ESPN 2:0), Algeria vs Austria (ESPN 1:1), and Jordan vs Argentina (ESPN 0:3). These are well-anchored. However, two blocks fall short. Colombia vs Portugal picks 1:1, but the only ESPN score cited is Colombia 2:0\u2014a different result\u2014and Opta sources are referenced only for group advancement probabilities, not a specific 1:1 scoreline. The 1:1 is described as a 'scoreline-pool compromise' derived from market/Elo reasoning without any expert or correct-score source predicting that exact result. Similarly, DR Congo vs Uzbekistan picks 1:1 but the ESPN anchor cited is Uzbekistan 2:1; the 1:1 is again framed as the 'conservative pool play' based on conflicting signals, with no source directly predicting that scoreline. In both cases the report acknowledges the cited expert picks differ from the chosen score, and no alternate expert or preview source is brought in to specifically support the 1:1. This pattern\u2014two out of six picks lacking a visible expert/preview source tied to the chosen scoreline\u2014justifies a middle score.\"}"
+  },
+  "guardrails": {
+    "score": 1.0,
+    "criteria": [
+      {
+        "name": "guardrails",
+        "value": 1.0,
+        "raw": 1.0,
+        "weight": 1.0,
+        "description": "guardrails"
+      }
+    ],
+    "kind": "programmatic"
+  },
+  "report_completeness": {
+    "score": 0.75,
+    "criteria": [
+      {
+        "name": "rate_whether_the_final_report_is_complet",
+        "value": 0.75,
+        "raw": 4,
+        "weight": 1.0,
+        "description": "Rate whether the final report is complete for a Discord World Cup scoreline report. It should include scope/date, all expected fixtures for Saturday June 27 2026 in U.S. Pacific time, exact home:away scorelines, confidence levels, basis notes, risk notes, best scoreline leans, lineup or late-news caveats, and sources. Penalize omitted fixtures, stale date framing, missing risk/basis/confidence, or missing source context.",
+        "reasoning": "The report covers all six expected Group J/K/L Matchday 3 fixtures for Saturday June 27, 2026 (Panama vs England, Croatia vs Ghana, Colombia vs Portugal, DR Congo vs Uzbekistan, Algeria vs Austria, Jordan vs Argentina). Each fixture includes an exact home:away scoreline, a confidence level, a basis note, and a risk note. The report also includes a best scoreline leans section, a traps/upsets section, and a dedicated 'Wait For Lineups' caveat block. Sources are thorough and well-cited with specific URLs for odds, ESPN predictions, Opta projections, Elo ratings, and match context. Deductions: (1) Individual U.S. Pacific kickoff times are not listed per match \u2014 the scope mentions PT framing but never specifies e.g. '9:00 AM PT' or '12:00 PM PT' for each game, which is a standard element of a Discord schedule report. (2) The opening caveat explicitly flags that the report was prepared before the June 22-23 Matchday 2 results, making several picks explicitly conditional and somewhat stale in framing; while the acknowledgment is honest, it weakens the report's utility as a finished product. These two gaps prevent a top score, but the overall completeness, structure, and sourcing are strong."
+      }
+    ],
+    "kind": "llm",
+    "judge": {
+      "model": "anthropic/claude-sonnet-4-6",
+      "reasoning_effort": "medium",
+      "timeout": 300,
+      "files": [
+        "/Users/sourishkrout/Projects/personal/2026Q2/sourishkrout-skills/.runme/evals/jobs/2026-06-17__22-43-52/end-to-end__oMoRrWW/artifacts/report.md"
+      ],
+      "atif_trajectory": null,
+      "reference": null,
+      "mode": "batched"
+    },
+    "judge_output": "{\"score\":4,\"reasoning\":\"The report covers all six expected Group J/K/L Matchday 3 fixtures for Saturday June 27, 2026 (Panama vs England, Croatia vs Ghana, Colombia vs Portugal, DR Congo vs Uzbekistan, Algeria vs Austria, Jordan vs Argentina). Each fixture includes an exact home:away scoreline, a confidence level, a basis note, and a risk note. The report also includes a best scoreline leans section, a traps/upsets section, and a dedicated 'Wait For Lineups' caveat block. Sources are thorough and well-cited with specific URLs for odds, ESPN predictions, Opta projections, Elo ratings, and match context. Deductions: (1) Individual U.S. Pacific kickoff times are not listed per match \u2014 the scope mentions PT framing but never specifies e.g. '9:00 AM PT' or '12:00 PM PT' for each game, which is a standard element of a Discord schedule report. (2) The opening caveat explicitly flags that the report was prepared before the June 22-23 Matchday 2 results, making several picks explicitly conditional and somewhat stale in framing; while the acknowledgment is honest, it weakens the report's utility as a finished product. These two gaps prevent a top score, but the overall completeness, structure, and sourcing are strong.\"}"
+  },
+  "scoreline_format": {
+    "score": 1.0,
+    "criteria": [
+      {
+        "name": "scoreline_format",
+        "value": 1.0,
+        "raw": 1.0,
+        "weight": 1.0,
+        "description": "scoreline_format"
+      }
+    ],
+    "kind": "programmatic"
+  },
+  "skill_activation_evidence": {
+    "score": 1.0,
+    "criteria": [
+      {
+        "name": "skill_activation_evidence",
+        "value": 1.0,
+        "raw": 1.0,
+        "weight": 1.0,
+        "description": "skill_activation_evidence"
+      }
+    ],
+    "kind": "programmatic"
+  },
+  "source_quality": {
+    "score": 0.75,
+    "criteria": [
+      {
+        "name": "rate_the_quality_and_coverage_of_sources",
+        "value": 0.75,
+        "raw": 4,
+        "weight": 1.0,
+        "description": "Rate the quality and coverage of sources used by the report. A strong report cites or clearly references official fixture information, expert previews or picks, model/probability sources such as Opta or equivalent, market/odds evidence, Elo or team-strength ratings, and current lineup/injury/team-news context. Penalize thin sourcing, missing source categories, untraceable claims, or reliance on low-quality/generic sources.",
+        "reasoning": "The report demonstrates strong multi-category sourcing. It cites: (1) the official FIFA schedule for fixture data; (2) Al Jazeera and CBS Sports for schedule/timezone cross-checks; (3) ESPN's full-tournament score predictions as an expert preview source; (4) Opta/The Analyst supercomputer probabilities for Groups K and L plus overall tournament strength; (5) eloratings.net for Elo/team-strength ratings across all matches; (6) Oddschecker for market/odds on most matches; and (7) Guardian and Fox Sports live coverage for current match context. This covers virtually all the key source categories (official fixtures, expert picks, model/probability, market odds, Elo ratings, and recent match context). Deductions: Opta group projections are only cited for Groups K and L \u2014 Group J (Algeria vs Austria) lacks a dedicated Opta group-stage projection link; some Fox Sports 'boxscore' URLs are listed under 'market/odds checks,' which is an unusual or unreliable venue for odds data; lineup and injury news sourcing is explicitly thin (acknowledged as a caveat but not remedied with a credible team-news source like official club feeds or a reputable injury tracker); and there is no separate dedicated preview/pick article for all six matches beyond ESPN's umbrella piece. Overall the sourcing is notably thorough and traceable relative to typical pre-tournament reports, but the Group J Opta gap and weak lineup/injury sourcing prevent a perfect score."
+      }
+    ],
+    "kind": "llm",
+    "judge": {
+      "model": "anthropic/claude-sonnet-4-6",
+      "reasoning_effort": "medium",
+      "timeout": 300,
+      "files": [
+        "/Users/sourishkrout/Projects/personal/2026Q2/sourishkrout-skills/.runme/evals/jobs/2026-06-17__22-43-52/end-to-end__oMoRrWW/artifacts/report.md"
+      ],
+      "atif_trajectory": null,
+      "reference": null,
+      "mode": "batched"
+    },
+    "judge_output": "{\"score\":4,\"reasoning\":\"The report demonstrates strong multi-category sourcing. It cites: (1) the official FIFA schedule for fixture data; (2) Al Jazeera and CBS Sports for schedule/timezone cross-checks; (3) ESPN's full-tournament score predictions as an expert preview source; (4) Opta/The Analyst supercomputer probabilities for Groups K and L plus overall tournament strength; (5) eloratings.net for Elo/team-strength ratings across all matches; (6) Oddschecker for market/odds on most matches; and (7) Guardian and Fox Sports live coverage for current match context. This covers virtually all the key source categories (official fixtures, expert picks, model/probability, market odds, Elo ratings, and recent match context). Deductions: Opta group projections are only cited for Groups K and L \u2014 Group J (Algeria vs Austria) lacks a dedicated Opta group-stage projection link; some Fox Sports 'boxscore' URLs are listed under 'market/odds checks,' which is an unusual or unreliable venue for odds data; lineup and injury news sourcing is explicitly thin (acknowledged as a caveat but not remedied with a credible team-news source like official club feeds or a reputable injury tracker); and there is no separate dedicated preview/pick article for all six matches beyond ESPN's umbrella piece. Overall the sourcing is notably thorough and traceable relative to typical pre-tournament reports, but the Group J Opta gap and weak lineup/injury sourcing prevent a perfect score.\"}"
+  },
+  "workflow_sequence_evidence": {
+    "score": 0.75,
+    "criteria": [
+      {
+        "name": "rate_whether_the_report_and_available_tr",
+        "value": 0.75,
+        "raw": 4,
+        "weight": 1.0,
+        "description": "Rate whether the report and available trajectory show the intended workflow: identify the relevant FIFA fixtures for the date, collect expert scoreline or prediction anchors, compare with model probabilities, compare with market or odds evidence, check Elo or team-strength context, account for lineup/injury/current-match context, and synthesize final scoreline picks. Give credit for evidence in either the final report or trajectory. Penalize skipped phases or final picks that appear unsupported by the workflow.",
+        "reasoning": "The trajectory demonstrates all seven intended workflow phases. Step 1 (fixture identification): the agent searched FIFA's schedule and schedule cross-references, correctly identifying 6 Group J/K/L matches for June 27. Step 2 (expert scoreline anchors): multiple searches targeted ESPN game-by-game predictions and the ESPN article URL was opened; reported scores (Panama 0-2 England, Croatia 2-0 Ghana, etc.) are cited per match. Step 3 (model probabilities): Opta group projection pages for Groups K and L were searched and cited, with specific Opta percentages (England 67.5%, Croatia 76.9%) appearing in the report. Step 4 (market/odds): Oddschecker and FOX Sports boxscore URLs were searched and are directly cited in the sources section with specific lines (-330/-370 England, ~-500 Argentina). Step 5 (Elo/team-strength): the agent successfully fetched World.tsv from eloratings.net via curl and extracted precise Elo values for all 12 teams (Argentina 2128, England 2055, Ghana 1510, Jordan 1653, etc.), which are directly referenced in the report's reasoning. Step 6 (current-match context): Guardian live-blog links for Ghana-Panama and Portugal-DR Congo, plus FOX Sports for Uzbekistan-Colombia, are cited and inform the rotation/injury caveats. Step 7 (synthesis): every match gets an exact scoreline, confidence level, Basis block, and Risk block, with a Best Leans, Traps, and Wait-For-Lineups summary. The report format matches the skill spec. A point is withheld because several web_search_call results are not visible in the trajectory (steps 6-9, 11-14, 29-30 show calls without returned content), leaving some uncertainty about whether ESPN and Opta numbers were actually retrieved versus reconstructed from search snippets, and the ESPN page open in step 10 shows no returned content either."
+      }
+    ],
+    "kind": "llm",
+    "judge": {
+      "model": "anthropic/claude-sonnet-4-6",
+      "reasoning_effort": "medium",
+      "timeout": 300,
+      "files": [
+        "/Users/sourishkrout/Projects/personal/2026Q2/sourishkrout-skills/.runme/evals/jobs/2026-06-17__22-43-52/end-to-end__oMoRrWW/artifacts/report.md"
+      ],
+      "atif_trajectory": "/Users/sourishkrout/Projects/personal/2026Q2/sourishkrout-skills/.runme/evals/jobs/2026-06-17__22-43-52/end-to-end__oMoRrWW/agent/trajectory.json",
+      "reference": null,
+      "mode": "batched"
+    },
+    "judge_output": "{\"score\":4,\"reasoning\":\"The trajectory demonstrates all seven intended workflow phases. Step 1 (fixture identification): the agent searched FIFA's schedule and schedule cross-references, correctly identifying 6 Group J/K/L matches for June 27. Step 2 (expert scoreline anchors): multiple searches targeted ESPN game-by-game predictions and the ESPN article URL was opened; reported scores (Panama 0-2 England, Croatia 2-0 Ghana, etc.) are cited per match. Step 3 (model probabilities): Opta group projection pages for Groups K and L were searched and cited, with specific Opta percentages (England 67.5%, Croatia 76.9%) appearing in the report. Step 4 (market/odds): Oddschecker and FOX Sports boxscore URLs were searched and are directly cited in the sources section with specific lines (-330/-370 England, ~-500 Argentina). Step 5 (Elo/team-strength): the agent successfully fetched World.tsv from eloratings.net via curl and extracted precise Elo values for all 12 teams (Argentina 2128, England 2055, Ghana 1510, Jordan 1653, etc.), which are directly referenced in the report's reasoning. Step 6 (current-match context): Guardian live-blog links for Ghana-Panama and Portugal-DR Congo, plus FOX Sports for Uzbekistan-Colombia, are cited and inform the rotation/injury caveats. Step 7 (synthesis): every match gets an exact scoreline, confidence level, Basis block, and Risk block, with a Best Leans, Traps, and Wait-For-Lineups summary. The report format matches the skill spec. A point is withheld because several web_search_call results are not visible in the trajectory (steps 6-9, 11-14, 29-30 show calls without returned content), leaving some uncertainty about whether ESPN and Opta numbers were actually retrieved versus reconstructed from search snippets, and the ESPN page open in step 10 shows no returned content either.\"}"
+  }
+}

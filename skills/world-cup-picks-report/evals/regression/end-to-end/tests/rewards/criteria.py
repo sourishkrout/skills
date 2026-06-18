@@ -13,7 +13,7 @@ ARTIFACTS_DIR = Path("/logs/artifacts")
 CONFIG_PATH = Path("/logs/config.json")
 ORACLE_LOG_PATH = AGENT_LOG_DIR / "oracle.txt"
 REPORT_PATH = ARTIFACTS_DIR / "report.md"
-EXPECTED_REPORT_DATE = "2026-06-16"
+EXPECTED_REPORT_DATE = "2026-06-27"
 
 SCORELINE_RE = re.compile(r"\b\d+\s*:\s*\d+\b")
 URL_RE = re.compile(r"https?://[^\s)>\]]+")

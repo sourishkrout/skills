@@ -244,7 +244,7 @@ def test_match_blocks() -> None:
 
 
 def test_match_blocks_only_scoreline_picks_section() -> None:
-    report = """Report scope: June 16, 2026
+    report = """Report scope: June 27, 2026
 
 Scoreline Picks
 
@@ -276,7 +276,7 @@ Wait For Lineups
 
 
 def test_match_blocks_accepts_pick_headings() -> None:
-    report = """Report scope: Tuesday, June 16, 2026.
+    report = """Report scope: Saturday, June 27, 2026.
 
 ## Scoreline Picks
 
@@ -298,7 +298,7 @@ Risk: Low block.
 
 
 def test_centralized_source_traceability() -> None:
-    report = """Report scope: Group stage matchday, Tuesday, June 16, 2026.
+    report = """Report scope: Group stage matchday, Saturday, June 27, 2026.
 
 ## Scoreline Picks
 
@@ -327,7 +327,7 @@ Risk: Iraq can sit deep.
 
 
 def test_vague_anchor_without_traceable_source_fails() -> None:
-    report = """Report scope: Group stage matchday, Tuesday, June 16, 2026.
+    report = """Report scope: Group stage matchday, Saturday, June 27, 2026.
 
 ## Scoreline Picks
 
@@ -345,7 +345,7 @@ Risk: Senegal are stronger than a typical underdog.
 def test_report_date_freshness() -> None:
     fresh = """# World Cup Scoreline Picks
 
-Report scope: Tuesday, June 16, 2026 in U.S. Pacific time.
+Report scope: Saturday, June 27, 2026 in U.S. Pacific time.
 
 ## Scoreline Picks
 
@@ -353,7 +353,7 @@ Report scope: Tuesday, June 16, 2026 in U.S. Pacific time.
 Basis: Expert anchor, model, market, and Elo checks.
 Risk: Lineups.
 """
-    stale = fresh.replace("Tuesday, June 16, 2026", "Monday, June 15, 2026")
+    stale = fresh.replace("Saturday, June 27, 2026", "Friday, June 26, 2026")
     assert criteria.score_report_date_freshness(fresh)
     assert not criteria.score_report_date_freshness(stale)
 
