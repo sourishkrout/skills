@@ -21,6 +21,56 @@ def read_fixture(path: str) -> str:
     return (Path(__file__).parents[1] / path).read_text()
 
 
+def registered_criteria_for_reward(name: str) -> list[tuple[str, float]]:
+    from rewardkit import session
+
+    session.current().clear()
+    path = Path(__file__).parents[1] / "rewards" / name / "score.py"
+    spec = importlib.util.spec_from_file_location(f"{name}_score", path)
+    assert spec is not None and spec.loader is not None
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    registered = [
+        (getattr(fn, "_criterion_name", fn.__name__), weight)
+        for fn, weight in session.current().criteria
+    ]
+    session.current().clear()
+    return registered
+
+
+def test_programmatic_rewards_register_dashboard_breakouts() -> None:
+    assert registered_criteria_for_reward("artifact_written") == [
+        ("report_file_exists", 1.0),
+        ("report_file_nonempty", 2.0),
+    ]
+    assert registered_criteria_for_reward("citation_proximity") == [
+        ("report_has_url", 0.0),
+        ("report_has_source_terms", 0.0),
+        ("match_blocks_have_traceable_citations", 1.0),
+    ]
+    assert registered_criteria_for_reward("guardrails") == [
+        ("banned_wagering_terms_absent", 1.0),
+        ("unnegated_guaranteed_absent", 1.0),
+    ]
+    assert registered_criteria_for_reward("scoreline_format") == [
+        ("scoreline_picks_section_present", 1.0),
+        ("scoreline_pattern_present", 1.0),
+        ("match_pick_headings_include_scorelines", 3.0),
+    ]
+    assert registered_criteria_for_reward("skill_activation_evidence") == [
+        ("activation_log_present", 0.0),
+        ("read_tool_used", 0.0),
+        ("skill_tool_used", 0.0),
+        ("world_cup_skill_activation_detected", 1.0),
+    ]
+    assert registered_criteria_for_reward("target_slate_coverage") == [
+        ("target_scope_date_present", 0.0),
+        ("target_pacific_framing_present", 0.0),
+        ("target_fixture_mentions", 0.0),
+        ("target_slate_weighted_coverage", 1.0),
+    ]
+
+
 def test_reward_rollup_uses_existing_emitted_scores(tmp_path: Path) -> None:
     reward_path = tmp_path / "reward.json"
     reward_path.write_text(

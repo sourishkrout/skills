@@ -1,6 +1,15 @@
 """Check that the final report artifact was written."""
 
-from rewardkit import criteria
+import rewardkit as rk
 
 
-criteria.artifact_written(weight=1.0)
+rk.command_succeeds(
+    "test -f /logs/artifacts/report.md",
+    weight=1.0,
+    name="report_file_exists",
+)
+rk.command_succeeds(
+    "test -s /logs/artifacts/report.md",
+    weight=2.0,
+    name="report_file_nonempty",
+)
