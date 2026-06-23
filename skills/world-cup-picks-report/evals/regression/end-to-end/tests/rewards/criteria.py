@@ -1,8 +1,9 @@
 from __future__ import annotations
 
 import json
+import os
 import re
-from datetime import datetime
+from datetime import date, datetime, timedelta
 from pathlib import Path
 
 from rewardkit import criterion
@@ -13,7 +14,9 @@ ARTIFACTS_DIR = Path("/logs/artifacts")
 CONFIG_PATH = Path("/logs/config.json")
 ORACLE_LOG_PATH = AGENT_LOG_DIR / "oracle.txt"
 REPORT_PATH = ARTIFACTS_DIR / "report.md"
-EXPECTED_REPORT_DATE = "2026-06-27"
+FIXTURES_DIR = Path(__file__).parents[1] / "fixtures"
+SCHEDULE_PATH = FIXTURES_DIR / "world_cup_2026_schedule.json"
+AS_OF_DATE_ENV = "WORLD_CUP_REPORT_AS_OF_DATE"
 
 SCORELINE_RE = re.compile(r"\b\d+\s*:\s*\d+\b")
 URL_RE = re.compile(r"https?://[^\s)>\]]+")
@@ -24,6 +27,7 @@ DATE_RE = re.compile(
     r"november|december)\s+\d{1,2},\s+2026\b",
     re.I,
 )
+PT_RE = re.compile(r"\b(?:pt|p\.?t\.?|pacific|u\.s\.\s+pacific)\b", re.I)
 
 ANCHOR_NAMES = (
     "opta",
@@ -51,6 +55,12 @@ GENERIC_ANCHOR_TERMS = (
     "preview",
     "prediction",
 )
+TEAM_ALIASES = {
+    "bosnia-herzegovina": ("bosnia-herzegovina", "bosnia and herzegovina", "bosnia"),
+    "czechia": ("czechia", "czech republic"),
+    "dr congo": ("dr congo", "congo dr", "d.r. congo", "democratic republic of congo"),
+    "south korea": ("south korea", "korea republic"),
+}
 
 
 @criterion(shared=True)
@@ -84,6 +94,11 @@ def scoreline_format(workspace: Path) -> float:
 @criterion(shared=True)
 def guardrails(workspace: Path) -> float:
     return score_guardrails(read_report())
+
+
+@criterion(shared=True)
+def target_slate_coverage(workspace: Path) -> float:
+    return score_target_slate_coverage(read_report())
 
 
 def score_artifact_written(report: str) -> float:
@@ -211,6 +226,66 @@ def score_guardrails(report: str) -> float:
     if has_unnegated_guaranteed(lower):
         return 0.0
     return 1.0
+
+
+def score_target_slate_coverage(
+    report: str,
+    schedule_path: Path = SCHEDULE_PATH,
+    as_of_override: str | None = None,
+) -> float:
+    if not report.strip():
+        return 0.0
+
+    slate = resolve_target_slate(schedule_path, as_of_override)
+    scope, _ = cut_before_scoreline_picks_section(report)
+    scope = scope[:1000]
+    if has_selected_scope_date_before(scope, slate["earliest_date"]):
+        return 0.0
+
+    report_lower = report.lower()
+    score = 0.0
+    if target_date_mentioned(scope, slate["date"]):
+        score += 0.25
+    if PT_RE.search(scope) or PT_RE.search(report[:2000]):
+        score += 0.15
+
+    fixtures = slate["fixtures"]
+    if fixtures:
+        covered = sum(1 for fixture in fixtures if fixture_mentioned(report_lower, fixture))
+        score += 0.50 * (covered / len(fixtures))
+
+    if not has_selected_scope_date_before(scope, slate["date"]):
+        score += 0.10
+
+    return round(score, 4)
+
+
+def resolve_target_slate(
+    schedule_path: Path = SCHEDULE_PATH,
+    as_of_override: str | None = None,
+) -> dict:
+    schedule = json.loads(schedule_path.read_text())
+    as_of_value = as_of_override or os.getenv(AS_OF_DATE_ENV) or schedule["as_of_date_pt"]
+    as_of_date = date.fromisoformat(as_of_value)
+    earliest_date = as_of_date + timedelta(days=1)
+
+    fixtures_by_date: dict[date, list[dict]] = {}
+    for fixture in schedule.get("fixtures", []):
+        fixture_date = date.fromisoformat(fixture["date_pt"])
+        if fixture_date < earliest_date:
+            continue
+        fixtures_by_date.setdefault(fixture_date, []).append(fixture)
+
+    if not fixtures_by_date:
+        raise ValueError(f"No fixtures found on or after {earliest_date.isoformat()}")
+
+    target_date = min(fixtures_by_date)
+    return {
+        "as_of_date": as_of_date,
+        "earliest_date": earliest_date,
+        "date": target_date,
+        "fixtures": fixtures_by_date[target_date],
+    }
 
 
 def read_report(path: Path = REPORT_PATH) -> str:
@@ -407,7 +482,7 @@ def compact_alnum(value: str) -> str:
 def score_report_date_freshness(report: str) -> bool:
     scope, _ = cut_before_scoreline_picks_section(report)
     scope = scope[:800]
-    current = datetime.strptime(EXPECTED_REPORT_DATE, "%Y-%m-%d")
+    current = datetime.combine(resolve_target_slate()["date"], datetime.min.time())
     matches = DATE_RE.findall(scope)
     if not matches:
         return False
@@ -416,6 +491,97 @@ def score_report_date_freshness(report: str) -> bool:
         if parsed is not None and parsed < current:
             return False
     return True
+
+
+def target_date_mentioned(text: str, target_date: date) -> bool:
+    target_datetime = datetime.combine(target_date, datetime.min.time())
+    accepted = {
+        target_datetime.strftime("%A, %B %-d, %Y").lower(),
+        target_datetime.strftime("%B %-d, %Y").lower(),
+        target_datetime.strftime("%A, %B %d, %Y").lower(),
+        target_datetime.strftime("%B %d, %Y").lower(),
+        target_date.isoformat(),
+    }
+    normalized = re.sub(r"\s+", " ", text.lower())
+    return any(value in normalized for value in accepted)
+
+
+def has_scope_date_before(text: str, threshold: date) -> bool:
+    for match in DATE_RE.findall(text):
+        parsed = parse_report_date(match)
+        if parsed is not None and parsed.date() < threshold:
+            return True
+    return False
+
+
+def has_selected_scope_date_before(text: str, threshold: date) -> bool:
+    for value in selected_scope_dates(text):
+        if value < threshold:
+            return True
+    return False
+
+
+def selected_scope_dates(text: str) -> list[date]:
+    dates: list[date] = []
+    for line in text.splitlines():
+        if not is_scope_line(line):
+            continue
+        for match in DATE_RE.finditer(line):
+            if has_as_of_date_context(line, match.start()):
+                continue
+            parsed = parse_report_date(match.group(0))
+            if parsed is not None:
+                dates.append(parsed.date())
+
+    if dates:
+        return dates
+
+    for match in DATE_RE.finditer(text):
+        if has_as_of_date_context(text, match.start()):
+            continue
+        parsed = parse_report_date(match.group(0))
+        if parsed is not None:
+            dates.append(parsed.date())
+    return dates
+
+
+def is_scope_line(line: str) -> bool:
+    normalized = line.lower()
+    return any(term in normalized for term in ("report scope", "scope:", "slate"))
+
+
+def has_as_of_date_context(text: str, match_start: int) -> bool:
+    prefix = text[max(0, match_start - 100) : match_start].lower()
+    return any(
+        term in prefix
+        for term in (
+            "as of",
+            "current date",
+            "current runtime date",
+            "runtime date",
+            "from the current",
+            "from current",
+            "today is",
+        )
+    )
+
+
+def fixture_mentioned(report_lower: str, fixture: dict) -> bool:
+    home_aliases = team_aliases(str(fixture["home"]))
+    away_aliases = team_aliases(str(fixture["away"]))
+    compact_report = compact_alnum(report_lower)
+    for home in home_aliases:
+        for away in away_aliases:
+            ordered = compact_alnum(f"{home} vs {away}")
+            reverse = compact_alnum(f"{away} vs {home}")
+            if ordered in compact_report or reverse in compact_report:
+                return True
+    return False
+
+
+def team_aliases(team: str) -> tuple[str, ...]:
+    normalized = team.strip().lower()
+    return TEAM_ALIASES.get(normalized, (normalized,))
 
 
 def cut_before_scoreline_picks_section(report: str) -> tuple[str, bool]:

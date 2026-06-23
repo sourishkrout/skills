@@ -1,0 +1,54 @@
+{
+  "as_of_date_pt": "2026-06-23",
+  "fixtures": [
+    {
+      "date_pt": "2026-06-23",
+      "time_pt": "19:00",
+      "home": "Spain",
+      "away": "Uruguay",
+      "group": "H"
+    },
+    {
+      "date_pt": "2026-06-24",
+      "time_pt": "12:00",
+      "home": "Switzerland",
+      "away": "Canada",
+      "group": "B"
+    },
+    {
+      "date_pt": "2026-06-24",
+      "time_pt": "12:00",
+      "home": "Bosnia-Herzegovina",
+      "away": "Qatar",
+      "group": "B"
+    },
+    {
+      "date_pt": "2026-06-24",
+      "time_pt": "15:00",
+      "home": "Scotland",
+      "away": "Brazil",
+      "group": "C"
+    },
+    {
+      "date_pt": "2026-06-24",
+      "time_pt": "15:00",
+      "home": "Morocco",
+      "away": "Haiti",
+      "group": "C"
+    },
+    {
+      "date_pt": "2026-06-24",
+      "time_pt": "18:00",
+      "home": "Czechia",
+      "away": "Mexico",
+      "group": "D"
+    },
+    {
+      "date_pt": "2026-06-24",
+      "time_pt": "18:00",
+      "home": "South Africa",
+      "away": "South Korea",
+      "group": "D"
+    }
+  ]
+}
