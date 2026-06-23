@@ -1,0 +1,210 @@
+{
+  "artifact_written": {
+    "score": 1.0,
+    "criteria": [
+      {
+        "name": "artifact_written",
+        "value": 1.0,
+        "raw": 1.0,
+        "weight": 1.0,
+        "description": "artifact_written"
+      }
+    ],
+    "kind": "programmatic"
+  },
+  "citation_proximity": {
+    "score": 1.0,
+    "criteria": [
+      {
+        "name": "citation_proximity",
+        "value": 1.0,
+        "raw": 1.0,
+        "weight": 1.0,
+        "description": "citation_proximity"
+      }
+    ],
+    "kind": "programmatic"
+  },
+  "expert_anchor_coverage": {
+    "score": 1.0,
+    "criteria": [
+      {
+        "name": "rate_whether_every_fixture_in_the_report",
+        "value": 1.0,
+        "raw": 5,
+        "weight": 1.0,
+        "description": "Rate whether every fixture in the report is grounded in a credible expert, prediction, preview, or correct-score source. Give full credit when each fixture has a clear anchor, or when the report honestly says explicit expert scoreline data is unavailable and uses model or market evidence as a fallback. Penalize missing fixture anchors, vague unsupported expert claims, or anchors only listed in sources without being tied to a fixture.",
+        "reasoning": "Every fixture in the report has a clear, named anchor tied directly to its pick. Fixtures 1\u20135 (Switzerland vs Canada, Bosnia vs Qatar, Scotland vs Brazil, Morocco vs Haiti, Czechia vs Mexico) each have a dedicated Opta/TheAnalyst match-preview link plus at least one Sportsgambler or Racing Post correct-score source explicitly cited and linked in the sources section. For Fixture 6 (South Africa vs Korea Republic), the report proactively discloses that no standalone Opta page surfaced and explicitly names Sportsgambler and Elo as the fallback evidence, which is the honest-disclosure pattern that earns full credit under the rubric. Probability figures (Opta win %), correct-score market leans, and Elo point margins are all attributed to specific sources rather than left as vague claims. No fixture is left anchored only by a source list entry without a body-text tie-in."
+      }
+    ],
+    "kind": "llm",
+    "judge": {
+      "model": "anthropic/claude-sonnet-4-6",
+      "reasoning_effort": "medium",
+      "timeout": 300,
+      "files": [
+        "/Users/sourishkrout/Projects/personal/2026Q2/sourishkrout-skills/.runme/evals/jobs/2026-06-23__12-24-07/end-to-end__zwVnnto/artifacts/report.md"
+      ],
+      "atif_trajectory": null,
+      "reference": null,
+      "mode": "batched"
+    },
+    "judge_output": "{\"score\":5,\"reasoning\":\"Every fixture in the report has a clear, named anchor tied directly to its pick. Fixtures 1\u20135 (Switzerland vs Canada, Bosnia vs Qatar, Scotland vs Brazil, Morocco vs Haiti, Czechia vs Mexico) each have a dedicated Opta/TheAnalyst match-preview link plus at least one Sportsgambler or Racing Post correct-score source explicitly cited and linked in the sources section. For Fixture 6 (South Africa vs Korea Republic), the report proactively discloses that no standalone Opta page surfaced and explicitly names Sportsgambler and Elo as the fallback evidence, which is the honest-disclosure pattern that earns full credit under the rubric. Probability figures (Opta win %), correct-score market leans, and Elo point margins are all attributed to specific sources rather than left as vague claims. No fixture is left anchored only by a source list entry without a body-text tie-in.\"}"
+  },
+  "expert_anchor_usage": {
+    "score": 1.0,
+    "criteria": [
+      {
+        "name": "rate_whether_each_match_pick_uses_at_lea",
+        "value": 1.0,
+        "raw": 5,
+        "weight": 1.0,
+        "description": "Rate whether each match pick uses at least one expert prediction, correct-score source, preview, or equivalent pick as a visible source for the chosen scoreline. Do not require exact phrases like 'expert anchor'. Full credit is appropriate when every match block names or cites a relevant source and connects it to the pick, even if other sources disagree or predict a different score. Do not penalize unresolved disagreement between credible sources; disagreement is acceptable as long as the report shows source presence and uses at least one source for each pick. Penalize only when match blocks lack a visible expert/prediction/preview/correct-score source, cite sources without tying them to the pick, or rely only on unsupported generic model/market language.",
+        "reasoning": "Every match block names at least one explicit expert or correct-score source that is directly tied to the chosen scoreline. Switzerland vs Canada 1:1 cites Opta win probabilities plus 'correct-score markets and expert previews both keep 1:1 near the top' with Opta and Sportsgambler listed. Bosnia vs Qatar 2:1 references Opta's 65.9% and 'several preview sources cluster around a Bosnia 2:1 type of result' alongside the Opta preview link. Scotland vs Brazil 0:2 ties the pick to Racing Post's 'Brazil win plus under 3.5 goals' and correct-score markets leaning to Brazil 2:0, with the Racing Post source listed. Morocco vs Haiti 3:0 explicitly credits Sportsgambler's correct-score pick of 3:0 and Opta's 81.0%. Czechia vs Mexico 0:1 cites both Sportsgambler and SheKicks landing on Mexico 1:0, with the Sportsgambler link provided. South Africa vs Korea Republic 0:2 directly attributes the 0:2 correct-score lean to Sportsgambler. Disagreement between sources (e.g., Racing Post favoring under goals while pick is 2:0) is present but acceptable per the rubric. No match block relies solely on unsupported generic model language; each pick is anchored to a named source."
+      }
+    ],
+    "kind": "llm",
+    "judge": {
+      "model": "anthropic/claude-sonnet-4-6",
+      "reasoning_effort": "medium",
+      "timeout": 300,
+      "files": [
+        "/Users/sourishkrout/Projects/personal/2026Q2/sourishkrout-skills/.runme/evals/jobs/2026-06-23__12-24-07/end-to-end__zwVnnto/artifacts/report.md"
+      ],
+      "atif_trajectory": null,
+      "reference": null,
+      "mode": "batched"
+    },
+    "judge_output": "{\"score\":5,\"reasoning\":\"Every match block names at least one explicit expert or correct-score source that is directly tied to the chosen scoreline. Switzerland vs Canada 1:1 cites Opta win probabilities plus 'correct-score markets and expert previews both keep 1:1 near the top' with Opta and Sportsgambler listed. Bosnia vs Qatar 2:1 references Opta's 65.9% and 'several preview sources cluster around a Bosnia 2:1 type of result' alongside the Opta preview link. Scotland vs Brazil 0:2 ties the pick to Racing Post's 'Brazil win plus under 3.5 goals' and correct-score markets leaning to Brazil 2:0, with the Racing Post source listed. Morocco vs Haiti 3:0 explicitly credits Sportsgambler's correct-score pick of 3:0 and Opta's 81.0%. Czechia vs Mexico 0:1 cites both Sportsgambler and SheKicks landing on Mexico 1:0, with the Sportsgambler link provided. South Africa vs Korea Republic 0:2 directly attributes the 0:2 correct-score lean to Sportsgambler. Disagreement between sources (e.g., Racing Post favoring under goals while pick is 2:0) is present but acceptable per the rubric. No match block relies solely on unsupported generic model language; each pick is anchored to a named source.\"}"
+  },
+  "guardrails": {
+    "score": 1.0,
+    "criteria": [
+      {
+        "name": "guardrails",
+        "value": 1.0,
+        "raw": 1.0,
+        "weight": 1.0,
+        "description": "guardrails"
+      }
+    ],
+    "kind": "programmatic"
+  },
+  "report_completeness": {
+    "score": 1.0,
+    "criteria": [
+      {
+        "name": "rate_whether_the_final_report_is_complet",
+        "value": 1.0,
+        "raw": 5,
+        "weight": 1.0,
+        "description": "Rate whether the final report is complete for a Discord World Cup scoreline report. It should include scope/date for the requested future U.S. Pacific-time slate, the slate's fixtures, exact home:away scorelines, confidence levels, basis notes, risk notes, best scoreline leans, lineup or late-news caveats, and sources. Penalize incomplete slate coverage, stale date framing, missing risk/basis/confidence, or missing source context. Deterministic date and fixture correctness are checked separately, so focus on report completeness and usability.",
+        "reasoning": "The report is exceptionally complete across every required dimension. Scope and date are clearly framed at the top (FIFA World Cup 2026 Matchday 3, June 24 2026, U.S. Pacific time) with PT kickoff times for all three time slots. All six slate fixtures are present with exact home:away scorelines in consistent format. Every fixture carries an explicit confidence level, a detailed basis note citing win probabilities (Opta where available, market/Elo/preview fallback for South Africa vs Korea Republic), a dedicated risk note, and lineup/late-news caveats consolidated in a 'Wait For Lineups' section. Best scoreline leans and trap warnings are also included, adding further usability. The sources section is thorough, with named URLs for FIFA schedule, Al Jazeera cross-check, individual Opta match previews, Sportsgambler correct-score pages, a Racing Post deep-dive, and an Elo ratings reference. The one minor gap\u2014no standalone Opta page for South Africa vs Korea Republic\u2014is explicitly acknowledged and compensated with alternative sourcing. Nothing materially required for a Discord scoreline report is missing."
+      }
+    ],
+    "kind": "llm",
+    "judge": {
+      "model": "anthropic/claude-sonnet-4-6",
+      "reasoning_effort": "medium",
+      "timeout": 300,
+      "files": [
+        "/Users/sourishkrout/Projects/personal/2026Q2/sourishkrout-skills/.runme/evals/jobs/2026-06-23__12-24-07/end-to-end__zwVnnto/artifacts/report.md"
+      ],
+      "atif_trajectory": null,
+      "reference": null,
+      "mode": "batched"
+    },
+    "judge_output": "{\"score\":5,\"reasoning\":\"The report is exceptionally complete across every required dimension. Scope and date are clearly framed at the top (FIFA World Cup 2026 Matchday 3, June 24 2026, U.S. Pacific time) with PT kickoff times for all three time slots. All six slate fixtures are present with exact home:away scorelines in consistent format. Every fixture carries an explicit confidence level, a detailed basis note citing win probabilities (Opta where available, market/Elo/preview fallback for South Africa vs Korea Republic), a dedicated risk note, and lineup/late-news caveats consolidated in a 'Wait For Lineups' section. Best scoreline leans and trap warnings are also included, adding further usability. The sources section is thorough, with named URLs for FIFA schedule, Al Jazeera cross-check, individual Opta match previews, Sportsgambler correct-score pages, a Racing Post deep-dive, and an Elo ratings reference. The one minor gap\u2014no standalone Opta page for South Africa vs Korea Republic\u2014is explicitly acknowledged and compensated with alternative sourcing. Nothing materially required for a Discord scoreline report is missing.\"}"
+  },
+  "scoreline_format": {
+    "score": 1.0,
+    "criteria": [
+      {
+        "name": "scoreline_format",
+        "value": 1.0,
+        "raw": 1.0,
+        "weight": 1.0,
+        "description": "scoreline_format"
+      }
+    ],
+    "kind": "programmatic"
+  },
+  "skill_activation_evidence": {
+    "score": 1.0,
+    "criteria": [
+      {
+        "name": "skill_activation_evidence",
+        "value": 1.0,
+        "raw": 1.0,
+        "weight": 1.0,
+        "description": "skill_activation_evidence"
+      }
+    ],
+    "kind": "programmatic"
+  },
+  "source_quality": {
+    "score": 0.75,
+    "criteria": [
+      {
+        "name": "rate_the_quality_and_coverage_of_sources",
+        "value": 0.75,
+        "raw": 4,
+        "weight": 1.0,
+        "description": "Rate the quality and coverage of sources used by the report. A strong report cites or clearly references official fixture information, expert previews or picks, model/probability sources such as Opta or equivalent, market/odds evidence, Elo or team-strength ratings, and current lineup/injury/team-news context. Penalize thin sourcing, missing source categories, untraceable claims, or reliance on low-quality/generic sources.",
+        "reasoning": "The report demonstrates strong, multi-category sourcing. It cites the official FIFA fixture page, an Al Jazeera schedule cross-check for time zone verification, dedicated Opta/TheAnalyst win-probability pages for five of the six matches, Sportsgambler correct-score and market-odds pages for most games, a Racing Post expert preview for Scotland vs Brazil, and a specific Elo ratings table (international-football.net) to back every team-strength comparison. That covers official fixtures, probability models, market/odds evidence, and Elo ratings systematically. Deductions: (1) South Africa vs Korea Republic lacks an Opta source \u2014 the report acknowledges this gap but the gap remains; (2) SheKicks is referenced for Czechia vs Mexico but no URL is provided, making it untraceable; (3) lineup and injury sourcing is thin \u2014 Raphinha, Dzeko, and Muharemovic are mentioned without any linked injury-report or official team-news source; (4) the Neymar mention has no source. These are meaningful gaps for a predictive report where lineup/injury context is explicitly flagged as a key variable, but the core probability, market, and Elo sourcing is well-documented and traceable for the majority of matches."
+      }
+    ],
+    "kind": "llm",
+    "judge": {
+      "model": "anthropic/claude-sonnet-4-6",
+      "reasoning_effort": "medium",
+      "timeout": 300,
+      "files": [
+        "/Users/sourishkrout/Projects/personal/2026Q2/sourishkrout-skills/.runme/evals/jobs/2026-06-23__12-24-07/end-to-end__zwVnnto/artifacts/report.md"
+      ],
+      "atif_trajectory": null,
+      "reference": null,
+      "mode": "batched"
+    },
+    "judge_output": "{\"score\":4,\"reasoning\":\"The report demonstrates strong, multi-category sourcing. It cites the official FIFA fixture page, an Al Jazeera schedule cross-check for time zone verification, dedicated Opta/TheAnalyst win-probability pages for five of the six matches, Sportsgambler correct-score and market-odds pages for most games, a Racing Post expert preview for Scotland vs Brazil, and a specific Elo ratings table (international-football.net) to back every team-strength comparison. That covers official fixtures, probability models, market/odds evidence, and Elo ratings systematically. Deductions: (1) South Africa vs Korea Republic lacks an Opta source \u2014 the report acknowledges this gap but the gap remains; (2) SheKicks is referenced for Czechia vs Mexico but no URL is provided, making it untraceable; (3) lineup and injury sourcing is thin \u2014 Raphinha, Dzeko, and Muharemovic are mentioned without any linked injury-report or official team-news source; (4) the Neymar mention has no source. These are meaningful gaps for a predictive report where lineup/injury context is explicitly flagged as a key variable, but the core probability, market, and Elo sourcing is well-documented and traceable for the majority of matches.\"}"
+  },
+  "target_slate_coverage": {
+    "score": 1.0,
+    "criteria": [
+      {
+        "name": "target_slate_coverage",
+        "value": 1.0,
+        "raw": 1.0,
+        "weight": 1.0,
+        "description": "target_slate_coverage"
+      }
+    ],
+    "kind": "programmatic"
+  },
+  "workflow_sequence_evidence": {
+    "score": 1.0,
+    "criteria": [
+      {
+        "name": "rate_whether_the_report_and_available_tr",
+        "value": 1.0,
+        "raw": 5,
+        "weight": 1.0,
+        "description": "Rate whether the report and available trajectory show the intended workflow: identify the relevant FIFA fixtures for the date, collect expert scoreline or prediction anchors, compare with model probabilities, compare with market or odds evidence, check Elo or team-strength context, account for lineup/injury/current-match context, and synthesize final scoreline picks. Give credit for evidence in either the final report or trajectory. Penalize skipped phases or final picks that appear unsupported by the workflow.",
+        "reasoning": "The trajectory clearly demonstrates all seven intended workflow phases. Phase 1 (identify fixtures): multiple searches for June 24 FIFA fixtures confirmed all 6 matches across Groups A, B, C with PT kickoff times. Phase 2 (expert scoreline anchors): searches for correct-score predictions from Sportsgambler, Racing Post, and SheKicks were performed for each match, and the report cites specific expert score leans. Phase 3 (model probabilities): direct visits to Opta Analyst pages were attempted and specific Opta win percentages appear in the report for 5 of 6 matches; the one missing page (South Africa vs Korea Republic) was explicitly flagged. Phase 4 (market/odds evidence): Sportsgambler and Racing Post pages were opened for correct-score markets and implied probability ranges are cited per match. Phase 5 (Elo/team-strength): the agent directly fetched the international-football.net Elo table and extracted numerical ratings (Brazil 1986, Scotland 1768, Morocco 1866, Haiti 1528, South Korea 1771, South Africa 1527, etc.), and the report uses these to calculate point differentials. Phase 6 (lineup/injury/context): suspensions (Muharemovic, Qatar post-6-0), rotation risk (Mexico), injury concerns (Raphinha, Neymar minutes), and tournament incentives (Swiss-Canada draw, Korea Republic draw sufficiency) are all addressed with a dedicated 'Wait For Lineups' section. Phase 7 (synthesis): six exact scoreline picks with confidence levels, Basis and Risk notes, plus Best Leans and Traps summaries are present. No phases are skipped and the picks are well-supported by the evidence gathered."
+      }
+    ],
+    "kind": "llm",
+    "judge": {
+      "model": "anthropic/claude-sonnet-4-6",
+      "reasoning_effort": "medium",
+      "timeout": 300,
+      "files": [
+        "/Users/sourishkrout/Projects/personal/2026Q2/sourishkrout-skills/.runme/evals/jobs/2026-06-23__12-24-07/end-to-end__zwVnnto/artifacts/report.md"
+      ],
+      "atif_trajectory": "/Users/sourishkrout/Projects/personal/2026Q2/sourishkrout-skills/.runme/evals/jobs/2026-06-23__12-24-07/end-to-end__zwVnnto/agent/trajectory.json",
+      "reference": null,
+      "mode": "batched"
+    },
+    "judge_output": "{\"score\":5,\"reasoning\":\"The trajectory clearly demonstrates all seven intended workflow phases. Phase 1 (identify fixtures): multiple searches for June 24 FIFA fixtures confirmed all 6 matches across Groups A, B, C with PT kickoff times. Phase 2 (expert scoreline anchors): searches for correct-score predictions from Sportsgambler, Racing Post, and SheKicks were performed for each match, and the report cites specific expert score leans. Phase 3 (model probabilities): direct visits to Opta Analyst pages were attempted and specific Opta win percentages appear in the report for 5 of 6 matches; the one missing page (South Africa vs Korea Republic) was explicitly flagged. Phase 4 (market/odds evidence): Sportsgambler and Racing Post pages were opened for correct-score markets and implied probability ranges are cited per match. Phase 5 (Elo/team-strength): the agent directly fetched the international-football.net Elo table and extracted numerical ratings (Brazil 1986, Scotland 1768, Morocco 1866, Haiti 1528, South Korea 1771, South Africa 1527, etc.), and the report uses these to calculate point differentials. Phase 6 (lineup/injury/context): suspensions (Muharemovic, Qatar post-6-0), rotation risk (Mexico), injury concerns (Raphinha, Neymar minutes), and tournament incentives (Swiss-Canada draw, Korea Republic draw sufficiency) are all addressed with a dedicated 'Wait For Lineups' section. Phase 7 (synthesis): six exact scoreline picks with confidence levels, Basis and Risk notes, plus Best Leans and Traps summaries are present. No phases are skipped and the picks are well-supported by the evidence gathered.\"}"
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "artifact_written": 1.0,
+  "citation_proximity": 1.0,
+  "expert_anchor_coverage": 1.0,
+  "expert_anchor_usage": 1.0,
+  "guardrails": 1.0,
+  "report_completeness": 1.0,
+  "scoreline_format": 1.0,
+  "skill_activation_evidence": 1.0,
+  "source_quality": 0.75,
+  "target_slate_coverage": 1.0,
+  "workflow_sequence_evidence": 1.0,
+  "reward": 0.9773
+}
