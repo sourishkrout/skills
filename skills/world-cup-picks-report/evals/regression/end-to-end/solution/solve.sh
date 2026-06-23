@@ -8,13 +8,14 @@ mkdir -p /logs/artifacts
 echo "Using world-cup-picks-report skill workflow"
 echo "+ date +%F"
 date +%F >/tmp/world-cup-picks-report-date.txt
-echo "+ check official FIFA fixtures for current matchday"
+echo "+ identify the next full unplayed World Cup slate in U.S. Pacific time, no earlier than tomorrow"
+echo "+ check official FIFA fixtures for the resolved future slate"
 echo "+ collect expert correct-score anchors with citations"
 echo "+ cross-check anchors against model probabilities, market odds, Elo ratings, and team-news context"
 echo "+ write Discord-friendly scoreline report to /logs/artifacts/report.md"
 
 cat > /logs/artifacts/report.md <<'REPORT'
-Report scope: World Cup scoreline report for the FIFA World Cup 2026 final group-stage slate, Saturday, June 27, 2026 in U.S. Pacific time. The U.S. broadcast slate is Panama vs England and Croatia vs Ghana at 2:00 p.m. PT, Colombia vs Portugal and DR Congo vs Uzbekistan at 4:30 p.m. PT, then Algeria vs Austria and Jordan vs Argentina at 7:00 p.m. PT.
+Report scope: World Cup scoreline report for the next full unplayed FIFA World Cup 2026 slate no earlier than tomorrow: Saturday, June 27, 2026 in U.S. Pacific time. The U.S. broadcast slate is Panama vs England and Croatia vs Ghana at 2:00 p.m. PT, Colombia vs Portugal and DR Congo vs Uzbekistan at 4:30 p.m. PT, then Algeria vs Austria and Jordan vs Argentina at 7:00 p.m. PT.
 
 Generated: CURRENT_DATE_PLACEHOLDER, using the runtime date. These are scoreline leans, not guaranteed outcomes. Exact correct-score anchors are still thin for some June 27 matches, so I use dedicated odds/prediction pages, prediction-market prices, team previews, and Elo/ranking context as the fallback evidence.
 

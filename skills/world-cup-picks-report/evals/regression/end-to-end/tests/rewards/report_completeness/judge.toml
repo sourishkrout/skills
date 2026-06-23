@@ -3,6 +3,6 @@ judge = "anthropic/claude-sonnet-4-6"
 files = ["/logs/artifacts/report.md"]
 
 [[criterion]]
-description = "Rate whether the final report is complete for a Discord World Cup scoreline report. It should include scope/date, all expected fixtures for Saturday June 27 2026 in U.S. Pacific time, exact home:away scorelines, confidence levels, basis notes, risk notes, best scoreline leans, lineup or late-news caveats, and sources. Penalize omitted fixtures, stale date framing, missing risk/basis/confidence, or missing source context."
+description = "Rate whether the final report is complete for a Discord World Cup scoreline report. It should include scope/date for the requested future U.S. Pacific-time slate, the slate's fixtures, exact home:away scorelines, confidence levels, basis notes, risk notes, best scoreline leans, lineup or late-news caveats, and sources. Penalize incomplete slate coverage, stale date framing, missing risk/basis/confidence, or missing source context. Deterministic date and fixture correctness are checked separately, so focus on report completeness and usability."
 type = "likert"
 points = 5

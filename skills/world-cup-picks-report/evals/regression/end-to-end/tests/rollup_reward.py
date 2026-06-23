@@ -11,6 +11,7 @@ ROLLUP_KEYS = (
     "citation_proximity",
     "scoreline_format",
     "guardrails",
+    "target_slate_coverage",
     "report_completeness",
     "expert_anchor_coverage",
     "expert_anchor_usage",

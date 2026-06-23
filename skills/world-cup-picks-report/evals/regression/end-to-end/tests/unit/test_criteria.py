@@ -30,6 +30,7 @@ def test_reward_rollup_uses_existing_emitted_scores(tmp_path: Path) -> None:
         '  "citation_proximity": 0.5,\n'
         '  "scoreline_format": 0.5,\n'
         '  "guardrails": 1.0,\n'
+        '  "target_slate_coverage": 0.75,\n'
         '  "report_completeness": 0.75,\n'
         '  "expert_anchor_coverage": 0.75,\n'
         '  "expert_anchor_usage": 0.5,\n'
@@ -356,6 +357,149 @@ Risk: Lineups.
     stale = fresh.replace("Saturday, June 27, 2026", "Friday, June 26, 2026")
     assert criteria.score_report_date_freshness(fresh)
     assert not criteria.score_report_date_freshness(stale)
+
+
+def test_resolve_target_slate_uses_next_future_fixture_date() -> None:
+    slate = criteria.resolve_target_slate()
+
+    assert slate["as_of_date"].isoformat() == "2026-06-23"
+    assert slate["earliest_date"].isoformat() == "2026-06-24"
+    assert slate["date"].isoformat() == "2026-06-27"
+    assert len(slate["fixtures"]) == 6
+
+
+def test_resolve_target_slate_skips_same_day_fixtures() -> None:
+    slate = criteria.resolve_target_slate(as_of_override="2026-06-22")
+
+    assert slate["earliest_date"].isoformat() == "2026-06-23"
+    assert slate["date"].isoformat() == "2026-06-23"
+    assert [fixture["home"] for fixture in slate["fixtures"]] == ["Spain"]
+
+
+def test_resolve_target_slate_accepts_tomorrow(tmp_path: Path) -> None:
+    schedule = tmp_path / "schedule.json"
+    schedule.write_text(
+        """{
+          "as_of_date_pt": "2026-06-23",
+          "fixtures": [
+            {"date_pt": "2026-06-24", "time_pt": "12:00", "home": "France", "away": "Senegal", "group": "A"}
+          ]
+        }"""
+    )
+
+    slate = criteria.resolve_target_slate(schedule)
+
+    assert slate["date"].isoformat() == "2026-06-24"
+
+
+def test_resolve_target_slate_raises_without_future_fixtures(tmp_path: Path) -> None:
+    schedule = tmp_path / "schedule.json"
+    schedule.write_text(
+        """{
+          "as_of_date_pt": "2026-06-23",
+          "fixtures": [
+            {"date_pt": "2026-06-23", "time_pt": "12:00", "home": "France", "away": "Senegal", "group": "A"}
+          ]
+        }"""
+    )
+
+    try:
+        criteria.resolve_target_slate(schedule)
+    except ValueError as exc:
+        assert "No fixtures found" in str(exc)
+    else:
+        raise AssertionError("Expected ValueError")
+
+
+def test_target_slate_coverage_full_report() -> None:
+    report = """Report scope: Saturday, June 27, 2026 in U.S. Pacific time.
+
+## Scoreline Picks
+
+### Panama vs England: 0:3 - Confidence: High
+Basis: Expert anchor.
+Risk: Rotation.
+
+### Croatia vs Ghana: 2:1 - Confidence: Medium
+Basis: Expert anchor.
+Risk: Game state.
+
+### Colombia vs Portugal: 1:2 - Confidence: Medium
+Basis: Expert anchor.
+Risk: Draw.
+
+### DR Congo vs Uzbekistan: 1:0 - Confidence: Low
+Basis: Expert anchor.
+Risk: Volatility.
+
+### Algeria vs Austria: 0:1 - Confidence: Medium
+Basis: Expert anchor.
+Risk: Draw.
+
+### Jordan vs Argentina: 0:2 - Confidence: High
+Basis: Expert anchor.
+Risk: Rotation.
+"""
+
+    assert criteria.score_target_slate_coverage(report) == 1.0
+
+
+def test_target_slate_coverage_accepts_team_aliases() -> None:
+    report = """Report scope: Saturday, June 27, 2026 in U.S. Pacific time.
+
+## Scoreline Picks
+
+### Panama vs England: 0:3 - Confidence: High
+### Croatia vs Ghana: 2:1 - Confidence: Medium
+### Colombia vs Portugal: 1:2 - Confidence: Medium
+### Congo DR vs Uzbekistan: 1:0 - Confidence: Low
+### Algeria vs Austria: 0:1 - Confidence: Medium
+### Jordan vs Argentina: 0:2 - Confidence: High
+"""
+
+    assert criteria.score_target_slate_coverage(report) == 1.0
+
+
+def test_target_slate_coverage_penalizes_missing_fixture() -> None:
+    report = """Report scope: Saturday, June 27, 2026 in U.S. Pacific time.
+
+## Scoreline Picks
+
+### Panama vs England: 0:3 - Confidence: High
+### Croatia vs Ghana: 2:1 - Confidence: Medium
+### Colombia vs Portugal: 1:2 - Confidence: Medium
+### DR Congo vs Uzbekistan: 1:0 - Confidence: Low
+### Algeria vs Austria: 0:1 - Confidence: Medium
+"""
+
+    assert criteria.score_target_slate_coverage(report) < 1.0
+
+
+def test_target_slate_coverage_rejects_stale_or_same_day_scope() -> None:
+    stale = """Report scope: Tuesday, June 23, 2026 in U.S. Pacific time.
+
+## Scoreline Picks
+
+### Spain vs Uruguay: 1:1 - Confidence: Medium
+"""
+
+    assert criteria.score_target_slate_coverage(stale) == 0.0
+
+
+def test_target_slate_coverage_penalizes_missing_pacific_framing() -> None:
+    report = """Report scope: Saturday, June 27, 2026.
+
+## Scoreline Picks
+
+### Panama vs England: 0:3 - Confidence: High
+### Croatia vs Ghana: 2:1 - Confidence: Medium
+### Colombia vs Portugal: 1:2 - Confidence: Medium
+### DR Congo vs Uzbekistan: 1:0 - Confidence: Low
+### Algeria vs Austria: 0:1 - Confidence: Medium
+### Jordan vs Argentina: 0:2 - Confidence: High
+"""
+
+    assert criteria.score_target_slate_coverage(report) == 0.85
 
 
 def test_guardrails() -> None:
