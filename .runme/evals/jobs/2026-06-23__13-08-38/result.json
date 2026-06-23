@@ -1,0 +1,105 @@
+{
+    "id": "fb445c59-8f10-4f35-a479-d42d398aeb62",
+    "started_at": "2026-06-23T13:08:38.398614",
+    "updated_at": "2026-06-23T13:15:21.897355",
+    "finished_at": "2026-06-23T13:15:21.897355",
+    "n_total_trials": 1,
+    "stats": {
+        "n_completed_trials": 1,
+        "n_errored_trials": 0,
+        "n_running_trials": 0,
+        "n_pending_trials": 0,
+        "n_cancelled_trials": 0,
+        "n_retries": 0,
+        "evals": {
+            "runme-codex__regression": {
+                "n_trials": 1,
+                "n_errors": 0,
+                "metrics": [
+                    {
+                        "artifact_written": 1.0,
+                        "citation_proximity": 1.0,
+                        "expert_anchor_coverage": 0.75,
+                        "expert_anchor_usage": 0.75,
+                        "guardrails": 1.0,
+                        "report_completeness": 1.0,
+                        "reward": 0.9318,
+                        "scoreline_format": 1.0,
+                        "skill_activation_evidence": 1.0,
+                        "source_quality": 0.75,
+                        "target_slate_coverage": 1.0,
+                        "workflow_sequence_evidence": 1.0
+                    }
+                ],
+                "pass_at_k": {},
+                "reward_stats": {
+                    "artifact_written": {
+                        "1.0": [
+                            "end-to-end__d6P35TT"
+                        ]
+                    },
+                    "citation_proximity": {
+                        "1.0": [
+                            "end-to-end__d6P35TT"
+                        ]
+                    },
+                    "expert_anchor_coverage": {
+                        "0.75": [
+                            "end-to-end__d6P35TT"
+                        ]
+                    },
+                    "expert_anchor_usage": {
+                        "0.75": [
+                            "end-to-end__d6P35TT"
+                        ]
+                    },
+                    "guardrails": {
+                        "1.0": [
+                            "end-to-end__d6P35TT"
+                        ]
+                    },
+                    "report_completeness": {
+                        "1.0": [
+                            "end-to-end__d6P35TT"
+                        ]
+                    },
+                    "scoreline_format": {
+                        "1.0": [
+                            "end-to-end__d6P35TT"
+                        ]
+                    },
+                    "skill_activation_evidence": {
+                        "1.0": [
+                            "end-to-end__d6P35TT"
+                        ]
+                    },
+                    "source_quality": {
+                        "0.75": [
+                            "end-to-end__d6P35TT"
+                        ]
+                    },
+                    "target_slate_coverage": {
+                        "1.0": [
+                            "end-to-end__d6P35TT"
+                        ]
+                    },
+                    "workflow_sequence_evidence": {
+                        "1.0": [
+                            "end-to-end__d6P35TT"
+                        ]
+                    },
+                    "reward": {
+                        "0.9318": [
+                            "end-to-end__d6P35TT"
+                        ]
+                    }
+                },
+                "exception_stats": {}
+            }
+        },
+        "n_input_tokens": 1597283,
+        "n_cache_tokens": 1312640,
+        "n_output_tokens": 11649,
+        "cost_usd": null
+    }
+}

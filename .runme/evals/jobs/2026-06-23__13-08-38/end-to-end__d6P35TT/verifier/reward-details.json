@@ -1,0 +1,294 @@
+{
+  "artifact_written": {
+    "score": 1.0,
+    "criteria": [
+      {
+        "name": "report_file_exists",
+        "value": 1.0,
+        "raw": true,
+        "weight": 1.0,
+        "description": "Check that the command `test -f /Users/sourishkrout/Projects/personal/2026Q2/sourishkrout-skills/.runme/evals/jobs/2026-06-23__13-08-38/end-to-end__d6P35TT/artifacts/report.md` exits with code 0"
+      },
+      {
+        "name": "report_file_nonempty",
+        "value": 1.0,
+        "raw": true,
+        "weight": 2.0,
+        "description": "Check that the command `test -s /Users/sourishkrout/Projects/personal/2026Q2/sourishkrout-skills/.runme/evals/jobs/2026-06-23__13-08-38/end-to-end__d6P35TT/artifacts/report.md` exits with code 0"
+      }
+    ],
+    "kind": "programmatic"
+  },
+  "citation_proximity": {
+    "score": 1.0,
+    "criteria": [
+      {
+        "name": "report_has_url",
+        "value": 1.0,
+        "raw": true,
+        "weight": 0.0,
+        "description": "Check that the command `grep -Eq 'https?://' /Users/sourishkrout/Projects/personal/2026Q2/sourishkrout-skills/.runme/evals/jobs/2026-06-23__13-08-38/end-to-end__d6P35TT/artifacts/report.md` exits with code 0"
+      },
+      {
+        "name": "report_has_source_terms",
+        "value": 1.0,
+        "raw": true,
+        "weight": 0.0,
+        "description": "Check that the command `grep -Eiq 'opta|dimers|football whispers|espn|elo|prediction|preview|correct.score' /Users/sourishkrout/Projects/personal/2026Q2/sourishkrout-skills/.runme/evals/jobs/2026-06-23__13-08-38/end-to-end__d6P35TT/artifacts/report.md` exits with code 0"
+      },
+      {
+        "name": "match_blocks_have_traceable_citations",
+        "value": 1.0,
+        "raw": 1.0,
+        "weight": 1.0,
+        "description": "citation_proximity_by_match"
+      }
+    ],
+    "kind": "programmatic"
+  },
+  "expert_anchor_coverage": {
+    "score": 0.75,
+    "criteria": [
+      {
+        "name": "rate_whether_every_fixture_in_the_report",
+        "value": 0.75,
+        "raw": 4,
+        "weight": 1.0,
+        "description": "Rate whether every fixture in the report is grounded in a credible expert, prediction, preview, or correct-score source. Give full credit when each fixture has a clear anchor, or when the report honestly says explicit expert scoreline data is unavailable and uses model or market evidence as a fallback. Penalize missing fixture anchors, vague unsupported expert claims, or anchors only listed in sources without being tied to a fixture.",
+        "reasoning": "Almost every fixture is strongly anchored. Switzerland vs Canada cites Opta + SheKicks (both with URLs). Bosnia-Herzegovina vs Qatar cites Opta + TheSportsRush (both sourced). Morocco vs Haiti cites Opta + Sportsgambler correct-score (both sourced). Czechia vs Mexico cites Opta + SheKicks + DraftKings + Racing Post (all sourced). South Africa vs Korea Republic honestly discloses the absence of an Opta article and falls back to odds, Sportsgambler correct-score, Elo, and Racing Post \u2014 all sourced, meeting the fallback standard. Scotland vs Brazil is where there is a minor gap: Squawka is cited in the basis ('Squawka's picks lean Brazil win, BTTS No, and under 2.5') as a correct-score anchor but no Squawka URL appears in the sources list. The Opta article still provides win-probability grounding for that fixture, so it is not unanchored, but the Squawka reference is unsourced. That single loose attribution drops the score slightly from a 5."
+      }
+    ],
+    "kind": "llm",
+    "judge": {
+      "model": "anthropic/claude-sonnet-4-6",
+      "reasoning_effort": "medium",
+      "timeout": 300,
+      "files": [
+        "/Users/sourishkrout/Projects/personal/2026Q2/sourishkrout-skills/.runme/evals/jobs/2026-06-23__13-08-38/end-to-end__d6P35TT/artifacts/report.md"
+      ],
+      "atif_trajectory": null,
+      "reference": null,
+      "mode": "batched"
+    },
+    "judge_output": "{\"score\":4,\"reasoning\":\"Almost every fixture is strongly anchored. Switzerland vs Canada cites Opta + SheKicks (both with URLs). Bosnia-Herzegovina vs Qatar cites Opta + TheSportsRush (both sourced). Morocco vs Haiti cites Opta + Sportsgambler correct-score (both sourced). Czechia vs Mexico cites Opta + SheKicks + DraftKings + Racing Post (all sourced). South Africa vs Korea Republic honestly discloses the absence of an Opta article and falls back to odds, Sportsgambler correct-score, Elo, and Racing Post \u2014 all sourced, meeting the fallback standard. Scotland vs Brazil is where there is a minor gap: Squawka is cited in the basis ('Squawka's picks lean Brazil win, BTTS No, and under 2.5') as a correct-score anchor but no Squawka URL appears in the sources list. The Opta article still provides win-probability grounding for that fixture, so it is not unanchored, but the Squawka reference is unsourced. That single loose attribution drops the score slightly from a 5.\"}"
+  },
+  "expert_anchor_usage": {
+    "score": 0.75,
+    "criteria": [
+      {
+        "name": "rate_whether_each_match_pick_uses_at_lea",
+        "value": 0.75,
+        "raw": 4,
+        "weight": 1.0,
+        "description": "Rate whether each match pick uses at least one expert prediction, correct-score source, preview, or equivalent pick as a visible source for the chosen scoreline. Do not require exact phrases like 'expert anchor'. Full credit is appropriate when every match block names or cites a relevant source and connects it to the pick, even if other sources disagree or predict a different score. Do not penalize unresolved disagreement between credible sources; disagreement is acceptable as long as the report shows source presence and uses at least one source for each pick. Penalize only when match blocks lack a visible expert/prediction/preview/correct-score source, cite sources without tying them to the pick, or rely only on unsupported generic model/market language.",
+        "reasoning": "Five of the six match blocks clearly name at least one expert/prediction/correct-score source and tie it directly to the chosen scoreline: Scotland vs Brazil cites Squawka and correct-score markets for 0:2; Morocco vs Haiti cites Sportsgambler's explicit 3:0 pick; Czechia vs Mexico cites SheKicks' 1:0 anchor; South Africa vs Korea Republic cites Sportsgambler's 0:2 pick; Bosnia-Herzegovina vs Qatar references a '2:0 correct-score anchor' and TheSportsRush is listed in sources. The weakest block is Switzerland vs Canada 1:1: the basis notes the 'expert-scoreline market is split between Canada value, Swiss control, and a mutual-benefit draw' without naming any source that specifically picks 1:1. SheKicks is listed in the sources section as providing a 'scoreline anchor' for this match but the match block itself never states what SheKicks actually picks, leaving the 1:1 choice unsupported by a directly cited source within the block. This one gap prevents a perfect score, but overall source citation is strong and well-connected across the rest of the report."
+      }
+    ],
+    "kind": "llm",
+    "judge": {
+      "model": "anthropic/claude-sonnet-4-6",
+      "reasoning_effort": "medium",
+      "timeout": 300,
+      "files": [
+        "/Users/sourishkrout/Projects/personal/2026Q2/sourishkrout-skills/.runme/evals/jobs/2026-06-23__13-08-38/end-to-end__d6P35TT/artifacts/report.md"
+      ],
+      "atif_trajectory": null,
+      "reference": null,
+      "mode": "batched"
+    },
+    "judge_output": "{\"score\":4,\"reasoning\":\"Five of the six match blocks clearly name at least one expert/prediction/correct-score source and tie it directly to the chosen scoreline: Scotland vs Brazil cites Squawka and correct-score markets for 0:2; Morocco vs Haiti cites Sportsgambler's explicit 3:0 pick; Czechia vs Mexico cites SheKicks' 1:0 anchor; South Africa vs Korea Republic cites Sportsgambler's 0:2 pick; Bosnia-Herzegovina vs Qatar references a '2:0 correct-score anchor' and TheSportsRush is listed in sources. The weakest block is Switzerland vs Canada 1:1: the basis notes the 'expert-scoreline market is split between Canada value, Swiss control, and a mutual-benefit draw' without naming any source that specifically picks 1:1. SheKicks is listed in the sources section as providing a 'scoreline anchor' for this match but the match block itself never states what SheKicks actually picks, leaving the 1:1 choice unsupported by a directly cited source within the block. This one gap prevents a perfect score, but overall source citation is strong and well-connected across the rest of the report.\"}"
+  },
+  "guardrails": {
+    "score": 1.0,
+    "criteria": [
+      {
+        "name": "banned_wagering_terms_absent",
+        "value": 1.0,
+        "raw": true,
+        "weight": 1.0,
+        "description": "Check that the command `test -f /Users/sourishkrout/Projects/personal/2026Q2/sourishkrout-skills/.runme/evals/jobs/2026-06-23__13-08-38/end-to-end__d6P35TT/artifacts/report.md && ! grep -Eiq 'lock of the day|bankroll|bet sizing|stake |wager |must bet' /Users/sourishkrout/Projects/personal/2026Q2/sourishkrout-skills/.runme/evals/jobs/2026-06-23__13-08-38/end-to-end__d6P35TT/artifacts/report.md` exits with code 0"
+      },
+      {
+        "name": "unnegated_guaranteed_absent",
+        "value": 1.0,
+        "raw": 1.0,
+        "weight": 1.0,
+        "description": "unnegated_guaranteed_absent"
+      }
+    ],
+    "kind": "programmatic"
+  },
+  "report_completeness": {
+    "score": 1.0,
+    "criteria": [
+      {
+        "name": "rate_whether_the_final_report_is_complet",
+        "value": 1.0,
+        "raw": 5,
+        "weight": 1.0,
+        "description": "Rate whether the final report is complete for a Discord World Cup scoreline report. It should include scope/date for the requested future U.S. Pacific-time slate, the slate's fixtures, exact home:away scorelines, confidence levels, basis notes, risk notes, best scoreline leans, lineup or late-news caveats, and sources. Penalize incomplete slate coverage, stale date framing, missing risk/basis/confidence, or missing source context. Deterministic date and fixture correctness are checked separately, so focus on report completeness and usability.",
+        "reasoning": "The report is comprehensive and well-structured for a Discord World Cup scoreline report. It covers all required elements: (1) Scope/date framing is explicit \u2014 FIFA World Cup group-stage Matchday 3, Wednesday June 24 2026 in U.S. Pacific time, with specific PT kickoff times listed and a clear exclusion note for Colombia vs DR Congo. (2) All six slate fixtures are present with exact home:away scorelines. (3) Each fixture includes a confidence level (Medium or High). (4) Basis notes reference specific probability sources (Opta win%, Elo ratings, market odds, correct-score market prices). (5) Risk notes are provided for every fixture. (6) Best scoreline leans section is included with rationale. (7) Lineup/late-news caveats are explicitly addressed in a dedicated 'Wait For Lineups' section covering key personnel concerns (Raphinha injury, Dzeko role, Mexico rotation, Kone replacement, Morocco rotation). (8) Sources are extensive and specific, with direct URLs to FIFA, broadcast schedules, Opta Analyst articles per fixture, Sportsgambler, Racing Post, SheKicks, DraftKings Network, and Elo ratings. The report is highly usable for Discord posting with no significant gaps in completeness."
+      }
+    ],
+    "kind": "llm",
+    "judge": {
+      "model": "anthropic/claude-sonnet-4-6",
+      "reasoning_effort": "medium",
+      "timeout": 300,
+      "files": [
+        "/Users/sourishkrout/Projects/personal/2026Q2/sourishkrout-skills/.runme/evals/jobs/2026-06-23__13-08-38/end-to-end__d6P35TT/artifacts/report.md"
+      ],
+      "atif_trajectory": null,
+      "reference": null,
+      "mode": "batched"
+    },
+    "judge_output": "{\"score\":5,\"reasoning\":\"The report is comprehensive and well-structured for a Discord World Cup scoreline report. It covers all required elements: (1) Scope/date framing is explicit \u2014 FIFA World Cup group-stage Matchday 3, Wednesday June 24 2026 in U.S. Pacific time, with specific PT kickoff times listed and a clear exclusion note for Colombia vs DR Congo. (2) All six slate fixtures are present with exact home:away scorelines. (3) Each fixture includes a confidence level (Medium or High). (4) Basis notes reference specific probability sources (Opta win%, Elo ratings, market odds, correct-score market prices). (5) Risk notes are provided for every fixture. (6) Best scoreline leans section is included with rationale. (7) Lineup/late-news caveats are explicitly addressed in a dedicated 'Wait For Lineups' section covering key personnel concerns (Raphinha injury, Dzeko role, Mexico rotation, Kone replacement, Morocco rotation). (8) Sources are extensive and specific, with direct URLs to FIFA, broadcast schedules, Opta Analyst articles per fixture, Sportsgambler, Racing Post, SheKicks, DraftKings Network, and Elo ratings. The report is highly usable for Discord posting with no significant gaps in completeness.\"}"
+  },
+  "scoreline_format": {
+    "score": 1.0,
+    "criteria": [
+      {
+        "name": "scoreline_picks_section_present",
+        "value": 1.0,
+        "raw": true,
+        "weight": 1.0,
+        "description": "Check that the command `grep -Eiq '^#{0,6}[[:space:]]*Scoreline Picks[[:space:]]*$|^Scoreline Picks[[:space:]]*$' /Users/sourishkrout/Projects/personal/2026Q2/sourishkrout-skills/.runme/evals/jobs/2026-06-23__13-08-38/end-to-end__d6P35TT/artifacts/report.md` exits with code 0"
+      },
+      {
+        "name": "scoreline_pattern_present",
+        "value": 1.0,
+        "raw": true,
+        "weight": 1.0,
+        "description": "Check that the command `grep -Eq '[0-9]+[[:space:]]*:[[:space:]]*[0-9]+' /Users/sourishkrout/Projects/personal/2026Q2/sourishkrout-skills/.runme/evals/jobs/2026-06-23__13-08-38/end-to-end__d6P35TT/artifacts/report.md` exits with code 0"
+      },
+      {
+        "name": "match_pick_headings_include_scorelines",
+        "value": 1.0,
+        "raw": 1.0,
+        "weight": 3.0,
+        "description": "parsed_scoreline_format"
+      }
+    ],
+    "kind": "programmatic"
+  },
+  "skill_activation_evidence": {
+    "score": 1.0,
+    "criteria": [
+      {
+        "name": "activation_log_present",
+        "value": 1.0,
+        "raw": true,
+        "weight": 0.0,
+        "description": "Check that the command `test -s /Users/sourishkrout/Projects/personal/2026Q2/sourishkrout-skills/.runme/evals/jobs/2026-06-23__13-08-38/end-to-end__d6P35TT/agent/trajectory.json || test -s /Users/sourishkrout/Projects/personal/2026Q2/sourishkrout-skills/.runme/evals/jobs/2026-06-23__13-08-38/end-to-end__d6P35TT/agent/oracle.txt` exits with code 0"
+      },
+      {
+        "name": "read_tool_used",
+        "value": 0.0,
+        "raw": false,
+        "weight": 0.0,
+        "description": "Agent used tool 'Read' (trajectory: /Users/sourishkrout/Projects/personal/2026Q2/sourishkrout-skills/.runme/evals/jobs/2026-06-23__13-08-38/end-to-end__d6P35TT/agent/trajectory.json)"
+      },
+      {
+        "name": "skill_tool_used",
+        "value": 0.0,
+        "raw": false,
+        "weight": 0.0,
+        "description": "Agent used tool 'Skill' (trajectory: /Users/sourishkrout/Projects/personal/2026Q2/sourishkrout-skills/.runme/evals/jobs/2026-06-23__13-08-38/end-to-end__d6P35TT/agent/trajectory.json)"
+      },
+      {
+        "name": "world_cup_skill_activation_detected",
+        "value": 1.0,
+        "raw": 1.0,
+        "weight": 1.0,
+        "description": "skill_activation_evidence"
+      }
+    ],
+    "kind": "programmatic"
+  },
+  "source_quality": {
+    "score": 0.75,
+    "criteria": [
+      {
+        "name": "rate_the_quality_and_coverage_of_sources",
+        "value": 0.75,
+        "raw": 4,
+        "weight": 1.0,
+        "description": "Rate the quality and coverage of sources used by the report. A strong report cites or clearly references official fixture information, expert previews or picks, model/probability sources such as Opta or equivalent, market/odds evidence, Elo or team-strength ratings, and current lineup/injury/team-news context. Penalize thin sourcing, missing source categories, untraceable claims, or reliance on low-quality/generic sources.",
+        "reasoning": "The report demonstrates strong sourcing across most required categories. Official fixture information is covered via FIFA.com and cross-checked with FOX/CBS. Opta Analyst win-probability data is cited for five of six matches with specific percentages (e.g., 81.0% Morocco, 68.1% Brazil, 65.9% Bosnia), which is a high-quality model/probability source. Elo ratings from eloratings.net are provided for all six fixtures with precise figures. Market/odds evidence comes from DraftKings Network and implicit odds references (Racing Post, Sportsgambler). Expert picks and correct-score markets are sourced from Racing Post, Sportsgambler, TheSportsRush, and SheKicks. Injury and team-news context (Kone, Raphinha, Muharemovic, Qatar suspensions) is woven throughout. The main deductions are: (1) South Africa vs Korea Republic lacks an Opta article and relies on lower-tier sources, though this gap is honestly acknowledged; (2) SheKicks and TheSportsRush are relatively lower-authority sites compared to Opta or established sportsbooks; (3) no direct reference to a major sportsbook odds feed for all matches (only DraftKings for one fixture and inferred odds elsewhere). Overall coverage is broad and well-structured, with the sourcing meeting most criteria at a high level."
+      }
+    ],
+    "kind": "llm",
+    "judge": {
+      "model": "anthropic/claude-sonnet-4-6",
+      "reasoning_effort": "medium",
+      "timeout": 300,
+      "files": [
+        "/Users/sourishkrout/Projects/personal/2026Q2/sourishkrout-skills/.runme/evals/jobs/2026-06-23__13-08-38/end-to-end__d6P35TT/artifacts/report.md"
+      ],
+      "atif_trajectory": null,
+      "reference": null,
+      "mode": "batched"
+    },
+    "judge_output": "{\"score\":4,\"reasoning\":\"The report demonstrates strong sourcing across most required categories. Official fixture information is covered via FIFA.com and cross-checked with FOX/CBS. Opta Analyst win-probability data is cited for five of six matches with specific percentages (e.g., 81.0% Morocco, 68.1% Brazil, 65.9% Bosnia), which is a high-quality model/probability source. Elo ratings from eloratings.net are provided for all six fixtures with precise figures. Market/odds evidence comes from DraftKings Network and implicit odds references (Racing Post, Sportsgambler). Expert picks and correct-score markets are sourced from Racing Post, Sportsgambler, TheSportsRush, and SheKicks. Injury and team-news context (Kone, Raphinha, Muharemovic, Qatar suspensions) is woven throughout. The main deductions are: (1) South Africa vs Korea Republic lacks an Opta article and relies on lower-tier sources, though this gap is honestly acknowledged; (2) SheKicks and TheSportsRush are relatively lower-authority sites compared to Opta or established sportsbooks; (3) no direct reference to a major sportsbook odds feed for all matches (only DraftKings for one fixture and inferred odds elsewhere). Overall coverage is broad and well-structured, with the sourcing meeting most criteria at a high level.\"}"
+  },
+  "target_slate_coverage": {
+    "score": 1.0,
+    "criteria": [
+      {
+        "name": "target_scope_date_present",
+        "value": 1.0,
+        "raw": 1.0,
+        "weight": 0.0,
+        "description": "target_scope_date"
+      },
+      {
+        "name": "target_pacific_framing_present",
+        "value": 1.0,
+        "raw": 1.0,
+        "weight": 0.0,
+        "description": "target_pacific_framing"
+      },
+      {
+        "name": "target_fixture_mentions",
+        "value": 1.0,
+        "raw": 1.0,
+        "weight": 0.0,
+        "description": "target_fixture_mentions"
+      },
+      {
+        "name": "target_slate_weighted_coverage",
+        "value": 1.0,
+        "raw": 1.0,
+        "weight": 1.0,
+        "description": "target_slate_scored_coverage"
+      }
+    ],
+    "kind": "programmatic"
+  },
+  "workflow_sequence_evidence": {
+    "score": 1.0,
+    "criteria": [
+      {
+        "name": "rate_whether_the_report_and_available_tr",
+        "value": 1.0,
+        "raw": 5,
+        "weight": 1.0,
+        "description": "Rate whether the report and available trajectory show the intended workflow: identify the relevant FIFA fixtures for the date, collect expert scoreline or prediction anchors, compare with model probabilities, compare with market or odds evidence, check Elo or team-strength context, account for lineup/injury/current-match context, and synthesize final scoreline picks. Give credit for evidence in either the final report or trajectory. Penalize skipped phases or final picks that appear unsupported by the workflow.",
+        "reasoning": "The trajectory demonstrates a thorough execution of every phase of the intended workflow. (1) Fixtures: The agent correctly identified the June 24 PT slate, handled the timezone edge case for Colombia vs DR Congo, and confirmed the six Group A/B/C matches. (2) Expert scoreline anchors: Multiple named expert sources were searched and cited\u2014SheKicks, Sportsgambler, TheSportsRush, Racing Post, Squawka, DraftKings Network\u2014with specific correct-score leans attributed to each. (3) Model probabilities: Opta Analyst win-probability figures (41.9%, 65.9%, 68.1%, 81.0%, 47.9%) were cited for five of the six matches; the sixth (South Africa vs Korea Republic) explicitly noted the absence of an Opta article and substituted odds-implied probability as per skill instructions. (4) Market/odds evidence: Sportsbook consensus or market-implied odds were referenced for every match, including fractional odds for South Africa-Korea Republic and DraftKings lines for Czechia-Mexico. (5) Elo/team-strength: The agent fetched eloratings.net's World.tsv directly and extracted specific Elo values (Brazil 1986, Morocco 1866, Switzerland 1885, Mexico 1896, Korea Republic 1771, South Africa 1527, etc.) that are consistent with the published data, then cited them per match. (6) Lineup/injury/context: Raphinha ruled out, Kone injury, Qatar suspensions (Homam El Amin, Assim Madibo), Muharemovic suspension, Dzeko fitness, and Mexico rotation risk were all surfaced. (7) Synthesis: All six matches received explicit scoreline picks with confidence levels, Basis/Risk paragraphs, a Best Leans summary, Traps section, and a Wait For Lineups section\u2014matching the required report structure exactly. No phases were skipped and picks are grounded in the gathered evidence."
+      }
+    ],
+    "kind": "llm",
+    "judge": {
+      "model": "anthropic/claude-sonnet-4-6",
+      "reasoning_effort": "medium",
+      "timeout": 300,
+      "files": [
+        "/Users/sourishkrout/Projects/personal/2026Q2/sourishkrout-skills/.runme/evals/jobs/2026-06-23__13-08-38/end-to-end__d6P35TT/artifacts/report.md"
+      ],
+      "atif_trajectory": "/Users/sourishkrout/Projects/personal/2026Q2/sourishkrout-skills/.runme/evals/jobs/2026-06-23__13-08-38/end-to-end__d6P35TT/agent/trajectory.json",
+      "reference": null,
+      "mode": "batched"
+    },
+    "judge_output": "{\"score\":5,\"reasoning\":\"The trajectory demonstrates a thorough execution of every phase of the intended workflow. (1) Fixtures: The agent correctly identified the June 24 PT slate, handled the timezone edge case for Colombia vs DR Congo, and confirmed the six Group A/B/C matches. (2) Expert scoreline anchors: Multiple named expert sources were searched and cited\u2014SheKicks, Sportsgambler, TheSportsRush, Racing Post, Squawka, DraftKings Network\u2014with specific correct-score leans attributed to each. (3) Model probabilities: Opta Analyst win-probability figures (41.9%, 65.9%, 68.1%, 81.0%, 47.9%) were cited for five of the six matches; the sixth (South Africa vs Korea Republic) explicitly noted the absence of an Opta article and substituted odds-implied probability as per skill instructions. (4) Market/odds evidence: Sportsbook consensus or market-implied odds were referenced for every match, including fractional odds for South Africa-Korea Republic and DraftKings lines for Czechia-Mexico. (5) Elo/team-strength: The agent fetched eloratings.net's World.tsv directly and extracted specific Elo values (Brazil 1986, Morocco 1866, Switzerland 1885, Mexico 1896, Korea Republic 1771, South Africa 1527, etc.) that are consistent with the published data, then cited them per match. (6) Lineup/injury/context: Raphinha ruled out, Kone injury, Qatar suspensions (Homam El Amin, Assim Madibo), Muharemovic suspension, Dzeko fitness, and Mexico rotation risk were all surfaced. (7) Synthesis: All six matches received explicit scoreline picks with confidence levels, Basis/Risk paragraphs, a Best Leans summary, Traps section, and a Wait For Lineups section\u2014matching the required report structure exactly. No phases were skipped and picks are grounded in the gathered evidence.\"}"
+  }
+}
