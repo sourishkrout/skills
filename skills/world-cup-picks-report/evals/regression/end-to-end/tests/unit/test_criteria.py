@@ -460,6 +460,22 @@ def test_target_slate_coverage_accepts_team_aliases() -> None:
     assert criteria.score_target_slate_coverage(report) == 1.0
 
 
+def test_target_slate_coverage_allows_runtime_date_context() -> None:
+    report = """Report scope: Group-stage Matchday 3, Wednesday, June 24, 2026 in U.S. Pacific time. This is the next full unplayed World Cup slate no earlier than tomorrow from the current runtime date of Tuesday, June 23, 2026 PT.
+
+## Scoreline Picks
+
+### Switzerland vs Canada: 1:1 - Confidence: Low
+### Bosnia-Herzegovina vs Qatar: 2:0 - Confidence: Medium
+### Scotland vs Brazil: 0:2 - Confidence: Medium
+### Morocco vs Haiti: 2:0 - Confidence: High
+### Czechia vs Mexico: 0:1 - Confidence: Medium
+### South Africa vs South Korea: 0:1 - Confidence: Medium
+"""
+
+    assert criteria.score_target_slate_coverage(report) == 1.0
+
+
 def test_target_slate_coverage_penalizes_missing_fixture() -> None:
     report = """Report scope: Wednesday, June 24, 2026 in U.S. Pacific time.
 
@@ -473,6 +489,21 @@ def test_target_slate_coverage_penalizes_missing_fixture() -> None:
 """
 
     assert criteria.score_target_slate_coverage(report) < 1.0
+
+
+def test_target_slate_coverage_runtime_date_context_does_not_mask_missing_fixture() -> None:
+    report = """Report scope: Wednesday, June 24, 2026 in U.S. Pacific time from the current runtime date of Tuesday, June 23, 2026 PT.
+
+## Scoreline Picks
+
+### Switzerland vs Canada: 1:1 - Confidence: Low
+### Bosnia-Herzegovina vs Qatar: 2:0 - Confidence: Medium
+### Scotland vs Brazil: 0:2 - Confidence: Medium
+### Morocco vs Haiti: 2:0 - Confidence: High
+### Czechia vs Mexico: 0:1 - Confidence: Medium
+"""
+
+    assert criteria.score_target_slate_coverage(report) == 0.9167
 
 
 def test_target_slate_coverage_rejects_stale_or_same_day_scope() -> None:

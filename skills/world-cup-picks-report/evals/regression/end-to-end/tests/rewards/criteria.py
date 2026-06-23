@@ -239,7 +239,7 @@ def score_target_slate_coverage(
     slate = resolve_target_slate(schedule_path, as_of_override)
     scope, _ = cut_before_scoreline_picks_section(report)
     scope = scope[:1000]
-    if has_scope_date_before(scope, slate["earliest_date"]):
+    if has_selected_scope_date_before(scope, slate["earliest_date"]):
         return 0.0
 
     report_lower = report.lower()
@@ -254,7 +254,7 @@ def score_target_slate_coverage(
         covered = sum(1 for fixture in fixtures if fixture_mentioned(report_lower, fixture))
         score += 0.50 * (covered / len(fixtures))
 
-    if not has_scope_date_before(scope, slate["date"]):
+    if not has_selected_scope_date_before(scope, slate["date"]):
         score += 0.10
 
     return round(score, 4)
@@ -512,6 +512,58 @@ def has_scope_date_before(text: str, threshold: date) -> bool:
         if parsed is not None and parsed.date() < threshold:
             return True
     return False
+
+
+def has_selected_scope_date_before(text: str, threshold: date) -> bool:
+    for value in selected_scope_dates(text):
+        if value < threshold:
+            return True
+    return False
+
+
+def selected_scope_dates(text: str) -> list[date]:
+    dates: list[date] = []
+    for line in text.splitlines():
+        if not is_scope_line(line):
+            continue
+        for match in DATE_RE.finditer(line):
+            if has_as_of_date_context(line, match.start()):
+                continue
+            parsed = parse_report_date(match.group(0))
+            if parsed is not None:
+                dates.append(parsed.date())
+
+    if dates:
+        return dates
+
+    for match in DATE_RE.finditer(text):
+        if has_as_of_date_context(text, match.start()):
+            continue
+        parsed = parse_report_date(match.group(0))
+        if parsed is not None:
+            dates.append(parsed.date())
+    return dates
+
+
+def is_scope_line(line: str) -> bool:
+    normalized = line.lower()
+    return any(term in normalized for term in ("report scope", "scope:", "slate"))
+
+
+def has_as_of_date_context(text: str, match_start: int) -> bool:
+    prefix = text[max(0, match_start - 100) : match_start].lower()
+    return any(
+        term in prefix
+        for term in (
+            "as of",
+            "current date",
+            "current runtime date",
+            "runtime date",
+            "from the current",
+            "from current",
+            "today is",
+        )
+    )
 
 
 def fixture_mentioned(report_lower: str, fixture: dict) -> bool:
