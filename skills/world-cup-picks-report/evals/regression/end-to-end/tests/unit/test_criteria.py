@@ -346,7 +346,7 @@ Risk: Senegal are stronger than a typical underdog.
 def test_report_date_freshness() -> None:
     fresh = """# World Cup Scoreline Picks
 
-Report scope: Saturday, June 27, 2026 in U.S. Pacific time.
+Report scope: Wednesday, June 24, 2026 in U.S. Pacific time.
 
 ## Scoreline Picks
 
@@ -354,7 +354,7 @@ Report scope: Saturday, June 27, 2026 in U.S. Pacific time.
 Basis: Expert anchor, model, market, and Elo checks.
 Risk: Lineups.
 """
-    stale = fresh.replace("Saturday, June 27, 2026", "Friday, June 26, 2026")
+    stale = fresh.replace("Wednesday, June 24, 2026", "Tuesday, June 23, 2026")
     assert criteria.score_report_date_freshness(fresh)
     assert not criteria.score_report_date_freshness(stale)
 
@@ -364,7 +364,7 @@ def test_resolve_target_slate_uses_next_future_fixture_date() -> None:
 
     assert slate["as_of_date"].isoformat() == "2026-06-23"
     assert slate["earliest_date"].isoformat() == "2026-06-24"
-    assert slate["date"].isoformat() == "2026-06-27"
+    assert slate["date"].isoformat() == "2026-06-24"
     assert len(slate["fixtures"]) == 6
 
 
@@ -412,64 +412,64 @@ def test_resolve_target_slate_raises_without_future_fixtures(tmp_path: Path) -> 
 
 
 def test_target_slate_coverage_full_report() -> None:
-    report = """Report scope: Saturday, June 27, 2026 in U.S. Pacific time.
+    report = """Report scope: Wednesday, June 24, 2026 in U.S. Pacific time.
 
 ## Scoreline Picks
 
-### Panama vs England: 0:3 - Confidence: High
-Basis: Expert anchor.
-Risk: Rotation.
-
-### Croatia vs Ghana: 2:1 - Confidence: Medium
+### Switzerland vs Canada: 1:1 - Confidence: Low
 Basis: Expert anchor.
 Risk: Game state.
 
-### Colombia vs Portugal: 1:2 - Confidence: Medium
-Basis: Expert anchor.
-Risk: Draw.
-
-### DR Congo vs Uzbekistan: 1:0 - Confidence: Low
+### Bosnia-Herzegovina vs Qatar: 2:0 - Confidence: Medium
 Basis: Expert anchor.
 Risk: Volatility.
 
-### Algeria vs Austria: 0:1 - Confidence: Medium
+### Scotland vs Brazil: 0:2 - Confidence: Medium
+Basis: Expert anchor.
+Risk: Rotation.
+
+### Morocco vs Haiti: 2:0 - Confidence: High
+Basis: Expert anchor.
+Risk: Rotation.
+
+### Czechia vs Mexico: 0:1 - Confidence: Medium
 Basis: Expert anchor.
 Risk: Draw.
 
-### Jordan vs Argentina: 0:2 - Confidence: High
+### South Africa vs South Korea: 0:1 - Confidence: Medium
 Basis: Expert anchor.
-Risk: Rotation.
+Risk: Suspensions.
 """
 
     assert criteria.score_target_slate_coverage(report) == 1.0
 
 
 def test_target_slate_coverage_accepts_team_aliases() -> None:
-    report = """Report scope: Saturday, June 27, 2026 in U.S. Pacific time.
+    report = """Report scope: Wednesday, June 24, 2026 in U.S. Pacific time.
 
 ## Scoreline Picks
 
-### Panama vs England: 0:3 - Confidence: High
-### Croatia vs Ghana: 2:1 - Confidence: Medium
-### Colombia vs Portugal: 1:2 - Confidence: Medium
-### Congo DR vs Uzbekistan: 1:0 - Confidence: Low
-### Algeria vs Austria: 0:1 - Confidence: Medium
-### Jordan vs Argentina: 0:2 - Confidence: High
+### Switzerland vs Canada: 1:1 - Confidence: Low
+### Bosnia and Herzegovina vs Qatar: 2:0 - Confidence: Medium
+### Scotland vs Brazil: 0:2 - Confidence: Medium
+### Morocco vs Haiti: 2:0 - Confidence: High
+### Czech Republic vs Mexico: 0:1 - Confidence: Medium
+### South Africa vs Korea Republic: 0:1 - Confidence: Medium
 """
 
     assert criteria.score_target_slate_coverage(report) == 1.0
 
 
 def test_target_slate_coverage_penalizes_missing_fixture() -> None:
-    report = """Report scope: Saturday, June 27, 2026 in U.S. Pacific time.
+    report = """Report scope: Wednesday, June 24, 2026 in U.S. Pacific time.
 
 ## Scoreline Picks
 
-### Panama vs England: 0:3 - Confidence: High
-### Croatia vs Ghana: 2:1 - Confidence: Medium
-### Colombia vs Portugal: 1:2 - Confidence: Medium
-### DR Congo vs Uzbekistan: 1:0 - Confidence: Low
-### Algeria vs Austria: 0:1 - Confidence: Medium
+### Switzerland vs Canada: 1:1 - Confidence: Low
+### Bosnia-Herzegovina vs Qatar: 2:0 - Confidence: Medium
+### Scotland vs Brazil: 0:2 - Confidence: Medium
+### Morocco vs Haiti: 2:0 - Confidence: High
+### Czechia vs Mexico: 0:1 - Confidence: Medium
 """
 
     assert criteria.score_target_slate_coverage(report) < 1.0
@@ -487,16 +487,16 @@ def test_target_slate_coverage_rejects_stale_or_same_day_scope() -> None:
 
 
 def test_target_slate_coverage_penalizes_missing_pacific_framing() -> None:
-    report = """Report scope: Saturday, June 27, 2026.
+    report = """Report scope: Wednesday, June 24, 2026.
 
 ## Scoreline Picks
 
-### Panama vs England: 0:3 - Confidence: High
-### Croatia vs Ghana: 2:1 - Confidence: Medium
-### Colombia vs Portugal: 1:2 - Confidence: Medium
-### DR Congo vs Uzbekistan: 1:0 - Confidence: Low
-### Algeria vs Austria: 0:1 - Confidence: Medium
-### Jordan vs Argentina: 0:2 - Confidence: High
+### Switzerland vs Canada: 1:1 - Confidence: Low
+### Bosnia-Herzegovina vs Qatar: 2:0 - Confidence: Medium
+### Scotland vs Brazil: 0:2 - Confidence: Medium
+### Morocco vs Haiti: 2:0 - Confidence: High
+### Czechia vs Mexico: 0:1 - Confidence: Medium
+### South Africa vs South Korea: 0:1 - Confidence: Medium
 """
 
     assert criteria.score_target_slate_coverage(report) == 0.85

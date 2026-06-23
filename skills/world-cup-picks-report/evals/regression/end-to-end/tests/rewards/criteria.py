@@ -56,7 +56,10 @@ GENERIC_ANCHOR_TERMS = (
     "prediction",
 )
 TEAM_ALIASES = {
+    "bosnia-herzegovina": ("bosnia-herzegovina", "bosnia and herzegovina", "bosnia"),
+    "czechia": ("czechia", "czech republic"),
     "dr congo": ("dr congo", "congo dr", "d.r. congo", "democratic republic of congo"),
+    "south korea": ("south korea", "korea republic"),
 }
 
 
