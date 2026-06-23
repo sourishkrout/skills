@@ -87,7 +87,18 @@ def citation_proximity(workspace: Path) -> float:
 
 
 @criterion(shared=True)
+def citation_proximity_by_match(workspace: Path) -> float:
+    report = read_report()
+    return score_citation_proximity(report, match_blocks(report))
+
+
+@criterion(shared=True)
 def scoreline_format(workspace: Path) -> float:
+    return score_scoreline_format(match_blocks(read_report()))
+
+
+@criterion(shared=True)
+def parsed_scoreline_format(workspace: Path) -> float:
     return score_scoreline_format(match_blocks(read_report()))
 
 
@@ -97,7 +108,53 @@ def guardrails(workspace: Path) -> float:
 
 
 @criterion(shared=True)
+def unnegated_guaranteed_absent(workspace: Path) -> float:
+    report = read_report()
+    if not report.strip():
+        return 0.0
+    return score_unnegated_guaranteed_absent(report)
+
+
+@criterion(shared=True)
 def target_slate_coverage(workspace: Path) -> float:
+    return score_target_slate_coverage(read_report())
+
+
+@criterion(shared=True)
+def target_scope_date(workspace: Path) -> float:
+    report = read_report()
+    if not report.strip():
+        return 0.0
+    slate = resolve_target_slate()
+    scope, _ = cut_before_scoreline_picks_section(report)
+    scope = scope[:1000]
+    if has_selected_scope_date_before(scope, slate["earliest_date"]):
+        return 0.0
+    return 1.0 if target_date_mentioned(scope, slate["date"]) else 0.0
+
+
+@criterion(shared=True)
+def target_pacific_framing(workspace: Path) -> float:
+    report = read_report()
+    scope, _ = cut_before_scoreline_picks_section(report)
+    return 1.0 if PT_RE.search(scope[:1000]) or PT_RE.search(report[:2000]) else 0.0
+
+
+@criterion(shared=True)
+def target_fixture_mentions(workspace: Path) -> float:
+    report = read_report()
+    if not report.strip():
+        return 0.0
+    fixtures = resolve_target_slate()["fixtures"]
+    if not fixtures:
+        return 0.0
+    report_lower = report.lower()
+    covered = sum(1 for fixture in fixtures if fixture_mentioned(report_lower, fixture))
+    return round(covered / len(fixtures), 4)
+
+
+@criterion(shared=True)
+def target_slate_scored_coverage(workspace: Path) -> float:
     return score_target_slate_coverage(read_report())
 
 
@@ -219,13 +276,23 @@ def score_scoreline_format(blocks: list[str]) -> float:
 
 
 def score_guardrails(report: str) -> float:
+    if not score_banned_wagering_terms_absent(report):
+        return 0.0
+    if not score_unnegated_guaranteed_absent(report):
+        return 0.0
+    return 1.0
+
+
+def score_banned_wagering_terms_absent(report: str) -> float:
     lower = report.lower()
     for phrase in ("lock of the day", "bankroll", "bet sizing", "stake ", "wager ", "must bet"):
         if phrase in lower:
             return 0.0
-    if has_unnegated_guaranteed(lower):
-        return 0.0
     return 1.0
+
+
+def score_unnegated_guaranteed_absent(report: str) -> float:
+    return 0.0 if has_unnegated_guaranteed(report.lower()) else 1.0
 
 
 def score_target_slate_coverage(
