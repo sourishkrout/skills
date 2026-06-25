@@ -1,0 +1,294 @@
+{
+  "artifact_written": {
+    "score": 1.0,
+    "criteria": [
+      {
+        "name": "report_file_exists",
+        "value": 1.0,
+        "raw": true,
+        "weight": 1.0,
+        "description": "Check that the command `test -f /Users/sourishkrout/Projects/personal/2026Q2/sourishkrout-skills/.runme/evals/jobs/2026-06-25__11-00-00/end-to-end__nzaF2iD/artifacts/report.md` exits with code 0"
+      },
+      {
+        "name": "report_file_nonempty",
+        "value": 1.0,
+        "raw": true,
+        "weight": 2.0,
+        "description": "Check that the command `test -s /Users/sourishkrout/Projects/personal/2026Q2/sourishkrout-skills/.runme/evals/jobs/2026-06-25__11-00-00/end-to-end__nzaF2iD/artifacts/report.md` exits with code 0"
+      }
+    ],
+    "kind": "programmatic"
+  },
+  "citation_proximity": {
+    "score": 1.0,
+    "criteria": [
+      {
+        "name": "report_has_url",
+        "value": 1.0,
+        "raw": true,
+        "weight": 0.0,
+        "description": "Check that the command `grep -Eq 'https?://' /Users/sourishkrout/Projects/personal/2026Q2/sourishkrout-skills/.runme/evals/jobs/2026-06-25__11-00-00/end-to-end__nzaF2iD/artifacts/report.md` exits with code 0"
+      },
+      {
+        "name": "report_has_source_terms",
+        "value": 1.0,
+        "raw": true,
+        "weight": 0.0,
+        "description": "Check that the command `grep -Eiq 'opta|dimers|football whispers|espn|elo|prediction|preview|correct.score' /Users/sourishkrout/Projects/personal/2026Q2/sourishkrout-skills/.runme/evals/jobs/2026-06-25__11-00-00/end-to-end__nzaF2iD/artifacts/report.md` exits with code 0"
+      },
+      {
+        "name": "match_blocks_have_traceable_citations",
+        "value": 1.0,
+        "raw": 1.0,
+        "weight": 1.0,
+        "description": "citation_proximity_by_match"
+      }
+    ],
+    "kind": "programmatic"
+  },
+  "expert_anchor_coverage": {
+    "score": 1.0,
+    "criteria": [
+      {
+        "name": "rate_whether_every_fixture_in_the_report",
+        "value": 1.0,
+        "raw": 5,
+        "weight": 1.0,
+        "description": "Rate whether every fixture in the report is grounded in a credible expert, prediction, preview, or correct-score source. Give full credit when each fixture has a clear anchor, or when the report honestly says explicit expert scoreline data is unavailable and uses model or market evidence as a fallback. Penalize missing fixture anchors, vague unsupported expert claims, or anchors only listed in sources without being tied to a fixture.",
+        "reasoning": "Every one of the six fixtures has a clear, multi-layered anchor tied directly to it in the body of the report. Each fixture receives: (1) a specific Opta/theanalyst win-probability breakdown with numeric figures (e.g., Senegal 77.2%, Belgium 80.3%), (2) ESPN/DraftKings moneyline and spread figures, (3) an explicit Sports Mole exact-scoreline prediction named per fixture, and (4) World Football Elo rank and rating figures for both teams. Egypt vs Iran adds a Squawka correct-score lean. The sources section reinforces this with per-fixture URLs for each source type, and the reasoning in each pick explicitly ties the scoreline choice to those anchors rather than leaving them as floating citations. The one deviation\u2014going above Sports Mole's 1-2 for New Zealand vs Belgium to 1-3\u2014is openly explained and backed by the model and market figures, which is transparent and appropriate. No fixture is left vague or relying solely on generic claims; every anchor is specific, numeric, and matched to a named game."
+      }
+    ],
+    "kind": "llm",
+    "judge": {
+      "model": "anthropic/claude-sonnet-4-6",
+      "reasoning_effort": "medium",
+      "timeout": 300,
+      "files": [
+        "/Users/sourishkrout/Projects/personal/2026Q2/sourishkrout-skills/.runme/evals/jobs/2026-06-25__11-00-00/end-to-end__nzaF2iD/artifacts/report.md"
+      ],
+      "atif_trajectory": null,
+      "reference": null,
+      "mode": "batched"
+    },
+    "judge_output": "{\"score\":5,\"reasoning\":\"Every one of the six fixtures has a clear, multi-layered anchor tied directly to it in the body of the report. Each fixture receives: (1) a specific Opta/theanalyst win-probability breakdown with numeric figures (e.g., Senegal 77.2%, Belgium 80.3%), (2) ESPN/DraftKings moneyline and spread figures, (3) an explicit Sports Mole exact-scoreline prediction named per fixture, and (4) World Football Elo rank and rating figures for both teams. Egypt vs Iran adds a Squawka correct-score lean. The sources section reinforces this with per-fixture URLs for each source type, and the reasoning in each pick explicitly ties the scoreline choice to those anchors rather than leaving them as floating citations. The one deviation\u2014going above Sports Mole's 1-2 for New Zealand vs Belgium to 1-3\u2014is openly explained and backed by the model and market figures, which is transparent and appropriate. No fixture is left vague or relying solely on generic claims; every anchor is specific, numeric, and matched to a named game.\"}"
+  },
+  "expert_anchor_usage": {
+    "score": 0.75,
+    "criteria": [
+      {
+        "name": "rate_whether_each_match_pick_uses_at_lea",
+        "value": 0.75,
+        "raw": 4,
+        "weight": 1.0,
+        "description": "Rate whether each match pick uses at least one expert prediction, correct-score source, preview, or equivalent pick as a visible source for the chosen scoreline. Do not require exact phrases like 'expert anchor'. Full credit is appropriate when every match block names or cites a relevant source and connects it to the pick, even if other sources disagree or predict a different score. Do not penalize unresolved disagreement between credible sources; disagreement is acceptable as long as the report shows source presence and uses at least one source for each pick. Penalize only when match blocks lack a visible expert/prediction/preview/correct-score source, cite sources without tying them to the pick, or rely only on unsupported generic model/market language.",
+        "reasoning": "Five of the six match blocks each carry an explicit Sports Mole exact-score anchor that directly matches the chosen scoreline (Senegal 3-1, Norway 1-2 France, Cape Verde 2-1, Uruguay 1-2 Spain, Egypt 2-1 with Squawka also cited), and each anchor is clearly named and tied to the pick in the text. The sixth block, New Zealand vs Belgium 1:3, is the only one where no named expert correct-score source aligns with the chosen scoreline. Sports Mole is cited but for a different result (1-2), and the report explicitly states it is 'moving above Sports Mole's cautious 1-2 anchor' based on Opta win-probability and DraftKings spread data. Opta previews are linked in the sources section and Opta is referenced in the body, so there is an expert-preview source present, but it is used only for a win probability (80.3%), not a named exact-score prediction matching 1:3. The criteria require at least one source connected to the chosen scoreline for each pick; the Belgium pick relies on model/market inference rather than an explicit expert scoreline of 1-3, which is a minor but real gap. Everything else is well-sourced and tightly connected, so a score of 4 is appropriate."
+      }
+    ],
+    "kind": "llm",
+    "judge": {
+      "model": "anthropic/claude-sonnet-4-6",
+      "reasoning_effort": "medium",
+      "timeout": 300,
+      "files": [
+        "/Users/sourishkrout/Projects/personal/2026Q2/sourishkrout-skills/.runme/evals/jobs/2026-06-25__11-00-00/end-to-end__nzaF2iD/artifacts/report.md"
+      ],
+      "atif_trajectory": null,
+      "reference": null,
+      "mode": "batched"
+    },
+    "judge_output": "{\"score\":4,\"reasoning\":\"Five of the six match blocks each carry an explicit Sports Mole exact-score anchor that directly matches the chosen scoreline (Senegal 3-1, Norway 1-2 France, Cape Verde 2-1, Uruguay 1-2 Spain, Egypt 2-1 with Squawka also cited), and each anchor is clearly named and tied to the pick in the text. The sixth block, New Zealand vs Belgium 1:3, is the only one where no named expert correct-score source aligns with the chosen scoreline. Sports Mole is cited but for a different result (1-2), and the report explicitly states it is 'moving above Sports Mole's cautious 1-2 anchor' based on Opta win-probability and DraftKings spread data. Opta previews are linked in the sources section and Opta is referenced in the body, so there is an expert-preview source present, but it is used only for a win probability (80.3%), not a named exact-score prediction matching 1:3. The criteria require at least one source connected to the chosen scoreline for each pick; the Belgium pick relies on model/market inference rather than an explicit expert scoreline of 1-3, which is a minor but real gap. Everything else is well-sourced and tightly connected, so a score of 4 is appropriate.\"}"
+  },
+  "guardrails": {
+    "score": 1.0,
+    "criteria": [
+      {
+        "name": "banned_wagering_terms_absent",
+        "value": 1.0,
+        "raw": true,
+        "weight": 1.0,
+        "description": "Check that the command `test -f /Users/sourishkrout/Projects/personal/2026Q2/sourishkrout-skills/.runme/evals/jobs/2026-06-25__11-00-00/end-to-end__nzaF2iD/artifacts/report.md && ! grep -Eiq 'lock of the day|bankroll|bet sizing|stake |wager |must bet' /Users/sourishkrout/Projects/personal/2026Q2/sourishkrout-skills/.runme/evals/jobs/2026-06-25__11-00-00/end-to-end__nzaF2iD/artifacts/report.md` exits with code 0"
+      },
+      {
+        "name": "unnegated_guaranteed_absent",
+        "value": 1.0,
+        "raw": 1.0,
+        "weight": 1.0,
+        "description": "unnegated_guaranteed_absent"
+      }
+    ],
+    "kind": "programmatic"
+  },
+  "report_completeness": {
+    "score": 1.0,
+    "criteria": [
+      {
+        "name": "rate_whether_the_final_report_is_complet",
+        "value": 1.0,
+        "raw": 5,
+        "weight": 1.0,
+        "description": "Rate whether the final report is complete for a Discord World Cup scoreline report. It should include scope/date for the requested future U.S. Pacific-time slate, the slate's fixtures, exact home:away scorelines, confidence levels, basis notes, risk notes, best scoreline leans, lineup or late-news caveats, and sources. Penalize incomplete slate coverage, stale date framing, missing risk/basis/confidence, or missing source context. Deterministic date and fixture correctness are checked separately, so focus on report completeness and usability.",
+        "reasoning": "The report is exceptionally complete across every required dimension. Scope and date framing are explicit (FIFA World Cup 2026, June 26 2026, PDT, Matchday 3 group stage), including the three kickoff windows. All six slate fixtures are covered with exact home:away scorelines (e.g., Senegal 3:1 Iraq, Norway 1:2 France). Each fixture has a clearly labeled confidence level (Medium or Low), a detailed basis note citing Opta win probabilities, ESPN/DraftKings market odds, Sports Mole expert anchors, and Elo rankings, plus a dedicated risk note covering team context, rotation, injury, and suspension concerns. A best scoreline leans section highlights the top four plays with reasoning. A traps/upsets section flags dangerous assumptions. A wait-for-lineups section itemizes specific player fitness and rotation checks for four matches. Sources are comprehensive and hyperlinked: FIFA official schedule, ESPN odds pages per match, Opta/TheAnalyst previews per match, Sports Mole previews per match, Squawka, Elo ratings, and specific injury/travel news articles. No fixture is missing coverage, the date framing is accurate and forward-looking, and all report components requested are present and substantive."
+      }
+    ],
+    "kind": "llm",
+    "judge": {
+      "model": "anthropic/claude-sonnet-4-6",
+      "reasoning_effort": "medium",
+      "timeout": 300,
+      "files": [
+        "/Users/sourishkrout/Projects/personal/2026Q2/sourishkrout-skills/.runme/evals/jobs/2026-06-25__11-00-00/end-to-end__nzaF2iD/artifacts/report.md"
+      ],
+      "atif_trajectory": null,
+      "reference": null,
+      "mode": "batched"
+    },
+    "judge_output": "{\"score\":5,\"reasoning\":\"The report is exceptionally complete across every required dimension. Scope and date framing are explicit (FIFA World Cup 2026, June 26 2026, PDT, Matchday 3 group stage), including the three kickoff windows. All six slate fixtures are covered with exact home:away scorelines (e.g., Senegal 3:1 Iraq, Norway 1:2 France). Each fixture has a clearly labeled confidence level (Medium or Low), a detailed basis note citing Opta win probabilities, ESPN/DraftKings market odds, Sports Mole expert anchors, and Elo rankings, plus a dedicated risk note covering team context, rotation, injury, and suspension concerns. A best scoreline leans section highlights the top four plays with reasoning. A traps/upsets section flags dangerous assumptions. A wait-for-lineups section itemizes specific player fitness and rotation checks for four matches. Sources are comprehensive and hyperlinked: FIFA official schedule, ESPN odds pages per match, Opta/TheAnalyst previews per match, Sports Mole previews per match, Squawka, Elo ratings, and specific injury/travel news articles. No fixture is missing coverage, the date framing is accurate and forward-looking, and all report components requested are present and substantive.\"}"
+  },
+  "scoreline_format": {
+    "score": 1.0,
+    "criteria": [
+      {
+        "name": "scoreline_picks_section_present",
+        "value": 1.0,
+        "raw": true,
+        "weight": 1.0,
+        "description": "Check that the command `grep -Eiq '^#{0,6}[[:space:]]*Scoreline Picks[[:space:]]*$|^Scoreline Picks[[:space:]]*$' /Users/sourishkrout/Projects/personal/2026Q2/sourishkrout-skills/.runme/evals/jobs/2026-06-25__11-00-00/end-to-end__nzaF2iD/artifacts/report.md` exits with code 0"
+      },
+      {
+        "name": "scoreline_pattern_present",
+        "value": 1.0,
+        "raw": true,
+        "weight": 1.0,
+        "description": "Check that the command `grep -Eq '[0-9]+[[:space:]]*:[[:space:]]*[0-9]+' /Users/sourishkrout/Projects/personal/2026Q2/sourishkrout-skills/.runme/evals/jobs/2026-06-25__11-00-00/end-to-end__nzaF2iD/artifacts/report.md` exits with code 0"
+      },
+      {
+        "name": "match_pick_headings_include_scorelines",
+        "value": 1.0,
+        "raw": 1.0,
+        "weight": 3.0,
+        "description": "parsed_scoreline_format"
+      }
+    ],
+    "kind": "programmatic"
+  },
+  "skill_activation_evidence": {
+    "score": 1.0,
+    "criteria": [
+      {
+        "name": "activation_log_present",
+        "value": 1.0,
+        "raw": true,
+        "weight": 0.0,
+        "description": "Check that the command `test -s /Users/sourishkrout/Projects/personal/2026Q2/sourishkrout-skills/.runme/evals/jobs/2026-06-25__11-00-00/end-to-end__nzaF2iD/agent/trajectory.json || test -s /Users/sourishkrout/Projects/personal/2026Q2/sourishkrout-skills/.runme/evals/jobs/2026-06-25__11-00-00/end-to-end__nzaF2iD/agent/oracle.txt` exits with code 0"
+      },
+      {
+        "name": "read_tool_used",
+        "value": 0.0,
+        "raw": false,
+        "weight": 0.0,
+        "description": "Agent used tool 'Read' (trajectory: /Users/sourishkrout/Projects/personal/2026Q2/sourishkrout-skills/.runme/evals/jobs/2026-06-25__11-00-00/end-to-end__nzaF2iD/agent/trajectory.json)"
+      },
+      {
+        "name": "skill_tool_used",
+        "value": 0.0,
+        "raw": false,
+        "weight": 0.0,
+        "description": "Agent used tool 'Skill' (trajectory: /Users/sourishkrout/Projects/personal/2026Q2/sourishkrout-skills/.runme/evals/jobs/2026-06-25__11-00-00/end-to-end__nzaF2iD/agent/trajectory.json)"
+      },
+      {
+        "name": "world_cup_skill_activation_detected",
+        "value": 1.0,
+        "raw": 1.0,
+        "weight": 1.0,
+        "description": "skill_activation_evidence"
+      }
+    ],
+    "kind": "programmatic"
+  },
+  "source_quality": {
+    "score": 1.0,
+    "criteria": [
+      {
+        "name": "rate_the_quality_and_coverage_of_sources",
+        "value": 1.0,
+        "raw": 5,
+        "weight": 1.0,
+        "description": "Rate the quality and coverage of sources used by the report. A strong report cites or clearly references official fixture information, expert previews or picks, model/probability sources such as Opta or equivalent, market/odds evidence, Elo or team-strength ratings, and current lineup/injury/team-news context. Penalize thin sourcing, missing source categories, untraceable claims, or reliance on low-quality/generic sources.",
+        "reasoning": "The report covers all major source categories required for a high-quality betting/prediction report. Official fixture information is cited (FIFA match schedule). Market and odds evidence is sourced per match via ESPN/DraftKings with specific lines (-450, -160, -200, -650, etc.) and spreads. Model/probability data comes from Opta via The Analyst with precise win-probability figures for every single match (e.g., 77.2%, 55.4%, 40.8%, 62.2%, 42.9%, 80.3%). Expert scoreline anchors are provided by Sports Mole with match-specific preview URLs for all six games, plus Squawka for the Egypt-Iran match. Elo ratings are cited from World Football Elo Ratings with specific numerical rankings and scores for each team. Lineup and injury context is grounded in named, traceable sources (Barca Blaugranes for Araujo, the Guardian for Iran travel logistics). Each source category is represented with specific, verifiable URLs rather than generic references. The only marginal weakness is that Sports Mole is essentially the sole expert-pick source for five of the six matches, with no second independent expert or tipster outlet for cross-checking, and no second statistical model (e.g., FiveThirtyEight or a bookmaker's own model) beyond Opta. These gaps are minor given the otherwise exhaustive and well-attributed sourcing across all critical dimensions."
+      }
+    ],
+    "kind": "llm",
+    "judge": {
+      "model": "anthropic/claude-sonnet-4-6",
+      "reasoning_effort": "medium",
+      "timeout": 300,
+      "files": [
+        "/Users/sourishkrout/Projects/personal/2026Q2/sourishkrout-skills/.runme/evals/jobs/2026-06-25__11-00-00/end-to-end__nzaF2iD/artifacts/report.md"
+      ],
+      "atif_trajectory": null,
+      "reference": null,
+      "mode": "batched"
+    },
+    "judge_output": "{\"score\":5,\"reasoning\":\"The report covers all major source categories required for a high-quality betting/prediction report. Official fixture information is cited (FIFA match schedule). Market and odds evidence is sourced per match via ESPN/DraftKings with specific lines (-450, -160, -200, -650, etc.) and spreads. Model/probability data comes from Opta via The Analyst with precise win-probability figures for every single match (e.g., 77.2%, 55.4%, 40.8%, 62.2%, 42.9%, 80.3%). Expert scoreline anchors are provided by Sports Mole with match-specific preview URLs for all six games, plus Squawka for the Egypt-Iran match. Elo ratings are cited from World Football Elo Ratings with specific numerical rankings and scores for each team. Lineup and injury context is grounded in named, traceable sources (Barca Blaugranes for Araujo, the Guardian for Iran travel logistics). Each source category is represented with specific, verifiable URLs rather than generic references. The only marginal weakness is that Sports Mole is essentially the sole expert-pick source for five of the six matches, with no second independent expert or tipster outlet for cross-checking, and no second statistical model (e.g., FiveThirtyEight or a bookmaker's own model) beyond Opta. These gaps are minor given the otherwise exhaustive and well-attributed sourcing across all critical dimensions.\"}"
+  },
+  "target_slate_coverage": {
+    "score": 0.25,
+    "criteria": [
+      {
+        "name": "target_scope_date_present",
+        "value": 0.0,
+        "raw": 0.0,
+        "weight": 0.0,
+        "description": "target_scope_date"
+      },
+      {
+        "name": "target_pacific_framing_present",
+        "value": 1.0,
+        "raw": 1.0,
+        "weight": 0.0,
+        "description": "target_pacific_framing"
+      },
+      {
+        "name": "target_fixture_mentions",
+        "value": 0.0,
+        "raw": 0.0,
+        "weight": 0.0,
+        "description": "target_fixture_mentions"
+      },
+      {
+        "name": "target_slate_weighted_coverage",
+        "value": 0.25,
+        "raw": 0.25,
+        "weight": 1.0,
+        "description": "target_slate_scored_coverage"
+      }
+    ],
+    "kind": "programmatic"
+  },
+  "workflow_sequence_evidence": {
+    "score": 1.0,
+    "criteria": [
+      {
+        "name": "rate_whether_the_report_and_available_tr",
+        "value": 1.0,
+        "raw": 5,
+        "weight": 1.0,
+        "description": "Rate whether the report and available trajectory show the intended workflow: identify the relevant FIFA fixtures for the date, collect expert scoreline or prediction anchors, compare with model probabilities, compare with market or odds evidence, check Elo or team-strength context, account for lineup/injury/current-match context, and synthesize final scoreline picks. Give credit for evidence in either the final report or trajectory. Penalize skipped phases or final picks that appear unsupported by the workflow.",
+        "reasoning": "The agent completed every phase of the intended workflow with strong evidence in both the trajectory and the final report. (1) Fixture identification: the agent confirmed all six June 26 PT matches via ESPN's event API, verifying home/away order for each game. (2) Expert scoreline anchors: Sports Mole previews were searched and referenced for all six fixtures, with specific scoreline anchors cited in each pick's Basis line. (3) Model probabilities: Opta/TheAnalyst probabilities were fetched directly from the live article pages for all six matches, with exact percentages (e.g. France 55.4%, Senegal 77.2%, Belgium 80.3%) flowing into the report. (4) Market/odds comparison: the agent pulled DraftKings moneylines, spreads, and totals from ESPN's API for every game, and the report explicitly compares model and market where they agree or diverge (e.g. Norway/France market more aggressive than Opta, Egypt/Iran market tighter than model). (5) Elo/team-strength: the agent pulled live Elo TSV data from eloratings.net, extracted ranks and ratings for all 12 teams, and used specific numbers in every pick (e.g. Spain 2nd at 2134, Uruguay 20th at 1851). (6) Lineup/injury context: Uruguay injury news was browsed, the report notes Araujo and De Arrascaeta out, Mendy absent for Senegal, Doku/Ngoy status flagged for Belgium, and Iran travel constraints acknowledged. (7) Synthesis: six picks with confidence levels, Basis, and Risk are produced, followed by Best Leans, Traps, and Wait for Lineups sections. The output is fully sourced with working links. No phases were skipped and no picks appear unsupported."
+      }
+    ],
+    "kind": "llm",
+    "judge": {
+      "model": "anthropic/claude-sonnet-4-6",
+      "reasoning_effort": "medium",
+      "timeout": 300,
+      "files": [
+        "/Users/sourishkrout/Projects/personal/2026Q2/sourishkrout-skills/.runme/evals/jobs/2026-06-25__11-00-00/end-to-end__nzaF2iD/artifacts/report.md"
+      ],
+      "atif_trajectory": "/Users/sourishkrout/Projects/personal/2026Q2/sourishkrout-skills/.runme/evals/jobs/2026-06-25__11-00-00/end-to-end__nzaF2iD/agent/trajectory.json",
+      "reference": null,
+      "mode": "batched"
+    },
+    "judge_output": "{\"score\":5,\"reasoning\":\"The agent completed every phase of the intended workflow with strong evidence in both the trajectory and the final report. (1) Fixture identification: the agent confirmed all six June 26 PT matches via ESPN's event API, verifying home/away order for each game. (2) Expert scoreline anchors: Sports Mole previews were searched and referenced for all six fixtures, with specific scoreline anchors cited in each pick's Basis line. (3) Model probabilities: Opta/TheAnalyst probabilities were fetched directly from the live article pages for all six matches, with exact percentages (e.g. France 55.4%, Senegal 77.2%, Belgium 80.3%) flowing into the report. (4) Market/odds comparison: the agent pulled DraftKings moneylines, spreads, and totals from ESPN's API for every game, and the report explicitly compares model and market where they agree or diverge (e.g. Norway/France market more aggressive than Opta, Egypt/Iran market tighter than model). (5) Elo/team-strength: the agent pulled live Elo TSV data from eloratings.net, extracted ranks and ratings for all 12 teams, and used specific numbers in every pick (e.g. Spain 2nd at 2134, Uruguay 20th at 1851). (6) Lineup/injury context: Uruguay injury news was browsed, the report notes Araujo and De Arrascaeta out, Mendy absent for Senegal, Doku/Ngoy status flagged for Belgium, and Iran travel constraints acknowledged. (7) Synthesis: six picks with confidence levels, Basis, and Risk are produced, followed by Best Leans, Traps, and Wait for Lineups sections. The output is fully sourced with working links. No phases were skipped and no picks appear unsupported.\"}"
+  }
+}

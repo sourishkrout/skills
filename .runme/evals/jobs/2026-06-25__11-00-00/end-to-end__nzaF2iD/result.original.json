@@ -1,0 +1,121 @@
+{
+    "id": "8056a595-ec79-499f-9e9a-3f5859fb7bcd",
+    "task_name": "sourishkrout/skills_world-cup-picks-report_end-to-end",
+    "trial_name": "end-to-end__nzaF2iD",
+    "trial_uri": "file:///Users/sourishkrout/Projects/personal/2026Q2/sourishkrout-skills/.runme/evals/jobs/2026-06-25__11-00-00/end-to-end__nzaF2iD",
+    "task_id": {
+        "path": "skills/world-cup-picks-report/evals/regression/end-to-end"
+    },
+    "source": "regression",
+    "task_checksum": "36204c895f1dfb297afe62cb63e8ea34517db38f0425b20233749c8639e2a40a",
+    "config": {
+        "task": {
+            "path": "skills/world-cup-picks-report/evals/regression/end-to-end",
+            "git_url": null,
+            "git_commit_id": null,
+            "name": null,
+            "ref": null,
+            "overwrite": false,
+            "download_dir": null,
+            "source": "regression"
+        },
+        "trial_name": "end-to-end__nzaF2iD",
+        "trials_dir": ".runme/evals/jobs/2026-06-25__11-00-00",
+        "timeout_multiplier": 1.0,
+        "agent_timeout_multiplier": null,
+        "verifier_timeout_multiplier": null,
+        "agent_setup_timeout_multiplier": null,
+        "environment_build_timeout_multiplier": null,
+        "agent": {
+            "name": null,
+            "import_path": "runme_harbor.runme_agents:RunmeCodex",
+            "model_name": null,
+            "skills": [],
+            "override_timeout_sec": null,
+            "override_setup_timeout_sec": null,
+            "max_timeout_sec": null,
+            "extra_allowed_hosts": [],
+            "kwargs": {
+                "reasoning_effort": "xhigh"
+            },
+            "env": {},
+            "mcp_servers": []
+        },
+        "environment": {
+            "type": null,
+            "import_path": "runme_harbor.environment:RunmeEnvironment",
+            "force_build": false,
+            "delete": true,
+            "cpu_enforcement_policy": "auto",
+            "memory_enforcement_policy": "auto",
+            "override_cpus": null,
+            "override_memory_mb": null,
+            "override_storage_mb": null,
+            "override_gpus": null,
+            "override_tpu": null,
+            "mounts": null,
+            "extra_docker_compose": [],
+            "env": {},
+            "kwargs": {},
+            "extra_allowed_hosts": []
+        },
+        "verifier": {
+            "override_timeout_sec": null,
+            "max_timeout_sec": null,
+            "env": {},
+            "disable": false
+        },
+        "artifacts": [],
+        "extra_instruction_paths": [],
+        "job_id": "a3e11f2c-ae46-4167-98e9-3daf07bd8c87"
+    },
+    "agent_info": {
+        "name": "runme-codex",
+        "version": "unknown",
+        "model_info": null
+    },
+    "agent_result": {
+        "n_input_tokens": 2765248,
+        "n_cache_tokens": 2408960,
+        "n_output_tokens": 14877,
+        "cost_usd": null,
+        "rollout_details": null,
+        "metadata": null
+    },
+    "verifier_result": {
+        "rewards": {
+            "artifact_written": 1.0,
+            "citation_proximity": 1.0,
+            "expert_anchor_coverage": 1.0,
+            "expert_anchor_usage": 0.75,
+            "guardrails": 1.0,
+            "report_completeness": 1.0,
+            "scoreline_format": 1.0,
+            "skill_activation_evidence": 1.0,
+            "source_quality": 1.0,
+            "target_slate_coverage": 0.25,
+            "workflow_sequence_evidence": 1.0,
+            "reward": 0.9091
+        }
+    },
+    "exception_info": null,
+    "started_at": "2026-06-25T18:00:00.678316Z",
+    "finished_at": "2026-06-25T18:10:47.852845Z",
+    "environment_setup": {
+        "started_at": "2026-06-25T18:00:00.710185Z",
+        "finished_at": "2026-06-25T18:00:00.785293Z"
+    },
+    "agent_setup": {
+        "started_at": "2026-06-25T18:00:00.785489Z",
+        "finished_at": "2026-06-25T18:00:00.785596Z"
+    },
+    "agent_execution": {
+        "started_at": "2026-06-25T18:00:00.785688Z",
+        "finished_at": "2026-06-25T18:10:10.063490Z"
+    },
+    "verifier": {
+        "started_at": "2026-06-25T18:10:10.063913Z",
+        "finished_at": "2026-06-25T18:10:47.845193Z"
+    },
+    "step_results": null
+}
