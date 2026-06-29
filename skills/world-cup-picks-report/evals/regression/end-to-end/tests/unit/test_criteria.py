@@ -601,6 +601,22 @@ def test_lineup_status_accepts_material_pending_lineups() -> None:
     assert criteria.score_lineup_status_actionable(report) == 1.0
 
 
+def test_lineup_status_accepts_future_unavailable_lineups_with_material_checks() -> None:
+    report = """## Lineup Status
+Projected-lineup and team-news context incorporated; confirmed starting XIs are not available this far out. Material checks: William Saliba's France return/status, Ivory Coast's Singo and Amad Diallo availability, and Norway's Ryerson fitness.
+"""
+
+    assert criteria.score_lineup_status_actionable(report) == 1.0
+
+
+def test_lineup_status_accepts_future_unavailable_lineups_with_no_material_questions() -> None:
+    report = """## Lineup Status
+Confirmed XIs are not yet available; no material lineup questions move the pick.
+"""
+
+    assert criteria.score_lineup_status_actionable(report) == 1.0
+
+
 def test_lineup_status_rejects_generic_wait_only() -> None:
     report = """## Wait For Lineups
 - France vs Senegal: watch final lineups.
