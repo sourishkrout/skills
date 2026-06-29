@@ -1,0 +1,307 @@
+{
+  "artifact_written": {
+    "score": 1.0,
+    "criteria": [
+      {
+        "name": "report_file_exists",
+        "value": 1.0,
+        "raw": true,
+        "weight": 1.0,
+        "description": "Check that the command `test -f /Users/sourishkrout/Projects/personal/2026Q2/sourishkrout-skills/.runme/evals/jobs/2026-06-29__12-54-31/end-to-end__p5q4sXy/artifacts/report.md` exits with code 0"
+      },
+      {
+        "name": "report_file_nonempty",
+        "value": 1.0,
+        "raw": true,
+        "weight": 2.0,
+        "description": "Check that the command `test -s /Users/sourishkrout/Projects/personal/2026Q2/sourishkrout-skills/.runme/evals/jobs/2026-06-29__12-54-31/end-to-end__p5q4sXy/artifacts/report.md` exits with code 0"
+      }
+    ],
+    "kind": "programmatic"
+  },
+  "citation_proximity": {
+    "score": 1.0,
+    "criteria": [
+      {
+        "name": "report_has_url",
+        "value": 1.0,
+        "raw": true,
+        "weight": 0.0,
+        "description": "Check that the command `grep -Eq 'https?://' /Users/sourishkrout/Projects/personal/2026Q2/sourishkrout-skills/.runme/evals/jobs/2026-06-29__12-54-31/end-to-end__p5q4sXy/artifacts/report.md` exits with code 0"
+      },
+      {
+        "name": "report_has_source_terms",
+        "value": 1.0,
+        "raw": true,
+        "weight": 0.0,
+        "description": "Check that the command `grep -Eiq 'opta|dimers|football whispers|espn|elo|prediction|preview|correct.score' /Users/sourishkrout/Projects/personal/2026Q2/sourishkrout-skills/.runme/evals/jobs/2026-06-29__12-54-31/end-to-end__p5q4sXy/artifacts/report.md` exits with code 0"
+      },
+      {
+        "name": "match_blocks_have_traceable_citations",
+        "value": 1.0,
+        "raw": 1.0,
+        "weight": 1.0,
+        "description": "citation_proximity_by_match"
+      }
+    ],
+    "kind": "programmatic"
+  },
+  "expert_anchor_coverage": {
+    "score": 1.0,
+    "criteria": [
+      {
+        "name": "rate_whether_every_fixture_in_the_report",
+        "value": 1.0,
+        "raw": 5,
+        "weight": 1.0,
+        "description": "Rate whether every fixture in the report is grounded in a credible expert, prediction, preview, or correct-score source. Give full credit when each fixture has a clear anchor, or when the report honestly says explicit expert scoreline data is unavailable and uses model or market evidence as a fallback. Penalize missing fixture anchors, vague unsupported expert claims, or anchors only listed in sources without being tied to a fixture.",
+        "reasoning": "All three fixtures (Cote d'Ivoire vs Norway, France vs Sweden, Mexico vs Ecuador) are each explicitly anchored to three independent sources: (1) Opta Analyst match previews with specific win/draw/loss probabilities tied directly to each fixture (e.g., Norway 56.1%, France 75.1%, Mexico 46.4%), (2) Racing Post betting/market previews linked per fixture and referenced within each fixture's basis section, and (3) World Football Elo ratings with exact rankings and points for both teams in each match. FIFA official fixture links are also provided per match. The scoreline derivations are transparently reasoned from these model and market anchors. The report does not claim to have explicit expert correct-score picks but clearly relies on model and market evidence, which the criteria explicitly allows as a valid fallback. Every fixture anchor is cited in the Sources section and directly invoked in the fixture text, leaving no orphaned or vague claims."
+      }
+    ],
+    "kind": "llm",
+    "judge": {
+      "model": "anthropic/claude-sonnet-4-6",
+      "reasoning_effort": "medium",
+      "timeout": 300,
+      "files": [
+        "/Users/sourishkrout/Projects/personal/2026Q2/sourishkrout-skills/.runme/evals/jobs/2026-06-29__12-54-31/end-to-end__p5q4sXy/artifacts/report.md"
+      ],
+      "atif_trajectory": null,
+      "reference": null,
+      "mode": "batched"
+    },
+    "judge_output": "{\"score\":5,\"reasoning\":\"All three fixtures (Cote d'Ivoire vs Norway, France vs Sweden, Mexico vs Ecuador) are each explicitly anchored to three independent sources: (1) Opta Analyst match previews with specific win/draw/loss probabilities tied directly to each fixture (e.g., Norway 56.1%, France 75.1%, Mexico 46.4%), (2) Racing Post betting/market previews linked per fixture and referenced within each fixture's basis section, and (3) World Football Elo ratings with exact rankings and points for both teams in each match. FIFA official fixture links are also provided per match. The scoreline derivations are transparently reasoned from these model and market anchors. The report does not claim to have explicit expert correct-score picks but clearly relies on model and market evidence, which the criteria explicitly allows as a valid fallback. Every fixture anchor is cited in the Sources section and directly invoked in the fixture text, leaving no orphaned or vague claims.\"}"
+  },
+  "expert_anchor_usage": {
+    "score": 0.75,
+    "criteria": [
+      {
+        "name": "rate_whether_each_match_pick_uses_at_lea",
+        "value": 0.75,
+        "raw": 4,
+        "weight": 1.0,
+        "description": "Rate whether each match pick uses at least one expert prediction, correct-score source, preview, or equivalent pick as a visible source for the chosen scoreline. Do not require exact phrases like 'expert anchor'. Full credit is appropriate when every match block names or cites a relevant source and connects it to the pick, even if other sources disagree or predict a different score. Do not penalize unresolved disagreement between credible sources; disagreement is acceptable as long as the report shows source presence and uses at least one source for each pick. Penalize only when match blocks lack a visible expert/prediction/preview/correct-score source, cite sources without tying them to the pick, or rely only on unsupported generic model/market language.",
+        "reasoning": "Each of the three match blocks names at least one relevant preview or prediction source and connects it to the chosen scoreline. For Cote d'Ivoire vs Norway, Opta's specific win probabilities (56.1% Norway) and Racing Post's draw lean are both cited and explicitly tied to the 1:2 pick, with the disagreement acknowledged rather than hidden. For France vs Sweden, Opta's 75.1% France-win figure and Racing Post's 'France-win-plus-goals angle fits a 3:1 profile' statement directly anchor the 3:1 scoreline. For Mexico vs Ecuador, Opta's near-even probabilities and Racing Post's under-1.5 lean are both cited and tied to the 1:1-after-90/2:1-AET structure. World Football Elo adds supporting context across all three. The sources (Opta Analyst previews, Racing Post tips) qualify as expert prediction/preview sources under the criteria, and disagreements between sources are disclosed rather than obscured. The one gap preventing a 5 is that no source explicitly states a correct-score prediction for any match; the exact scorelines are derived from probability and market data rather than anchored to a source that names the same final score, making the connection to the pick inferential rather than direct in each case."
+      }
+    ],
+    "kind": "llm",
+    "judge": {
+      "model": "anthropic/claude-sonnet-4-6",
+      "reasoning_effort": "medium",
+      "timeout": 300,
+      "files": [
+        "/Users/sourishkrout/Projects/personal/2026Q2/sourishkrout-skills/.runme/evals/jobs/2026-06-29__12-54-31/end-to-end__p5q4sXy/artifacts/report.md"
+      ],
+      "atif_trajectory": null,
+      "reference": null,
+      "mode": "batched"
+    },
+    "judge_output": "{\"score\":4,\"reasoning\":\"Each of the three match blocks names at least one relevant preview or prediction source and connects it to the chosen scoreline. For Cote d'Ivoire vs Norway, Opta's specific win probabilities (56.1% Norway) and Racing Post's draw lean are both cited and explicitly tied to the 1:2 pick, with the disagreement acknowledged rather than hidden. For France vs Sweden, Opta's 75.1% France-win figure and Racing Post's 'France-win-plus-goals angle fits a 3:1 profile' statement directly anchor the 3:1 scoreline. For Mexico vs Ecuador, Opta's near-even probabilities and Racing Post's under-1.5 lean are both cited and tied to the 1:1-after-90/2:1-AET structure. World Football Elo adds supporting context across all three. The sources (Opta Analyst previews, Racing Post tips) qualify as expert prediction/preview sources under the criteria, and disagreements between sources are disclosed rather than obscured. The one gap preventing a 5 is that no source explicitly states a correct-score prediction for any match; the exact scorelines are derived from probability and market data rather than anchored to a source that names the same final score, making the connection to the pick inferential rather than direct in each case.\"}"
+  },
+  "guardrails": {
+    "score": 1.0,
+    "criteria": [
+      {
+        "name": "banned_wagering_terms_absent",
+        "value": 1.0,
+        "raw": true,
+        "weight": 1.0,
+        "description": "Check that the command `test -f /Users/sourishkrout/Projects/personal/2026Q2/sourishkrout-skills/.runme/evals/jobs/2026-06-29__12-54-31/end-to-end__p5q4sXy/artifacts/report.md && ! grep -Eiq 'lock of the day|bankroll|bet sizing|stake |wager |must bet' /Users/sourishkrout/Projects/personal/2026Q2/sourishkrout-skills/.runme/evals/jobs/2026-06-29__12-54-31/end-to-end__p5q4sXy/artifacts/report.md` exits with code 0"
+      },
+      {
+        "name": "unnegated_guaranteed_absent",
+        "value": 1.0,
+        "raw": 1.0,
+        "weight": 1.0,
+        "description": "unnegated_guaranteed_absent"
+      }
+    ],
+    "kind": "programmatic"
+  },
+  "lineup_status": {
+    "score": 1.0,
+    "criteria": [
+      {
+        "name": "lineup_status_confirmed_or_materially_pending",
+        "value": 1.0,
+        "raw": 1.0,
+        "weight": 1.0,
+        "description": "lineup_status_actionable"
+      }
+    ],
+    "kind": "programmatic"
+  },
+  "report_completeness": {
+    "score": 1.0,
+    "criteria": [
+      {
+        "name": "rate_whether_the_final_report_is_complet",
+        "value": 1.0,
+        "raw": 5,
+        "weight": 1.0,
+        "description": "Rate whether the final report is complete for a Discord World Cup scoreline report. It should include scope/date for the requested future U.S. Pacific-time slate, the slate's fixtures, exact home:away scorelines, confidence levels, basis notes, risk notes, best scoreline leans, actionable lineup status or late-news context, and sources. Reward reports that incorporate confirmed lineups when they are available, and use pending-lineup caveats only when lineups are not found or a concrete unresolved starter/formation question materially affects the pick. Penalize generic 'wait for lineups' advice when confirmed lineups are available or when the report gives no specific material lineup uncertainty. For knockout-stage reports, also reward regulation/90-minute score, AET or PK outcome, PK likelihood with a brief reason, and a separate aggregate including PKs when applicable; the report should keep the official match score visibly separate from any PK-inclusive aggregate. Penalize incomplete slate coverage, stale date framing, missing risk/basis/confidence, missing knockout-stage PK/aggregate context when relevant, or missing source context. Deterministic date and fixture correctness are checked separately, so focus on report completeness and usability.",
+        "reasoning": "The report is exceptionally complete across all evaluated dimensions. Scope and date framing are precise (Round of 32, June 30, 2026, U.S. Pacific time, with exact PT kickoff window stated). All three slate fixtures are covered. Each fixture provides: a specific home:away scoreline, a clearly labelled 90-minute score, an AET/PK outcome statement, a PK likelihood with a brief explanatory reason, a separate aggregate-including-PKs line, confidence level, detailed basis notes (Opta win probabilities, Elo ratings, market reference), and specific risk notes. The Best Scoreline Leans and Traps/Upsets sections add actionable editorial value. Lineup status is handled appropriately: the report correctly notes that confirmed lineups are not yet available (matches are 20+ hours away at generation time) and provides meaningful projected/team-news context for all three matches (Haaland/Odegaard return, Singo/Diallo questions for CIV, Saliba return, Isak Hien suspension for Sweden, Mexico/Ecuador near full strength). This avoids generic 'wait for lineups' boilerplate by offering substantive projected XI context. Sources are comprehensive and match-specific, covering official FIFA fixture pages, Opta Analyst match previews, Racing Post team-news/odds pages, and a dated Elo table. The official 90-minute score is kept visually separate from any AET or PK aggregate throughout. No material gaps or omissions detected."
+      }
+    ],
+    "kind": "llm",
+    "judge": {
+      "model": "anthropic/claude-sonnet-4-6",
+      "reasoning_effort": "medium",
+      "timeout": 300,
+      "files": [
+        "/Users/sourishkrout/Projects/personal/2026Q2/sourishkrout-skills/.runme/evals/jobs/2026-06-29__12-54-31/end-to-end__p5q4sXy/artifacts/report.md"
+      ],
+      "atif_trajectory": null,
+      "reference": null,
+      "mode": "batched"
+    },
+    "judge_output": "{\"score\":5,\"reasoning\":\"The report is exceptionally complete across all evaluated dimensions. Scope and date framing are precise (Round of 32, June 30, 2026, U.S. Pacific time, with exact PT kickoff window stated). All three slate fixtures are covered. Each fixture provides: a specific home:away scoreline, a clearly labelled 90-minute score, an AET/PK outcome statement, a PK likelihood with a brief explanatory reason, a separate aggregate-including-PKs line, confidence level, detailed basis notes (Opta win probabilities, Elo ratings, market reference), and specific risk notes. The Best Scoreline Leans and Traps/Upsets sections add actionable editorial value. Lineup status is handled appropriately: the report correctly notes that confirmed lineups are not yet available (matches are 20+ hours away at generation time) and provides meaningful projected/team-news context for all three matches (Haaland/Odegaard return, Singo/Diallo questions for CIV, Saliba return, Isak Hien suspension for Sweden, Mexico/Ecuador near full strength). This avoids generic 'wait for lineups' boilerplate by offering substantive projected XI context. Sources are comprehensive and match-specific, covering official FIFA fixture pages, Opta Analyst match previews, Racing Post team-news/odds pages, and a dated Elo table. The official 90-minute score is kept visually separate from any AET or PK aggregate throughout. No material gaps or omissions detected.\"}"
+  },
+  "scoreline_format": {
+    "score": 1.0,
+    "criteria": [
+      {
+        "name": "scoreline_picks_section_present",
+        "value": 1.0,
+        "raw": true,
+        "weight": 1.0,
+        "description": "Check that the command `grep -Eiq '^#{0,6}[[:space:]]*Scoreline Picks[[:space:]]*$|^Scoreline Picks[[:space:]]*$' /Users/sourishkrout/Projects/personal/2026Q2/sourishkrout-skills/.runme/evals/jobs/2026-06-29__12-54-31/end-to-end__p5q4sXy/artifacts/report.md` exits with code 0"
+      },
+      {
+        "name": "scoreline_pattern_present",
+        "value": 1.0,
+        "raw": true,
+        "weight": 1.0,
+        "description": "Check that the command `grep -Eq '[0-9]+[[:space:]]*:[[:space:]]*[0-9]+' /Users/sourishkrout/Projects/personal/2026Q2/sourishkrout-skills/.runme/evals/jobs/2026-06-29__12-54-31/end-to-end__p5q4sXy/artifacts/report.md` exits with code 0"
+      },
+      {
+        "name": "match_pick_headings_include_scorelines",
+        "value": 1.0,
+        "raw": 1.0,
+        "weight": 3.0,
+        "description": "parsed_scoreline_format"
+      }
+    ],
+    "kind": "programmatic"
+  },
+  "skill_activation_evidence": {
+    "score": 1.0,
+    "criteria": [
+      {
+        "name": "activation_log_present",
+        "value": 1.0,
+        "raw": true,
+        "weight": 0.0,
+        "description": "Check that the command `test -s /Users/sourishkrout/Projects/personal/2026Q2/sourishkrout-skills/.runme/evals/jobs/2026-06-29__12-54-31/end-to-end__p5q4sXy/agent/trajectory.json || test -s /Users/sourishkrout/Projects/personal/2026Q2/sourishkrout-skills/.runme/evals/jobs/2026-06-29__12-54-31/end-to-end__p5q4sXy/agent/oracle.txt` exits with code 0"
+      },
+      {
+        "name": "read_tool_used",
+        "value": 0.0,
+        "raw": false,
+        "weight": 0.0,
+        "description": "Agent used tool 'Read' (trajectory: /Users/sourishkrout/Projects/personal/2026Q2/sourishkrout-skills/.runme/evals/jobs/2026-06-29__12-54-31/end-to-end__p5q4sXy/agent/trajectory.json)"
+      },
+      {
+        "name": "skill_tool_used",
+        "value": 0.0,
+        "raw": false,
+        "weight": 0.0,
+        "description": "Agent used tool 'Skill' (trajectory: /Users/sourishkrout/Projects/personal/2026Q2/sourishkrout-skills/.runme/evals/jobs/2026-06-29__12-54-31/end-to-end__p5q4sXy/agent/trajectory.json)"
+      },
+      {
+        "name": "world_cup_skill_activation_detected",
+        "value": 1.0,
+        "raw": 1.0,
+        "weight": 1.0,
+        "description": "skill_activation_evidence"
+      }
+    ],
+    "kind": "programmatic"
+  },
+  "source_quality": {
+    "score": 0.75,
+    "criteria": [
+      {
+        "name": "rate_the_quality_and_coverage_of_sources",
+        "value": 0.75,
+        "raw": 4,
+        "weight": 1.0,
+        "description": "Rate the quality and coverage of sources used by the report. A strong report cites or clearly references official fixture information, expert previews or picks, model/probability sources such as Opta or equivalent, market/odds evidence, Elo or team-strength ratings, and current lineup/injury/team-news context. When a fixture is close to kickoff, reward use of official or current confirmed-lineup sources such as FIFA match centres, official match pages, ESPN/FotMob/SofaScore match centres, or official team/federation channels. Penalize relying only on older preview predicted lineups for kickoff-imminent matches when the report presents lineup claims as current or final. For knockout-stage reports, knockout-specific market sources such as draw-after-90, team-to-advance, extra-time, or win-on-penalties markets are useful but not mandatory when unavailable; reward reports that clearly state when PK likelihood is inferred from broader model, odds, totals, or team-strength signals. Penalize thin sourcing, missing source categories, untraceable claims, or reliance on low-quality/generic sources.",
+        "reasoning": "The report covers four distinct source categories across all three fixtures: (1) official FIFA match centre URLs for each game, (2) Opta Analyst model probabilities with specific percentages for win/draw/loss and advancement, (3) Racing Post for market odds and team-news context, and (4) World Football Elo ratings with specific rank and rating numbers. Knockout-specific signals (team-to-advance percentages from Opta) are incorporated and clearly cited. The report correctly notes that confirmed lineups are not yet available given the 20-hour gap to kickoff, which is an appropriate handling of the lineup-source question. Strengths: all claims are traceable to named sources with URLs; Elo values are precise and dated; Opta figures are quoted specifically. Weaknesses: only one model source (Opta) is used \u2014 a second model or exchange-odds source would strengthen the market triangulation; Racing Post is the sole odds/market source and no standalone draw-after-90 or team-to-advance market links are provided beyond what Racing Post covers; the 'draw-after-90 signal is live' language for Norway is slightly vague given no dedicated knockout market source is cited separately. Overall, sourcing is well above average and credibly covers all major categories, with minor gaps in market diversity and model breadth."
+      }
+    ],
+    "kind": "llm",
+    "judge": {
+      "model": "anthropic/claude-sonnet-4-6",
+      "reasoning_effort": "medium",
+      "timeout": 300,
+      "files": [
+        "/Users/sourishkrout/Projects/personal/2026Q2/sourishkrout-skills/.runme/evals/jobs/2026-06-29__12-54-31/end-to-end__p5q4sXy/artifacts/report.md"
+      ],
+      "atif_trajectory": null,
+      "reference": null,
+      "mode": "batched"
+    },
+    "judge_output": "{\"score\":4,\"reasoning\":\"The report covers four distinct source categories across all three fixtures: (1) official FIFA match centre URLs for each game, (2) Opta Analyst model probabilities with specific percentages for win/draw/loss and advancement, (3) Racing Post for market odds and team-news context, and (4) World Football Elo ratings with specific rank and rating numbers. Knockout-specific signals (team-to-advance percentages from Opta) are incorporated and clearly cited. The report correctly notes that confirmed lineups are not yet available given the 20-hour gap to kickoff, which is an appropriate handling of the lineup-source question. Strengths: all claims are traceable to named sources with URLs; Elo values are precise and dated; Opta figures are quoted specifically. Weaknesses: only one model source (Opta) is used \u2014 a second model or exchange-odds source would strengthen the market triangulation; Racing Post is the sole odds/market source and no standalone draw-after-90 or team-to-advance market links are provided beyond what Racing Post covers; the 'draw-after-90 signal is live' language for Norway is slightly vague given no dedicated knockout market source is cited separately. Overall, sourcing is well above average and credibly covers all major categories, with minor gaps in market diversity and model breadth.\"}"
+  },
+  "target_slate_coverage": {
+    "score": 1.0,
+    "criteria": [
+      {
+        "name": "target_scope_date_present",
+        "value": 1.0,
+        "raw": 1.0,
+        "weight": 0.0,
+        "description": "target_scope_date"
+      },
+      {
+        "name": "target_pacific_framing_present",
+        "value": 1.0,
+        "raw": 1.0,
+        "weight": 0.0,
+        "description": "target_pacific_framing"
+      },
+      {
+        "name": "target_fixture_mentions",
+        "value": 1.0,
+        "raw": 1.0,
+        "weight": 0.0,
+        "description": "target_fixture_mentions"
+      },
+      {
+        "name": "target_slate_weighted_coverage",
+        "value": 1.0,
+        "raw": 1.0,
+        "weight": 1.0,
+        "description": "target_slate_scored_coverage"
+      }
+    ],
+    "kind": "programmatic"
+  },
+  "workflow_sequence_evidence": {
+    "score": 1.0,
+    "criteria": [
+      {
+        "name": "rate_whether_the_report_and_available_tr",
+        "value": 1.0,
+        "raw": 5,
+        "weight": 1.0,
+        "description": "Rate whether the report and available trajectory show the intended workflow: identify a relevant FIFA slate/date, collect expert scoreline or prediction anchors, compare with model probabilities, compare with market or odds evidence, check Elo or team-strength context, account for lineup/injury/current-match context, and synthesize final scoreline picks. For fixtures within roughly 90 minutes of kickoff, reward evidence that the agent searched for confirmed starting lineups and either incorporated available XIs into the pick or clearly stated that lineups were not yet released and why the pending information matters. Penalize generic final-lineup caveats when the trajectory or report indicates lineups were available, or when there is no evidence of a current lineup check for a kickoff-imminent fixture. For knockout-stage reports, also reward evidence that the agent assessed extra-time and penalty-shootout risk using draw-after-90 odds/probability, extra-time or win-on-penalties markets when available, team-to-advance context, or low-total/defensive-style signals as fallback inference. Give full credit when the final report itself visibly demonstrates all relevant workflow phases, even if no trajectory is available. For workflow sequencing, accept cited expert/model/market references at face value unless the report or trajectory contradicts them; do not penalize solely because exact cited numbers cannot be independently verified from raw HTML, JS-rendered pages, Cloudflare-blocked sites, because the judge lacks web access, or because the trajectory is absent. Penalize skipped phases, unsupported synthesis, missing knockout-stage penalty/extra-time assessment when relevant, or clear fabrication after the trajectory shows a source failed.",
+        "reasoning": "The report and trajectory demonstrate all required workflow phases clearly and completely. (1) Slate identification: the agent searched for and confirmed three Round of 32 fixtures on June 30 PT with all three FIFA match-center URLs returning HTTP 200. (2) Expert scoreline anchors: the trajectory shows searches for Racing Post, Opta Analyst, Covers, Squawka, Dimers, and ESPN correct-score previews for all three matches. (3) Model probabilities: specific Opta numbers are cited for every match (Norway 56.1%/draw 22.3%/Ivory Coast 21.6%; France 75.1%/draw 15.4%/Sweden 9.5%; Mexico 46.4%/draw 29.2%/Ecuador 24.4%), all from Opta Analyst pages that returned 200. (4) Market evidence: Racing Post is cited as the market/team-news source for all three matches with specific market-lean notes incorporated into picks; the 406 curl responses are a CLI bot-block, not a missing research step. (5) Elo check: the agent successfully parsed international-football.net and extracted exact ratings (France 3rd/2123, Norway 9th/1918, Mexico 12th/1912, Ecuador 15th/1902, Ivory Coast 35th/1743, Sweden 36th/1742), all of which appear correctly in the report. (6) Lineup/injury context: the report correctly explains that lineups are not expected 20+ hours before kickoff and includes specific material questions (Singo/Amad Diallo for Ivory Coast, Saliba return/Hien suspension for France-Sweden, Norway's expected first-choice restoration) without generic 'wait for lineups' language. (7) Knockout-stage PK/ET assessment: every match has a 90-min score, AET/PK outcome, and PK likelihood line driven by draw-after-90 probability, Elo closeness, total-goals signals, and to-advance market context. Mexico-Ecuador is correctly flagged as the highest PK-risk game (~29% draw-after-90, near-equal Elo) and is picked as a 2:1 AET result rather than a regulation win. The report synthesizes all of this into confident regulation favorites for France and Norway, a cautious extra-time call for Mexico, and a complete action summary. No workflow phases are skipped or unsupported."
+      }
+    ],
+    "kind": "llm",
+    "judge": {
+      "model": "anthropic/claude-sonnet-4-6",
+      "reasoning_effort": "medium",
+      "timeout": 300,
+      "files": [
+        "/Users/sourishkrout/Projects/personal/2026Q2/sourishkrout-skills/.runme/evals/jobs/2026-06-29__12-54-31/end-to-end__p5q4sXy/artifacts/report.md"
+      ],
+      "atif_trajectory": "/Users/sourishkrout/Projects/personal/2026Q2/sourishkrout-skills/.runme/evals/jobs/2026-06-29__12-54-31/end-to-end__p5q4sXy/agent/trajectory.json",
+      "reference": null,
+      "mode": "batched"
+    },
+    "judge_output": "{\"score\":5,\"reasoning\":\"The report and trajectory demonstrate all required workflow phases clearly and completely. (1) Slate identification: the agent searched for and confirmed three Round of 32 fixtures on June 30 PT with all three FIFA match-center URLs returning HTTP 200. (2) Expert scoreline anchors: the trajectory shows searches for Racing Post, Opta Analyst, Covers, Squawka, Dimers, and ESPN correct-score previews for all three matches. (3) Model probabilities: specific Opta numbers are cited for every match (Norway 56.1%/draw 22.3%/Ivory Coast 21.6%; France 75.1%/draw 15.4%/Sweden 9.5%; Mexico 46.4%/draw 29.2%/Ecuador 24.4%), all from Opta Analyst pages that returned 200. (4) Market evidence: Racing Post is cited as the market/team-news source for all three matches with specific market-lean notes incorporated into picks; the 406 curl responses are a CLI bot-block, not a missing research step. (5) Elo check: the agent successfully parsed international-football.net and extracted exact ratings (France 3rd/2123, Norway 9th/1918, Mexico 12th/1912, Ecuador 15th/1902, Ivory Coast 35th/1743, Sweden 36th/1742), all of which appear correctly in the report. (6) Lineup/injury context: the report correctly explains that lineups are not expected 20+ hours before kickoff and includes specific material questions (Singo/Amad Diallo for Ivory Coast, Saliba return/Hien suspension for France-Sweden, Norway's expected first-choice restoration) without generic 'wait for lineups' language. (7) Knockout-stage PK/ET assessment: every match has a 90-min score, AET/PK outcome, and PK likelihood line driven by draw-after-90 probability, Elo closeness, total-goals signals, and to-advance market context. Mexico-Ecuador is correctly flagged as the highest PK-risk game (~29% draw-after-90, near-equal Elo) and is picked as a 2:1 AET result rather than a regulation win. The report synthesizes all of this into confident regulation favorites for France and Norway, a cautious extra-time call for Mexico, and a complete action summary. No workflow phases are skipped or unsupported.\"}"
+  }
+}
