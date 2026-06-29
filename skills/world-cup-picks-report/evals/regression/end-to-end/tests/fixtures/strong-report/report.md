@@ -13,8 +13,9 @@ Scoreline Picks
 Best Scoreline Leans
 - United States 2:1
 
-Wait For Lineups
-- Argentina vs Mexico because of injury uncertainty.
+Lineup Status
+- United States vs Wales: Lineups checked; United States start their expected front three, so there is no change to the 2:1 pick.
+- Argentina vs Mexico: Lineups pending; wait on Argentina's striker availability because it affects confidence in the 1:1 scoreline.
 
 Sources
 - FIFA fixtures: https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026
