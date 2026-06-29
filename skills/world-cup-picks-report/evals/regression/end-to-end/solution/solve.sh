@@ -11,7 +11,7 @@ echo "+ check official FIFA and ESPN fixtures for the resolved future slate"
 echo "+ collect expert correct-score anchors with citations"
 echo "+ cross-check anchors against Opta model probabilities, market odds, World Football Elo ratings, and team-news context"
 echo "+ assess knockout extra-time and penalty-shootout risk from draw-after-90, advance, market, Elo, and tactical signals"
-echo "+ verify lineup and injury watch items against official FIFA match pages, ESPN lineups, and credible preview sources"
+echo "+ verify confirmed or pending lineup status against official FIFA match pages, ESPN lineups, and credible preview sources"
 echo "+ write Discord-friendly scoreline report to /logs/artifacts/report.md"
 
 cat > /logs/artifacts/report.md <<'REPORT'
@@ -49,7 +49,7 @@ PK likelihood: Low - Opta's 90-min draw probability is only 15.4%, and the marke
 
 Basis: Sports Mole, Fox, and other preview markets line up around a France multi-goal win, with 3-1 the cleanest consensus scoreline. Opta gives France a 75.1% 90-min win probability and 83.0% chance to advance. Elo is a major France edge, about 2123 vs 1742. Sweden's attacking front can score, but France's group-stage form and depth support a controlled win. Team-news check: Marcus Thuram and Isak Hien are out, while William Saliba is expected to start.
 
-Risk: Sweden's Gyokeres, Isak, Elanga, and Kulusevski make the both-teams-to-score angle live. Watch final lineups for France's left-sided attack and Sweden's replacement center-back structure.
+Risk: Sweden's Gyokeres, Isak, Elanga, and Kulusevski make the both-teams-to-score angle live. France's final left-sided attack and Sweden's replacement center-back structure are the main lineup-sensitive factors.
 
 ### Mexico vs Ecuador: 1:1 AET, Mexico advance 4:3 on PKs - Aggregate incl. PKs: 5:4 - Confidence: Low
 
@@ -89,13 +89,13 @@ Do not chase a France shutout. Sweden's forward group is good enough to score ev
 
 Do not treat Norway as a lock just because of Haaland. Ivory Coast's wide attackers and set-piece threats make 1:1 a live alternate.
 
-## Wait For Lineups
+## Lineup Status
 
-Ivory Coast vs Norway: Check Wilfried Singo and Julian Ryerson. Norway's attacking pick is cleaner if Haaland, Odegaard, and Sorloth all start.
+Ivory Coast vs Norway: Lineups pending; wait on Wilfried Singo and Julian Ryerson because Norway's 2:1 pick is cleaner if Haaland, Odegaard, and Sorloth all start against a less-than-full-strength Ivory Coast back line.
 
-France vs Sweden: Thuram and Hien are out. The France win pick survives most changes, but Sweden's scoring probability moves with France's final back line and Sweden's replacement center-back structure.
+France vs Sweden: Lineups pending; Thuram and Hien are out, but France's final left-sided attack and Sweden's replacement center-back structure affect whether 3:1 is safer than 2:0.
 
-Mexico vs Ecuador: Check whether Mexico start Raul Jimenez, whether Raul "Tala" Rangel keeps goal, and how they set the second center-back spot. Ecuador's front three and Moises Caicedo's availability are the upset checks.
+Mexico vs Ecuador: Lineups pending; wait on Mexico's striker, goalkeeper, and second center-back choices because those decisions affect the 1:1 AET/PK call versus a 2:1 regulation win.
 
 ## Sources
 

@@ -150,6 +150,11 @@ def target_slate_scored_coverage(workspace: Path) -> float:
     return score_target_slate_coverage(read_report())
 
 
+@criterion(shared=True)
+def lineup_status_actionable(workspace: Path) -> float:
+    return score_lineup_status_actionable(read_report())
+
+
 def score_artifact_written(report: str) -> float:
     return 1.0 if report.strip() else 0.0
 
@@ -310,6 +315,93 @@ def score_target_slate_coverage(
         score += 0.10
 
     return round(score, 4)
+
+
+def score_lineup_status_actionable(report: str) -> float:
+    if not report.strip():
+        return 0.0
+    status_text = lineup_status_text(report)
+    if not status_text:
+        return 0.0
+    if has_generic_wait_for_lineups_only(status_text):
+        return 0.0
+    if has_confirmed_lineup_status(status_text) or has_pending_lineup_status(status_text):
+        return 1.0
+    return 0.0
+
+
+def lineup_status_text(report: str) -> str:
+    lines = report.splitlines()
+    sections: list[str] = []
+    capture = False
+    current: list[str] = []
+
+    for line in lines:
+        trimmed = line.strip()
+        if is_lineup_status_heading(trimmed) or normalized_heading(trimmed) == "wait for lineups":
+            if capture and current:
+                sections.append("\n".join(current).strip())
+            capture = True
+            current = []
+            continue
+        if capture and is_any_heading(trimmed):
+            if current:
+                sections.append("\n".join(current).strip())
+            capture = False
+            current = []
+            continue
+        if capture:
+            current.append(line)
+
+    if capture and current:
+        sections.append("\n".join(current).strip())
+
+    return "\n".join(section for section in sections if section).lower()
+
+
+def has_generic_wait_for_lineups_only(text: str) -> bool:
+    if not has_any_term(text, ("wait for lineups", "watch final lineups", "check lineups")):
+        return False
+    return not has_confirmed_lineup_status(text) and not has_pending_lineup_status(text)
+
+
+def has_confirmed_lineup_status(text: str) -> bool:
+    confirmed_terms = (
+        "confirmed",
+        "lineups checked",
+        "lineup checked",
+        "lineups are in",
+        "starting xi",
+        "starts",
+        "start ",
+        "incorporated",
+    )
+    impact_terms = ("no change", "moves", "shift", "affects", "raises", "lowers", "supports", "because")
+    return has_any_term(text, confirmed_terms) and has_any_term(text, impact_terms)
+
+
+def has_pending_lineup_status(text: str) -> bool:
+    pending_terms = (
+        "pending",
+        "unavailable",
+        "not released",
+        "not yet released",
+        "still out",
+        "wait on",
+        "wait for",
+    )
+    material_terms = (
+        "because",
+        "affects",
+        "moves",
+        "shift",
+        "scoreline",
+        "confidence",
+        "starter",
+        "formation",
+        "availability",
+    )
+    return has_any_term(text, pending_terms) and has_any_term(text, material_terms)
 
 
 def score_declared_scored_fixture_coverage(report: str, expected_minimum: int = 3) -> float:
@@ -506,10 +598,20 @@ def is_section_heading(line: str) -> bool:
         "traps / upsets to avoid",
         "traps",
         "upsets to avoid",
+        "lineup status",
+        "confirmed lineups",
         "wait for lineups",
         "sources",
         "source",
     }
+
+
+def is_lineup_status_heading(line: str) -> bool:
+    return normalized_heading(line) in {"lineup status", "confirmed lineups"}
+
+
+def is_any_heading(line: str) -> bool:
+    return bool(line) and (is_section_heading(line) or line.lstrip().startswith("#"))
 
 
 def normalized_heading(line: str) -> str:

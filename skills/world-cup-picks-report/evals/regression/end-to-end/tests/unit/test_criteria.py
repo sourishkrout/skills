@@ -69,6 +69,9 @@ def test_programmatic_rewards_register_dashboard_breakouts() -> None:
         ("target_fixture_mentions", 0.0),
         ("target_slate_weighted_coverage", 1.0),
     ]
+    assert registered_criteria_for_reward("lineup_status") == [
+        ("lineup_status_confirmed_or_materially_pending", 1.0),
+    ]
 
 
 def test_reward_rollup_uses_existing_emitted_scores(tmp_path: Path) -> None:
@@ -81,6 +84,7 @@ def test_reward_rollup_uses_existing_emitted_scores(tmp_path: Path) -> None:
         '  "scoreline_format": 0.5,\n'
         '  "guardrails": 1.0,\n'
         '  "target_slate_coverage": 0.75,\n'
+        '  "lineup_status": 1.0,\n'
         '  "report_completeness": 0.75,\n'
         '  "expert_anchor_coverage": 0.75,\n'
         '  "expert_anchor_usage": 0.5,\n'
@@ -91,8 +95,8 @@ def test_reward_rollup_uses_existing_emitted_scores(tmp_path: Path) -> None:
 
     scores = rollup_reward.add_reward_rollup(reward_path)
 
-    assert scores["reward"] == 0.75
-    assert '"reward": 0.75' in reward_path.read_text()
+    assert scores["reward"] == 0.7708
+    assert '"reward": 0.7708' in reward_path.read_text()
 
 
 def test_commands_from_atif() -> None:
@@ -324,6 +328,26 @@ Wait For Lineups
         assert "Best Scoreline Leans" not in block
         assert "cleanest blend" not in block
         assert not block.startswith("Basis:")
+
+
+def test_match_blocks_stops_at_lineup_status_section() -> None:
+    report = """Report scope: Saturday, June 27, 2026.
+
+## Scoreline Picks
+
+### France vs Senegal: 2:1 - Confidence: Medium
+Basis: Expert anchor with citation (https://example.com/france-senegal).
+Risk: Senegal counterattacks.
+
+## Lineup Status
+- Lineups checked: France start their first-choice front three; no change to 2:1.
+
+## Sources
+- FIFA: https://www.fifa.com/
+"""
+    blocks = criteria.match_blocks(report)
+    assert len(blocks) == 1
+    assert "Lineup Status" not in blocks[0]
 
 
 def test_match_blocks_accepts_pick_headings() -> None:
@@ -559,6 +583,39 @@ def test_target_slate_coverage_penalizes_missing_pacific_framing() -> None:
 """
 
     assert criteria.score_target_slate_coverage(report) == 0.85
+
+
+def test_lineup_status_accepts_confirmed_lineups() -> None:
+    report = """## Lineup Status
+- Lineups checked: Norway start Haaland, Odegaard, and Sorloth; no change to 2:1 Norway.
+"""
+
+    assert criteria.score_lineup_status_actionable(report) == 1.0
+
+
+def test_lineup_status_accepts_material_pending_lineups() -> None:
+    report = """## Lineup Status
+- Lineups pending: wait on Mexico striker and keeper because it affects confidence and the 1:1 vs 2:1 scoreline.
+"""
+
+    assert criteria.score_lineup_status_actionable(report) == 1.0
+
+
+def test_lineup_status_rejects_generic_wait_only() -> None:
+    report = """## Wait For Lineups
+- France vs Senegal: watch final lineups.
+"""
+
+    assert criteria.score_lineup_status_actionable(report) == 0.0
+
+
+def test_lineup_status_rejects_missing_section() -> None:
+    report = """## Scoreline Picks
+### France vs Senegal: 2:1 - Confidence: Medium
+Risk: Watch final lineups for France.
+"""
+
+    assert criteria.score_lineup_status_actionable(report) == 0.0
 
 
 def test_guardrails() -> None:

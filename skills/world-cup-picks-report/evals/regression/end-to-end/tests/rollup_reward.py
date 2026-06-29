@@ -12,6 +12,7 @@ ROLLUP_KEYS = (
     "scoreline_format",
     "guardrails",
     "target_slate_coverage",
+    "lineup_status",
     "report_completeness",
     "expert_anchor_coverage",
     "expert_anchor_usage",

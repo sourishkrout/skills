@@ -38,7 +38,8 @@ Do not blend penalty shootout goals into the official match score. Keep the offi
 4. Sportsbook consensus or odds comparison, such as Oddschecker, for market-implied expectations.
 5. Knockout-specific market signals when available: draw-after-90 odds, extra-time odds, team-to-advance odds, and win-on-penalties odds.
 6. World Football Elo Ratings for team-strength sanity checks.
-7. One current match preview or team-news source per match when available.
+7. Confirmed starting lineups when matches are close to kickoff: FIFA match centres or official match pages first, then ESPN/FotMob/SofaScore or comparable live match centres, then official federation/team channels.
+8. One current match preview or team-news source per match when confirmed lineups are not yet available.
 
 ## Workflow
 
@@ -75,6 +76,10 @@ Do not blend penalty shootout goals into the official match score. Keep the offi
 
 7. Add current-context checks.
    - Look for injuries, likely rotation, suspensions, weather/travel, and motivation.
+   - For fixtures within 90 minutes of kickoff, explicitly search for confirmed starting lineups.
+   - If confirmed lineups are available, use them in the pick and state the material impact, even if the impact is "no change."
+   - If confirmed lineups are unavailable, say lineups are pending only when the unresolved starter, formation, or availability question materially affects the scoreline or confidence.
+   - For fixtures more than 90 minutes away, use injuries and projected lineups normally, but avoid blanket "wait for lineups" language unless there is a concrete unresolved starter or tactical role.
    - Keep this short and avoid overfitting to narrative.
 
 8. Make the scoreline pick.
@@ -90,7 +95,7 @@ Do not blend penalty shootout goals into the official match score. Keep the offi
    - Best scoreline picks.
    - Highest PK-risk matches.
    - Traps/upsets to avoid.
-   - Matches where the user should wait for lineups.
+   - Lineup status: confirmed lineups incorporated, or specific material lineup questions still pending.
 
 ## Report Format
 
@@ -121,8 +126,13 @@ Recommended structure:
 - `## Best Scoreline Leans`
 - `## Highest PK-Risk Matches` for knockout-stage reports
 - `## Traps / Upsets To Avoid`
-- `## Wait For Lineups`
+- `## Lineup Status`
 - `## Sources`
+
+Lineup status examples:
+
+- Confirmed: `Lineups checked: Norway start Haaland, Odegaard, and Sorloth; no change to 2:1 Norway.`
+- Pending: `Lineups pending: wait on Mexico striker/keeper because it affects 1:1 vs 2:1.`
 
 ## Guardrails
 
@@ -131,3 +141,4 @@ Recommended structure:
 - Do not present scorelines as guaranteed outcomes.
 - Do not encourage wagering or bankroll decisions unless explicitly asked; even then, keep it informational.
 - If expert scoreline data is thin or conflicting, say so and lower confidence.
+- Do not tell the user to wait for final lineups when confirmed lineups have already been found. Use confirmed lineups directly in the pick instead.
