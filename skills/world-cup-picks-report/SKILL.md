@@ -15,6 +15,15 @@ Produce a concise, practical picks report that blends expert score predictions, 
 
 Every match must include a predicted final score/result in `home:away` format, for example `1:3`. If the fixture is listed as `Team A vs Team B`, the score must be in that same order.
 
+For knockout-stage matches, every match must also include:
+
+- `90-min score`: the score after regulation time.
+- `AET/PK outcome`: the expected after-extra-time result, or the penalty shootout result if the match is projected to reach penalties.
+- `PK likelihood`: Low, Medium, or High, with a short reason.
+- `Aggregate incl. PKs`: a separate pool/bracket-style aggregate that adds made shootout penalties to the match goals, for example `Official: 1:1 AET; PKs: 4:3; Aggregate incl. PKs: 5:4`.
+
+Do not blend penalty shootout goals into the official match score. Keep the official score and the aggregate-including-PKs score visibly separate.
+
 ## Inputs
 
 - `date`: Today's date in the user/runtime timezone. Use the actual current date and timezone from the runtime context.
@@ -27,8 +36,9 @@ Every match must include a predicted final score/result in `home:away` format, f
 2. Expert correct-score predictions from reputable preview or betting-analysis sources.
 3. Opta Analyst / Opta Supercomputer for match probabilities and model framing.
 4. Sportsbook consensus or odds comparison, such as Oddschecker, for market-implied expectations.
-5. World Football Elo Ratings for team-strength sanity checks.
-6. One current match preview or team-news source per match when available.
+5. Knockout-specific market signals when available: draw-after-90 odds, extra-time odds, team-to-advance odds, and win-on-penalties odds.
+6. World Football Elo Ratings for team-strength sanity checks.
+7. One current match preview or team-news source per match when available.
 
 ## Workflow
 
@@ -52,22 +62,33 @@ Every match must include a predicted final score/result in `home:away` format, f
    - Compare the scoreline/winner pick with sportsbook consensus.
    - Flag any mismatch where the expert pick and market disagree.
 
-5. Sanity-check team strength.
+5. For knockout-stage matches, assess extra-time and penalty risk.
+   - Use draw-after-90 probability as the main signal for whether the match can reach extra time.
+   - Use team-to-advance, win-on-penalties, and draw/under market context when available to estimate shootout likelihood.
+   - Treat closely matched teams, low totals, defensive styles, and conservative tactical incentives as higher PK-risk factors.
+   - Treat a clear favorite with strong regulation-win support as lower PK risk even if the under is popular.
+   - If explicit PK markets are missing, say the PK assessment is inferred from draw-after-90, total-goals, model, and team-strength signals.
+
+6. Sanity-check team strength.
    - Use World Football Elo or comparable ratings.
    - Note if a famous team appears weaker/stronger than reputation suggests.
 
-6. Add current-context checks.
+7. Add current-context checks.
    - Look for injuries, likely rotation, suspensions, weather/travel, and motivation.
    - Keep this short and avoid overfitting to narrative.
 
-7. Make the scoreline pick.
+8. Make the scoreline pick.
    - For each match provide: exact score, confidence, expert/model basis, and risk note.
    - Confidence levels: High, Medium, Low.
    - In group stages, be conservative and respect draws.
+   - In knockout stages, distinguish the regulation pick from the advancement pick.
+   - If the match is picked to go to penalties, provide the official AET score, projected PK shootout score, advancing team, and aggregate including PKs.
+   - If the match is not picked to go to penalties, still include a PK likelihood line and whether the aggregate including PKs is unchanged.
    - Common conservative patterns: favorite `2:0` or `2:1`, close favorite `1:0`, draw-risk game `1:1`, heavy favorite `3:0` only when market/model strongly support it.
 
-8. End with an action summary.
+9. End with an action summary.
    - Best scoreline picks.
+   - Highest PK-risk matches.
    - Traps/upsets to avoid.
    - Matches where the user should wait for lineups.
 
@@ -83,7 +104,22 @@ Recommended structure:
   `### Team A vs Team B: 2:1 - Confidence: Medium`
   `Basis: expert pick/model/market summary`
   `Risk: ...`
+- Knockout-stage heading example without PKs:
+  `### Team A vs Team B: 2:1 - Aggregate incl. PKs: 2:1 - Confidence: Medium`
+  `90-min score: Team A 2:1 Team B`
+  `AET/PK outcome: Team A advances in regulation; no PK aggregate adjustment`
+  `PK likelihood: Low - market/model favor a regulation winner`
+  `Basis: expert pick/model/market summary`
+  `Risk: ...`
+- Knockout-stage heading example with PKs:
+  `### Team A vs Team B: 1:1 AET, Team A advance 4:3 on PKs - Aggregate incl. PKs: 5:4 - Confidence: Low`
+  `90-min score: Team A 1:1 Team B`
+  `AET/PK outcome: 1:1 AET; Team A win PKs 4:3`
+  `PK likelihood: High - draw-after-90 and low-total signals are elevated`
+  `Basis: expert pick/model/market summary`
+  `Risk: ...`
 - `## Best Scoreline Leans`
+- `## Highest PK-Risk Matches` for knockout-stage reports
 - `## Traps / Upsets To Avoid`
 - `## Wait For Lineups`
 - `## Sources`

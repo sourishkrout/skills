@@ -1,20 +1,3 @@
-#!/usr/bin/env sh
-set -eu
-
-mkdir -p /logs/artifacts
-
-echo "Using world-cup-picks-report skill workflow"
-echo "+ date +%F"
-date +%F >/tmp/world-cup-picks-report-date.txt
-echo "+ identify the next full unplayed World Cup slate in U.S. Pacific time, no earlier than tomorrow"
-echo "+ check official FIFA and ESPN fixtures for the resolved future slate"
-echo "+ collect expert correct-score anchors with citations"
-echo "+ cross-check anchors against Opta model probabilities, market odds, World Football Elo ratings, and team-news context"
-echo "+ assess knockout extra-time and penalty-shootout risk from draw-after-90, advance, market, Elo, and tactical signals"
-echo "+ verify lineup and injury watch items against official FIFA match pages, ESPN lineups, and credible preview sources"
-echo "+ write Discord-friendly scoreline report to /logs/artifacts/report.md"
-
-cat > /logs/artifacts/report.md <<'REPORT'
 # World Cup Scoreline Report - Tuesday, June 30, 2026 PT
 
 Report scope: FIFA World Cup 2026 Round of 32, Tuesday, June 30, 2026 in U.S. Pacific time. This is the next full unplayed World Cup slate no earlier than tomorrow from the runtime date of Monday, June 29, 2026 PT.
@@ -106,4 +89,3 @@ Model/probability checks: Opta Analyst previews for [Ivory Coast vs Norway](http
 Market checks: [Fox Sports Round of 32 odds](https://www.foxsports.com/stories/soccer/2026-world-cup-round-32-odds), Oddschecker pages for [Ivory Coast vs Norway](https://www.oddschecker.com/us/soccer/world-cup/cote-divoire-v-norway/winner), [France vs Sweden](https://www.oddschecker.com/us/soccer/world-cup/france-v-sweden/winner), and [Mexico vs Ecuador](https://www.oddschecker.com/us/soccer/world-cup/mexico-v-ecuador/winner).
 
 Expert/team-news and Elo checks: Sports Mole previews for [Ivory Coast vs Norway](https://www.sportsmole.co.uk/football/ivory-coast/world-cup-2026/preview/ivory-coast-vs-norway-prediction-team-news-lineups_600294.html), [France vs Sweden](https://www.sportsmole.co.uk/football/france/world-cup-2026/preview/france-vs-sweden-prediction-team-news-lineups_600264.html), and [Mexico vs Ecuador](https://www.sportsmole.co.uk/football/mexico/world-cup-2026/preview/mexico-vs-ecuador-prediction-team-news-lineups_600278.html); [RotoWire France vs Sweden preview](https://www.rotowire.com/soccer/article/france-vs-sweden-preview-predicted-lineups-team-news-tactical-analysis-2026-world-cup-round-of-32-120217); [World Football Elo ratings](https://www.international-football.net/elo-ratings-table) and [eloratings.net](https://www.eloratings.net/).
-REPORT

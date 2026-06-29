@@ -4,13 +4,19 @@
 
 Run evals from the skill root:
 
-```sh {"name":"eval"}
+```sh {"name":"eval","terminalRows":"34"}
 runme eval skills/world-cup-picks-report/evals/regression \
-    --agent openclaw \
+    --agent codex \
     --ak reasoning_effort=xhigh
 ```
 
-Or, substitute `openclaw` with `claude-code` or `codex`.
+Or, substitute `cursor-cli` with `claude-code` or `codex`.
+
+To only run the oracle, please use:
+
+```sh {"name":"oracle","terminalRows":"34"}
+runme eval skills/world-cup-picks-report/evals/regression
+```
 
 ## History
 
