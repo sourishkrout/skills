@@ -125,12 +125,9 @@ def target_scope_date(workspace: Path) -> float:
     report = read_report()
     if not report.strip():
         return 0.0
-    slate = resolve_target_slate()
     scope, _ = cut_before_scoreline_picks_section(report)
     scope = scope[:1000]
-    if has_selected_scope_date_before(scope, slate["earliest_date"]):
-        return 0.0
-    return 1.0 if target_date_mentioned(scope, slate["date"]) else 0.0
+    return 1.0 if selected_scope_dates(scope) else 0.0
 
 
 @criterion(shared=True)
@@ -145,12 +142,7 @@ def target_fixture_mentions(workspace: Path) -> float:
     report = read_report()
     if not report.strip():
         return 0.0
-    fixtures = resolve_target_slate()["fixtures"]
-    if not fixtures:
-        return 0.0
-    report_lower = report.lower()
-    covered = sum(1 for fixture in fixtures if fixture_mentioned(report_lower, fixture))
-    return round(covered / len(fixtures), 4)
+    return score_declared_scored_fixture_coverage(report)
 
 
 @criterion(shared=True)
@@ -303,28 +295,46 @@ def score_target_slate_coverage(
     if not report.strip():
         return 0.0
 
-    slate = resolve_target_slate(schedule_path, as_of_override)
     scope, _ = cut_before_scoreline_picks_section(report)
     scope = scope[:1000]
-    if has_selected_scope_date_before(scope, slate["earliest_date"]):
-        return 0.0
 
-    report_lower = report.lower()
     score = 0.0
-    if target_date_mentioned(scope, slate["date"]):
+    if selected_scope_dates(scope):
         score += 0.25
     if PT_RE.search(scope) or PT_RE.search(report[:2000]):
         score += 0.15
 
-    fixtures = slate["fixtures"]
-    if fixtures:
-        covered = sum(1 for fixture in fixtures if fixture_mentioned(report_lower, fixture))
-        score += 0.50 * (covered / len(fixtures))
+    score += 0.50 * score_declared_scored_fixture_coverage(report)
 
-    if not has_selected_scope_date_before(scope, slate["date"]):
+    if not has_internal_stale_scope_conflict(scope):
         score += 0.10
 
     return round(score, 4)
+
+
+def score_declared_scored_fixture_coverage(report: str, expected_minimum: int = 3) -> float:
+    if expected_minimum <= 0:
+        return 0.0
+    fixtures = unique_scored_fixture_lines(match_blocks(report))
+    return min(len(fixtures), expected_minimum) / expected_minimum
+
+
+def unique_scored_fixture_lines(blocks: list[str]) -> set[str]:
+    fixtures: set[str] = set()
+    for block in blocks:
+        first_line = block.splitlines()[0].strip() if block.splitlines() else ""
+        fixture_match = VS_LINE_RE.search(first_line)
+        if fixture_match and SCORELINE_RE.search(first_line):
+            fixtures.add(compact_alnum(fixture_match.group(0)))
+    return fixtures
+
+
+def has_internal_stale_scope_conflict(scope: str) -> bool:
+    selected_dates = selected_scope_dates(scope)
+    as_of_dates = explicit_as_of_dates(scope)
+    if not selected_dates or not as_of_dates:
+        return False
+    return min(selected_dates) <= max(as_of_dates)
 
 
 def resolve_target_slate(
@@ -605,6 +615,17 @@ def selected_scope_dates(text: str) -> list[date]:
 
     for match in DATE_RE.finditer(text):
         if has_as_of_date_context(text, match.start()):
+            continue
+        parsed = parse_report_date(match.group(0))
+        if parsed is not None:
+            dates.append(parsed.date())
+    return dates
+
+
+def explicit_as_of_dates(text: str) -> list[date]:
+    dates: list[date] = []
+    for match in DATE_RE.finditer(text):
+        if not has_as_of_date_context(text, match.start()):
             continue
         parsed = parse_report_date(match.group(0))
         if parsed is not None:

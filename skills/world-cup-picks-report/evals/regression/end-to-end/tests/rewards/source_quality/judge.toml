@@ -3,6 +3,6 @@ judge = "anthropic/claude-sonnet-4-6"
 files = ["/logs/artifacts/report.md"]
 
 [[criterion]]
-description = "Rate the quality and coverage of sources used by the report. A strong report cites or clearly references official fixture information, expert previews or picks, model/probability sources such as Opta or equivalent, market/odds evidence, Elo or team-strength ratings, and current lineup/injury/team-news context. Penalize thin sourcing, missing source categories, untraceable claims, or reliance on low-quality/generic sources."
+description = "Rate the quality and coverage of sources used by the report. A strong report cites or clearly references official fixture information, expert previews or picks, model/probability sources such as Opta or equivalent, market/odds evidence, Elo or team-strength ratings, and current lineup/injury/team-news context. For knockout-stage reports, knockout-specific market sources such as draw-after-90, team-to-advance, extra-time, or win-on-penalties markets are useful but not mandatory when unavailable; reward reports that clearly state when PK likelihood is inferred from broader model, odds, totals, or team-strength signals. Penalize thin sourcing, missing source categories, untraceable claims, or reliance on low-quality/generic sources."
 type = "likert"
 points = 5

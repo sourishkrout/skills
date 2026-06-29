@@ -1,4 +1,4 @@
-"""Check that the report covers the resolved future World Cup slate."""
+"""Check that the report declares and covers a coherent World Cup slate."""
 
 from rewardkit import criteria
 

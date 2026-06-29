@@ -461,123 +461,101 @@ def test_resolve_target_slate_raises_without_future_fixtures(tmp_path: Path) -> 
         raise AssertionError("Expected ValueError")
 
 
-def test_target_slate_coverage_full_report() -> None:
-    report = """Report scope: Wednesday, June 24, 2026 in U.S. Pacific time.
+def test_target_slate_coverage_full_declared_knockout_report() -> None:
+    report = """Report scope: FIFA World Cup 2026 Round of 32, Tuesday, June 30, 2026 in U.S. Pacific time. This is the next full unplayed slate no earlier than tomorrow from the current runtime date of Monday, June 29, 2026 PT.
 
 ## Scoreline Picks
 
-### Switzerland vs Canada: 1:1 - Confidence: Low
-Basis: Expert anchor.
-Risk: Game state.
+### Cote d'Ivoire vs Norway: 1:2 - Aggregate incl. PKs: 1:2 - Confidence: Medium
+90-min score: Cote d'Ivoire 1:2 Norway
+AET/PK outcome: Norway advances in regulation.
+PK likelihood: Low - draw-after-90 is modest.
 
-### Bosnia-Herzegovina vs Qatar: 2:0 - Confidence: Medium
-Basis: Expert anchor.
-Risk: Volatility.
+### France vs Sweden: 3:1 - Aggregate incl. PKs: 3:1 - Confidence: Medium
+90-min score: France 3:1 Sweden
+AET/PK outcome: France advances in regulation.
+PK likelihood: Low - favorite edge is large.
 
-### Scotland vs Brazil: 0:2 - Confidence: Medium
-Basis: Expert anchor.
-Risk: Rotation.
-
-### Morocco vs Haiti: 2:0 - Confidence: High
-Basis: Expert anchor.
-Risk: Rotation.
-
-### Czechia vs Mexico: 0:1 - Confidence: Medium
-Basis: Expert anchor.
-Risk: Draw.
-
-### South Africa vs South Korea: 0:1 - Confidence: Medium
-Basis: Expert anchor.
-Risk: Suspensions.
+### Mexico vs Ecuador: 2:1 - Aggregate incl. PKs: 2:1 - Confidence: Low
+90-min score: Mexico 2:1 Ecuador
+AET/PK outcome: Mexico advances in regulation.
+PK likelihood: Medium - narrow Elo gap and higher draw-after-90.
 """
 
     assert criteria.score_target_slate_coverage(report) == 1.0
 
 
-def test_target_slate_coverage_accepts_team_aliases() -> None:
-    report = """Report scope: Wednesday, June 24, 2026 in U.S. Pacific time.
+def test_target_slate_coverage_partial_for_one_declared_scored_fixture() -> None:
+    report = """Report scope: Tuesday, June 30, 2026 in U.S. Pacific time.
 
 ## Scoreline Picks
 
-### Switzerland vs Canada: 1:1 - Confidence: Low
-### Bosnia and Herzegovina vs Qatar: 2:0 - Confidence: Medium
-### Scotland vs Brazil: 0:2 - Confidence: Medium
-### Morocco vs Haiti: 2:0 - Confidence: High
-### Czech Republic vs Mexico: 0:1 - Confidence: Medium
-### South Africa vs Korea Republic: 0:1 - Confidence: Medium
+### France vs Sweden: 3:1 - Confidence: Medium
 """
 
-    assert criteria.score_target_slate_coverage(report) == 1.0
+    assert criteria.score_target_slate_coverage(report) == 0.6667
 
 
-def test_target_slate_coverage_allows_runtime_date_context() -> None:
-    report = """Report scope: Group-stage Matchday 3, Wednesday, June 24, 2026 in U.S. Pacific time. This is the next full unplayed World Cup slate no earlier than tomorrow from the current runtime date of Tuesday, June 23, 2026 PT.
+def test_target_slate_coverage_requires_selected_slate_date() -> None:
+    report = """Report scope: next full unplayed World Cup slate in U.S. Pacific time.
 
 ## Scoreline Picks
 
-### Switzerland vs Canada: 1:1 - Confidence: Low
-### Bosnia-Herzegovina vs Qatar: 2:0 - Confidence: Medium
-### Scotland vs Brazil: 0:2 - Confidence: Medium
-### Morocco vs Haiti: 2:0 - Confidence: High
-### Czechia vs Mexico: 0:1 - Confidence: Medium
-### South Africa vs South Korea: 0:1 - Confidence: Medium
+### Cote d'Ivoire vs Norway: 1:2 - Confidence: Medium
+### France vs Sweden: 3:1 - Confidence: Medium
+### Mexico vs Ecuador: 2:1 - Confidence: Low
 """
 
-    assert criteria.score_target_slate_coverage(report) == 1.0
+    assert criteria.score_target_slate_coverage(report) == 0.75
 
 
-def test_target_slate_coverage_penalizes_missing_fixture() -> None:
-    report = """Report scope: Wednesday, June 24, 2026 in U.S. Pacific time.
+def test_target_slate_coverage_penalizes_unscored_fixture_blocks() -> None:
+    report = """Report scope: Tuesday, June 30, 2026 in U.S. Pacific time.
 
 ## Scoreline Picks
 
-### Switzerland vs Canada: 1:1 - Confidence: Low
-### Bosnia-Herzegovina vs Qatar: 2:0 - Confidence: Medium
-### Scotland vs Brazil: 0:2 - Confidence: Medium
-### Morocco vs Haiti: 2:0 - Confidence: High
-### Czechia vs Mexico: 0:1 - Confidence: Medium
+### Cote d'Ivoire vs Norway: 1:2 - Confidence: Medium
+### France vs Sweden - Confidence: Medium
+### Mexico vs Ecuador - Confidence: Low
 """
 
-    assert criteria.score_target_slate_coverage(report) < 1.0
+    assert criteria.score_target_slate_coverage(report) == 0.6667
 
 
-def test_target_slate_coverage_runtime_date_context_does_not_mask_missing_fixture() -> None:
-    report = """Report scope: Wednesday, June 24, 2026 in U.S. Pacific time from the current runtime date of Tuesday, June 23, 2026 PT.
+def test_target_slate_coverage_dedupes_repeated_scored_fixture() -> None:
+    report = """Report scope: Tuesday, June 30, 2026 in U.S. Pacific time.
 
 ## Scoreline Picks
 
-### Switzerland vs Canada: 1:1 - Confidence: Low
-### Bosnia-Herzegovina vs Qatar: 2:0 - Confidence: Medium
-### Scotland vs Brazil: 0:2 - Confidence: Medium
-### Morocco vs Haiti: 2:0 - Confidence: High
-### Czechia vs Mexico: 0:1 - Confidence: Medium
+### France vs Sweden: 3:1 - Confidence: Medium
+### France vs Sweden: 2:1 - Confidence: Medium
+### France vs Sweden: 1:0 - Confidence: Low
 """
 
-    assert criteria.score_target_slate_coverage(report) == 0.9167
+    assert criteria.score_target_slate_coverage(report) == 0.6667
 
 
-def test_target_slate_coverage_rejects_stale_or_same_day_scope() -> None:
-    stale = """Report scope: Tuesday, June 23, 2026 in U.S. Pacific time.
+def test_target_slate_coverage_rejects_internal_stale_scope_conflict() -> None:
+    report = """Report scope: Tuesday, June 23, 2026 in U.S. Pacific time from the current runtime date of Tuesday, June 23, 2026 PT.
 
 ## Scoreline Picks
 
 ### Spain vs Uruguay: 1:1 - Confidence: Medium
+### France vs Senegal: 2:1 - Confidence: Medium
+### Brazil vs Scotland: 2:0 - Confidence: Medium
 """
 
-    assert criteria.score_target_slate_coverage(stale) == 0.0
+    assert criteria.score_target_slate_coverage(report) == 0.9
 
 
 def test_target_slate_coverage_penalizes_missing_pacific_framing() -> None:
-    report = """Report scope: Wednesday, June 24, 2026.
+    report = """Report scope: Tuesday, June 30, 2026.
 
 ## Scoreline Picks
 
-### Switzerland vs Canada: 1:1 - Confidence: Low
-### Bosnia-Herzegovina vs Qatar: 2:0 - Confidence: Medium
-### Scotland vs Brazil: 0:2 - Confidence: Medium
-### Morocco vs Haiti: 2:0 - Confidence: High
-### Czechia vs Mexico: 0:1 - Confidence: Medium
-### South Africa vs South Korea: 0:1 - Confidence: Medium
+### Cote d'Ivoire vs Norway: 1:2 - Confidence: Medium
+### France vs Sweden: 3:1 - Confidence: Medium
+### Mexico vs Ecuador: 2:1 - Confidence: Low
 """
 
     assert criteria.score_target_slate_coverage(report) == 0.85
