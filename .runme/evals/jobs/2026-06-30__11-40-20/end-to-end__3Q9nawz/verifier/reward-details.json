@@ -1,0 +1,307 @@
+{
+  "artifact_written": {
+    "score": 1.0,
+    "criteria": [
+      {
+        "name": "report_file_exists",
+        "value": 1.0,
+        "raw": true,
+        "weight": 1.0,
+        "description": "Check that the command `test -f /Users/sourishkrout/Projects/personal/2026Q2/sourishkrout-skills/.runme/evals/jobs/2026-06-30__11-40-20/end-to-end__3Q9nawz/artifacts/report.md` exits with code 0"
+      },
+      {
+        "name": "report_file_nonempty",
+        "value": 1.0,
+        "raw": true,
+        "weight": 2.0,
+        "description": "Check that the command `test -s /Users/sourishkrout/Projects/personal/2026Q2/sourishkrout-skills/.runme/evals/jobs/2026-06-30__11-40-20/end-to-end__3Q9nawz/artifacts/report.md` exits with code 0"
+      }
+    ],
+    "kind": "programmatic"
+  },
+  "citation_proximity": {
+    "score": 1.0,
+    "criteria": [
+      {
+        "name": "report_has_url",
+        "value": 1.0,
+        "raw": true,
+        "weight": 0.0,
+        "description": "Check that the command `grep -Eq 'https?://' /Users/sourishkrout/Projects/personal/2026Q2/sourishkrout-skills/.runme/evals/jobs/2026-06-30__11-40-20/end-to-end__3Q9nawz/artifacts/report.md` exits with code 0"
+      },
+      {
+        "name": "report_has_source_terms",
+        "value": 1.0,
+        "raw": true,
+        "weight": 0.0,
+        "description": "Check that the command `grep -Eiq 'opta|dimers|football whispers|espn|elo|prediction|preview|correct.score' /Users/sourishkrout/Projects/personal/2026Q2/sourishkrout-skills/.runme/evals/jobs/2026-06-30__11-40-20/end-to-end__3Q9nawz/artifacts/report.md` exits with code 0"
+      },
+      {
+        "name": "match_blocks_have_traceable_citations",
+        "value": 1.0,
+        "raw": 1.0,
+        "weight": 1.0,
+        "description": "citation_proximity_by_match"
+      }
+    ],
+    "kind": "programmatic"
+  },
+  "expert_anchor_coverage": {
+    "score": 1.0,
+    "criteria": [
+      {
+        "name": "rate_whether_every_fixture_in_the_report",
+        "value": 1.0,
+        "raw": 5,
+        "weight": 1.0,
+        "description": "Rate whether every fixture in the report is grounded in a credible expert, prediction, preview, or correct-score source. Give full credit when each fixture has a clear anchor, or when the report honestly says explicit expert scoreline data is unavailable and uses model or market evidence as a fallback. Penalize missing fixture anchors, vague unsupported expert claims, or anchors only listed in sources without being tied to a fixture.",
+        "reasoning": "All three fixtures in the report are clearly and specifically anchored to credible sources. England vs DR Congo is tied to Last Word's explicit 1-0 scoreline lean and Opta Analyst's preview with specific win probability figures (73.9%). Belgium vs Senegal is anchored to Opta's preview (45.6% Belgium win, 27.4% draw probability), Last Word's extra-time/penalty lean, and Elo ratings with precise values. United States vs Bosnia and Herzegovina is grounded in Last Word's explicit 2-1 lean and Opta's preview figures (67.5% USA win). Each fixture has its own dedicated Opta Analyst article listed in sources and is directly referenced in the body text with specific statistics tied to that match. The sources are not merely listed generically but are connected to individual fixture analyses. The report also properly uses a combination of expert scoreline sources (Last Word) and market/model evidence (Opta, Elo), which is exactly the right approach for pre-match prediction reports."
+      }
+    ],
+    "kind": "llm",
+    "judge": {
+      "model": "anthropic/claude-sonnet-4-6",
+      "reasoning_effort": "medium",
+      "timeout": 300,
+      "files": [
+        "/Users/sourishkrout/Projects/personal/2026Q2/sourishkrout-skills/.runme/evals/jobs/2026-06-30__11-40-20/end-to-end__3Q9nawz/artifacts/report.md"
+      ],
+      "atif_trajectory": null,
+      "reference": null,
+      "mode": "batched"
+    },
+    "judge_output": "{\"score\": 5, \"reasoning\": \"All three fixtures in the report are clearly and specifically anchored to credible sources. England vs DR Congo is tied to Last Word's explicit 1-0 scoreline lean and Opta Analyst's preview with specific win probability figures (73.9%). Belgium vs Senegal is anchored to Opta's preview (45.6% Belgium win, 27.4% draw probability), Last Word's extra-time/penalty lean, and Elo ratings with precise values. United States vs Bosnia and Herzegovina is grounded in Last Word's explicit 2-1 lean and Opta's preview figures (67.5% USA win). Each fixture has its own dedicated Opta Analyst article listed in sources and is directly referenced in the body text with specific statistics tied to that match. The sources are not merely listed generically but are connected to individual fixture analyses. The report also properly uses a combination of expert scoreline sources (Last Word) and market/model evidence (Opta, Elo), which is exactly the right approach for pre-match prediction reports.\"}"
+  },
+  "expert_anchor_usage": {
+    "score": 1.0,
+    "criteria": [
+      {
+        "name": "rate_whether_each_match_pick_uses_at_lea",
+        "value": 1.0,
+        "raw": 5,
+        "weight": 1.0,
+        "description": "Rate whether each match pick uses at least one expert prediction, correct-score source, preview, or equivalent pick as a visible source for the chosen scoreline. Do not require exact phrases like 'expert anchor'. Full credit is appropriate when every match block names or cites a relevant source and connects it to the pick, even if other sources disagree or predict a different score. Do not penalize unresolved disagreement between credible sources; disagreement is acceptable as long as the report shows source presence and uses at least one source for each pick. Penalize only when match blocks lack a visible expert/prediction/preview/correct-score source, cite sources without tying them to the pick, or rely only on unsupported generic model/market language.",
+        "reasoning": "All three match blocks explicitly cite at least one expert prediction or correct-score source tied directly to the chosen scoreline. England vs DR Congo names 'Last Word's exact-score lean is England 1-0' and links it to the 1:0 pick. United States vs Bosnia names 'Last Word's exact-score lean is United States 2-1' and links it to the 2:1 pick. Belgium vs Senegal cites Last Word leaning Belgium after extra time and flagging extra time or penalties as plausible, which directly supports the 1:1 AET / PKs pick. Each block also reinforces the choice with Opta win-probability data and Elo ratings. The sources section provides full URLs for the Opta previews and Last Word predictions, confirming they are real, named references rather than vague generic language. There is no match block that relies solely on unsupported model or market language without a named expert or preview source."
+      }
+    ],
+    "kind": "llm",
+    "judge": {
+      "model": "anthropic/claude-sonnet-4-6",
+      "reasoning_effort": "medium",
+      "timeout": 300,
+      "files": [
+        "/Users/sourishkrout/Projects/personal/2026Q2/sourishkrout-skills/.runme/evals/jobs/2026-06-30__11-40-20/end-to-end__3Q9nawz/artifacts/report.md"
+      ],
+      "atif_trajectory": null,
+      "reference": null,
+      "mode": "batched"
+    },
+    "judge_output": "{\"score\":5,\"reasoning\":\"All three match blocks explicitly cite at least one expert prediction or correct-score source tied directly to the chosen scoreline. England vs DR Congo names 'Last Word's exact-score lean is England 1-0' and links it to the 1:0 pick. United States vs Bosnia names 'Last Word's exact-score lean is United States 2-1' and links it to the 2:1 pick. Belgium vs Senegal cites Last Word leaning Belgium after extra time and flagging extra time or penalties as plausible, which directly supports the 1:1 AET / PKs pick. Each block also reinforces the choice with Opta win-probability data and Elo ratings. The sources section provides full URLs for the Opta previews and Last Word predictions, confirming they are real, named references rather than vague generic language. There is no match block that relies solely on unsupported model or market language without a named expert or preview source.\"}"
+  },
+  "guardrails": {
+    "score": 1.0,
+    "criteria": [
+      {
+        "name": "banned_wagering_terms_absent",
+        "value": 1.0,
+        "raw": true,
+        "weight": 1.0,
+        "description": "Check that the command `test -f /Users/sourishkrout/Projects/personal/2026Q2/sourishkrout-skills/.runme/evals/jobs/2026-06-30__11-40-20/end-to-end__3Q9nawz/artifacts/report.md && ! grep -Eiq 'lock of the day|bankroll|bet sizing|stake |wager |must bet' /Users/sourishkrout/Projects/personal/2026Q2/sourishkrout-skills/.runme/evals/jobs/2026-06-30__11-40-20/end-to-end__3Q9nawz/artifacts/report.md` exits with code 0"
+      },
+      {
+        "name": "unnegated_guaranteed_absent",
+        "value": 1.0,
+        "raw": 1.0,
+        "weight": 1.0,
+        "description": "unnegated_guaranteed_absent"
+      }
+    ],
+    "kind": "programmatic"
+  },
+  "lineup_status": {
+    "score": 1.0,
+    "criteria": [
+      {
+        "name": "lineup_status_confirmed_or_materially_pending",
+        "value": 1.0,
+        "raw": 1.0,
+        "weight": 1.0,
+        "description": "lineup_status_actionable"
+      }
+    ],
+    "kind": "programmatic"
+  },
+  "report_completeness": {
+    "score": 1.0,
+    "criteria": [
+      {
+        "name": "rate_whether_the_final_report_is_complet",
+        "value": 1.0,
+        "raw": 5,
+        "weight": 1.0,
+        "description": "Rate whether the final report is complete for a Discord World Cup scoreline report. It should include scope/date for the requested future U.S. Pacific-time slate, the slate's fixtures, exact home:away scorelines, confidence levels, basis notes, risk notes, best scoreline leans, actionable lineup status or late-news context, and sources. Reward reports that incorporate confirmed lineups when they are available, and use pending-lineup caveats only when lineups are not found or a concrete unresolved starter/formation question materially affects the pick. Penalize generic 'wait for lineups' advice when confirmed lineups are available or when the report gives no specific material lineup uncertainty. For knockout-stage reports, also reward regulation/90-minute score, AET or PK outcome, PK likelihood with a brief reason, and a separate aggregate including PKs when applicable; the report should keep the official match score visibly separate from any PK-inclusive aggregate. Penalize incomplete slate coverage, stale date framing, missing risk/basis/confidence, missing knockout-stage PK/aggregate context when relevant, or missing source context. Deterministic date and fixture correctness are checked separately, so focus on report completeness and usability.",
+        "reasoning": "The report covers all required elements comprehensively. Scope and date are clearly stated (Round of 32, July 1, 2026, U.S. Pacific time). All three fixtures on the slate are included with exact home:away scorelines. Each match has: a clearly labeled 90-minute regulation score separate from any PK-inclusive aggregate, an AET/PK outcome section, PK likelihood with a specific quantitative reason (Opta draw probabilities cited), confidence levels, basis notes with concrete data (Opta win%, Elo ratings, Last Word leans), and risk notes. The aggregate including PKs is explicitly broken out for Belgium vs Senegal where it matters, and the official match score remains visually distinct from the PK aggregate. Best scoreline leans and highest PK-risk rankings are included. The lineup status section names specific material uncertainties (Quansah/Reece James, Lukaku, Senegal keeper, USA defensive availability) rather than issuing a purely generic 'wait for lineups' advisory, and appropriately flags that confirmed lineups are not yet available given the pre-match timing. Sources are detailed and specific, including match-level Opta Analyst URLs, Last Word predictions, and Elo ratings feed. The report is actionable, well-structured, and leaves almost nothing material missing for a knockout-stage Discord scoreline post."
+      }
+    ],
+    "kind": "llm",
+    "judge": {
+      "model": "anthropic/claude-sonnet-4-6",
+      "reasoning_effort": "medium",
+      "timeout": 300,
+      "files": [
+        "/Users/sourishkrout/Projects/personal/2026Q2/sourishkrout-skills/.runme/evals/jobs/2026-06-30__11-40-20/end-to-end__3Q9nawz/artifacts/report.md"
+      ],
+      "atif_trajectory": null,
+      "reference": null,
+      "mode": "batched"
+    },
+    "judge_output": "{\"score\":5,\"reasoning\":\"The report covers all required elements comprehensively. Scope and date are clearly stated (Round of 32, July 1, 2026, U.S. Pacific time). All three fixtures on the slate are included with exact home:away scorelines. Each match has: a clearly labeled 90-minute regulation score separate from any PK-inclusive aggregate, an AET/PK outcome section, PK likelihood with a specific quantitative reason (Opta draw probabilities cited), confidence levels, basis notes with concrete data (Opta win%, Elo ratings, Last Word leans), and risk notes. The aggregate including PKs is explicitly broken out for Belgium vs Senegal where it matters, and the official match score remains visually distinct from the PK aggregate. Best scoreline leans and highest PK-risk rankings are included. The lineup status section names specific material uncertainties (Quansah/Reece James, Lukaku, Senegal keeper, USA defensive availability) rather than issuing a purely generic 'wait for lineups' advisory, and appropriately flags that confirmed lineups are not yet available given the pre-match timing. Sources are detailed and specific, including match-level Opta Analyst URLs, Last Word predictions, and Elo ratings feed. The report is actionable, well-structured, and leaves almost nothing material missing for a knockout-stage Discord scoreline post.\"}"
+  },
+  "scoreline_format": {
+    "score": 1.0,
+    "criteria": [
+      {
+        "name": "scoreline_picks_section_present",
+        "value": 1.0,
+        "raw": true,
+        "weight": 1.0,
+        "description": "Check that the command `grep -Eiq '^#{0,6}[[:space:]]*Scoreline Picks[[:space:]]*$|^Scoreline Picks[[:space:]]*$' /Users/sourishkrout/Projects/personal/2026Q2/sourishkrout-skills/.runme/evals/jobs/2026-06-30__11-40-20/end-to-end__3Q9nawz/artifacts/report.md` exits with code 0"
+      },
+      {
+        "name": "scoreline_pattern_present",
+        "value": 1.0,
+        "raw": true,
+        "weight": 1.0,
+        "description": "Check that the command `grep -Eq '[0-9]+[[:space:]]*:[[:space:]]*[0-9]+' /Users/sourishkrout/Projects/personal/2026Q2/sourishkrout-skills/.runme/evals/jobs/2026-06-30__11-40-20/end-to-end__3Q9nawz/artifacts/report.md` exits with code 0"
+      },
+      {
+        "name": "match_pick_headings_include_scorelines",
+        "value": 1.0,
+        "raw": 1.0,
+        "weight": 3.0,
+        "description": "parsed_scoreline_format"
+      }
+    ],
+    "kind": "programmatic"
+  },
+  "skill_activation_evidence": {
+    "score": 1.0,
+    "criteria": [
+      {
+        "name": "activation_log_present",
+        "value": 1.0,
+        "raw": true,
+        "weight": 0.0,
+        "description": "Check that the command `test -s /Users/sourishkrout/Projects/personal/2026Q2/sourishkrout-skills/.runme/evals/jobs/2026-06-30__11-40-20/end-to-end__3Q9nawz/agent/trajectory.json || test -s /Users/sourishkrout/Projects/personal/2026Q2/sourishkrout-skills/.runme/evals/jobs/2026-06-30__11-40-20/end-to-end__3Q9nawz/agent/oracle.txt` exits with code 0"
+      },
+      {
+        "name": "read_tool_used",
+        "value": 0.0,
+        "raw": false,
+        "weight": 0.0,
+        "description": "Agent used tool 'Read' (trajectory: /Users/sourishkrout/Projects/personal/2026Q2/sourishkrout-skills/.runme/evals/jobs/2026-06-30__11-40-20/end-to-end__3Q9nawz/agent/trajectory.json)"
+      },
+      {
+        "name": "skill_tool_used",
+        "value": 0.0,
+        "raw": false,
+        "weight": 0.0,
+        "description": "Agent used tool 'Skill' (trajectory: /Users/sourishkrout/Projects/personal/2026Q2/sourishkrout-skills/.runme/evals/jobs/2026-06-30__11-40-20/end-to-end__3Q9nawz/agent/trajectory.json)"
+      },
+      {
+        "name": "world_cup_skill_activation_detected",
+        "value": 1.0,
+        "raw": 1.0,
+        "weight": 1.0,
+        "description": "skill_activation_evidence"
+      }
+    ],
+    "kind": "programmatic"
+  },
+  "source_quality": {
+    "score": 0.75,
+    "criteria": [
+      {
+        "name": "rate_the_quality_and_coverage_of_sources",
+        "value": 0.75,
+        "raw": 4,
+        "weight": 1.0,
+        "description": "Rate the quality and coverage of sources used by the report. A strong report cites or clearly references official fixture information, expert previews or picks, model/probability sources such as Opta or equivalent, market/odds evidence, Elo or team-strength ratings, and current lineup/injury/team-news context. When a fixture is close to kickoff, reward use of official or current confirmed-lineup sources such as FIFA match centres, official match pages, ESPN/FotMob/SofaScore match centres, or official team/federation channels. Penalize relying only on older preview predicted lineups for kickoff-imminent matches when the report presents lineup claims as current or final. For knockout-stage reports, knockout-specific market sources such as draw-after-90, team-to-advance, extra-time, or win-on-penalties markets are useful but not mandatory when unavailable; reward reports that clearly state when PK likelihood is inferred from broader model, odds, totals, or team-strength signals. Penalize thin sourcing, missing source categories, untraceable claims, or reliance on low-quality/generic sources.",
+        "reasoning": "The report covers nearly all key source categories: official fixture info (FIFA schedule), market/odds evidence (FanDuel odds via FOX Sports), match-specific Opta model probabilities (win %, draw %, advancement % with dedicated URLs for all three matches), team-strength ratings (World Football Elo with explicit numeric ratings), and expert scoreline picks (Last Word on Football). Knockout-specific signals such as draw-after-90 probability and advancement percentage are explicitly drawn from Opta rather than inferred vaguely. The report correctly acknowledges confirmed lineups are not yet available given the pre-kickoff timing, which is appropriate handling. Minor deductions: the Last Word source URL appears to reference only the England vs DR Congo article, yet Last Word exact-score leans are cited for all three matches without match-specific URLs for Belgium vs Senegal and USA vs Bosnia; this creates a minor traceability gap for two of the three picks. No SofaScore, FotMob, or ESPN match-centre sources are included for preliminary lineup/injury news that might already be available (e.g., confirmed injury reports or squad announcements), though the report appropriately notes uncertainty. Overall, sourcing is strong and well-distributed across the major categories with specific, credible, and mostly traceable references."
+      }
+    ],
+    "kind": "llm",
+    "judge": {
+      "model": "anthropic/claude-sonnet-4-6",
+      "reasoning_effort": "medium",
+      "timeout": 300,
+      "files": [
+        "/Users/sourishkrout/Projects/personal/2026Q2/sourishkrout-skills/.runme/evals/jobs/2026-06-30__11-40-20/end-to-end__3Q9nawz/artifacts/report.md"
+      ],
+      "atif_trajectory": null,
+      "reference": null,
+      "mode": "batched"
+    },
+    "judge_output": "{\"score\":4,\"reasoning\":\"The report covers nearly all key source categories: official fixture info (FIFA schedule), market/odds evidence (FanDuel odds via FOX Sports), match-specific Opta model probabilities (win %, draw %, advancement % with dedicated URLs for all three matches), team-strength ratings (World Football Elo with explicit numeric ratings), and expert scoreline picks (Last Word on Football). Knockout-specific signals such as draw-after-90 probability and advancement percentage are explicitly drawn from Opta rather than inferred vaguely. The report correctly acknowledges confirmed lineups are not yet available given the pre-kickoff timing, which is appropriate handling. Minor deductions: the Last Word source URL appears to reference only the England vs DR Congo article, yet Last Word exact-score leans are cited for all three matches without match-specific URLs for Belgium vs Senegal and USA vs Bosnia; this creates a minor traceability gap for two of the three picks. No SofaScore, FotMob, or ESPN match-centre sources are included for preliminary lineup/injury news that might already be available (e.g., confirmed injury reports or squad announcements), though the report appropriately notes uncertainty. Overall, sourcing is strong and well-distributed across the major categories with specific, credible, and mostly traceable references.\"}"
+  },
+  "target_slate_coverage": {
+    "score": 1.0,
+    "criteria": [
+      {
+        "name": "target_scope_date_present",
+        "value": 1.0,
+        "raw": 1.0,
+        "weight": 0.0,
+        "description": "target_scope_date"
+      },
+      {
+        "name": "target_pacific_framing_present",
+        "value": 1.0,
+        "raw": 1.0,
+        "weight": 0.25,
+        "description": "target_pacific_framing"
+      },
+      {
+        "name": "target_fixture_mentions",
+        "value": 1.0,
+        "raw": 1.0,
+        "weight": 0.0,
+        "description": "target_fixture_mentions"
+      },
+      {
+        "name": "target_slate_weighted_coverage",
+        "value": 1.0,
+        "raw": 1.0,
+        "weight": 1.0,
+        "description": "target_slate_scored_coverage"
+      }
+    ],
+    "kind": "programmatic"
+  },
+  "workflow_sequence_evidence": {
+    "score": 1.0,
+    "criteria": [
+      {
+        "name": "rate_whether_the_report_and_available_tr",
+        "value": 1.0,
+        "raw": 5,
+        "weight": 1.0,
+        "description": "Rate whether the report and available trajectory show the intended workflow: identify a relevant FIFA slate/date, collect expert scoreline or prediction anchors, compare with model probabilities, compare with market or odds evidence, check Elo or team-strength context, account for lineup/injury/current-match context, and synthesize final scoreline picks. For fixtures within roughly 90 minutes of kickoff, reward evidence that the agent searched for confirmed starting lineups and either incorporated available XIs into the pick or clearly stated that lineups were not yet released and why the pending information matters. Penalize generic final-lineup caveats when the trajectory or report indicates lineups were available, or when there is no evidence of a current lineup check for a kickoff-imminent fixture. For knockout-stage reports, also reward evidence that the agent assessed extra-time and penalty-shootout risk using draw-after-90 odds/probability, extra-time or win-on-penalties markets when available, team-to-advance context, or low-total/defensive-style signals as fallback inference. Give full credit when the final report itself visibly demonstrates all relevant workflow phases, even if no trajectory is available. For workflow sequencing, accept cited expert/model/market references at face value unless the report or trajectory contradicts them; do not penalize solely because exact cited numbers cannot be independently verified from raw HTML, JS-rendered pages, Cloudflare-blocked sites, because the judge lacks web access, or because the trajectory is absent. Penalize skipped phases, unsupported synthesis, missing knockout-stage penalty/extra-time assessment when relevant, or clear fabrication after the trajectory shows a source failed.",
+        "reasoning": "The report and trajectory demonstrate complete execution of all intended workflow phases. (1) Slate identification: The agent correctly scoped the July 1, 2026 PT Round of 32 slate (England-DR Congo, Belgium-Senegal, USA-Bosnia) and verified it against the FIFA schedule and FOX Sports. (2) Expert scoreline anchors: Last Word on Football predictions were retrieved and confirmed in the trajectory HTML (England 1-0, Belgium 3-2 AET, USA 2-1). (3) Model probabilities: Opta Analyst pages for all three matches were verified to exist; specific win/draw probabilities are cited for each match and are internally consistent. (4) Market evidence: FOX Sports/FanDuel moneyline and to-advance odds were extracted from the article JSON embedded in the page, with specific values for all three matches. (5) Elo sanity check: The agent successfully fetched eloratings.net/fixtures.tsv and the actual TSV content confirms the July 1 rows with the cited ratings (Belgium 1884, Senegal 1842, DR Congo 1712, England 2038, USA 1781, Bosnia 1622). (6) Lineup/injury context: The agent noted specific material concerns (Quansah/Reece James right-back, Mendy injury for Senegal, Pulisic availability) and correctly stated lineups were not yet confirmed since kickoff was more than 90 minutes away, with a concrete list of pending items. (7) Knockout-stage PK assessment: All three matches include 90-min score, AET/PK outcome, PK likelihood with draw-after-90 probability, team-to-advance context, and aggregate-including-PKs fields. Belgium-Senegal correctly receives High PK risk supported by draw probability (27.4%), narrow Elo gap, and short draw price; England and USA matches are correctly assessed as Low PK risk with regulation-win support quantified. (8) Synthesis: Final picks are well-supported with basis, risk, confidence levels, and action summary sections. The workflow is fully complete with no skipped phases."
+      }
+    ],
+    "kind": "llm",
+    "judge": {
+      "model": "anthropic/claude-sonnet-4-6",
+      "reasoning_effort": "medium",
+      "timeout": 300,
+      "files": [
+        "/Users/sourishkrout/Projects/personal/2026Q2/sourishkrout-skills/.runme/evals/jobs/2026-06-30__11-40-20/end-to-end__3Q9nawz/artifacts/report.md"
+      ],
+      "atif_trajectory": "/Users/sourishkrout/Projects/personal/2026Q2/sourishkrout-skills/.runme/evals/jobs/2026-06-30__11-40-20/end-to-end__3Q9nawz/agent/trajectory.json",
+      "reference": null,
+      "mode": "batched"
+    },
+    "judge_output": "{\"score\":5,\"reasoning\":\"The report and trajectory demonstrate complete execution of all intended workflow phases. (1) Slate identification: The agent correctly scoped the July 1, 2026 PT Round of 32 slate (England-DR Congo, Belgium-Senegal, USA-Bosnia) and verified it against the FIFA schedule and FOX Sports. (2) Expert scoreline anchors: Last Word on Football predictions were retrieved and confirmed in the trajectory HTML (England 1-0, Belgium 3-2 AET, USA 2-1). (3) Model probabilities: Opta Analyst pages for all three matches were verified to exist; specific win/draw probabilities are cited for each match and are internally consistent. (4) Market evidence: FOX Sports/FanDuel moneyline and to-advance odds were extracted from the article JSON embedded in the page, with specific values for all three matches. (5) Elo sanity check: The agent successfully fetched eloratings.net/fixtures.tsv and the actual TSV content confirms the July 1 rows with the cited ratings (Belgium 1884, Senegal 1842, DR Congo 1712, England 2038, USA 1781, Bosnia 1622). (6) Lineup/injury context: The agent noted specific material concerns (Quansah/Reece James right-back, Mendy injury for Senegal, Pulisic availability) and correctly stated lineups were not yet confirmed since kickoff was more than 90 minutes away, with a concrete list of pending items. (7) Knockout-stage PK assessment: All three matches include 90-min score, AET/PK outcome, PK likelihood with draw-after-90 probability, team-to-advance context, and aggregate-including-PKs fields. Belgium-Senegal correctly receives High PK risk supported by draw probability (27.4%), narrow Elo gap, and short draw price; England and USA matches are correctly assessed as Low PK risk with regulation-win support quantified. (8) Synthesis: Final picks are well-supported with basis, risk, confidence levels, and action summary sections. The workflow is fully complete with no skipped phases.\"}"
+  }
+}

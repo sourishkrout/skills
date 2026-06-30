@@ -8,7 +8,7 @@ criteria.target_scope_date(
     name="target_scope_date_present",
 )
 criteria.target_pacific_framing(
-    weight=0.0,
+    weight=0.25,
     name="target_pacific_framing_present",
 )
 criteria.target_fixture_mentions(

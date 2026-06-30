@@ -65,7 +65,7 @@ def test_programmatic_rewards_register_dashboard_breakouts() -> None:
     ]
     assert registered_criteria_for_reward("target_slate_coverage") == [
         ("target_scope_date_present", 0.0),
-        ("target_pacific_framing_present", 0.0),
+        ("target_pacific_framing_present", 0.25),
         ("target_fixture_mentions", 0.0),
         ("target_slate_weighted_coverage", 1.0),
     ]
@@ -97,6 +97,29 @@ def test_reward_rollup_uses_existing_emitted_scores(tmp_path: Path) -> None:
 
     assert scores["reward"] == 0.7708
     assert '"reward": 0.7708' in reward_path.read_text()
+
+
+def test_timezone_clarification_response_accepts_direct_question() -> None:
+    text = "What timezone should I use for today's World Cup picks?"
+
+    assert criteria.score_timezone_clarification_response(text) == 1.0
+
+
+def test_timezone_clarification_response_rejects_generic_question() -> None:
+    text = "Which matches should I include?"
+
+    assert criteria.score_timezone_clarification_response(text) == 0.0
+
+
+def test_timezone_clarification_response_rejects_scoped_picks() -> None:
+    text = """Report scope: Tuesday, June 30, 2026 in runtime timezone.
+
+## Scoreline Picks
+
+### France vs Sweden: 2:1 - Confidence: Medium
+"""
+
+    assert criteria.score_timezone_clarification_response(text) == 0.0
 
 
 def test_commands_from_atif() -> None:

@@ -26,7 +26,8 @@ Do not blend penalty shootout goals into the official match score. Keep the offi
 
 ## Inputs
 
-- `date`: Today's date in the user/runtime timezone. Use the actual current date and timezone from the runtime context.
+- `timezone`: The user's timezone. If it is clear from context, use that timezone. If it is not clear, ask the user to clarify before scoping fixtures or saying what is today/next.
+- `date`: Today's date in the user's timezone. Once the timezone is known, use only that timezone for date, today/current/next, and report-scope decisions.
 - `round_scope`: If the user does not specify a round, choose the current round if matches are being played today; otherwise choose the next scheduled round/matchday.
 - `competition`: FIFA World Cup unless the user specifies another tournament.
 
@@ -45,8 +46,10 @@ Do not blend penalty shootout goals into the official match score. Keep the offi
 
 1. Identify the target matches.
    - Search for today's World Cup fixtures.
-   - Convert kickoff times into the user/runtime timezone before deciding whether a fixture belongs to today.
-   - Include cross-midnight fixtures when they fall on the user/runtime date, even if a source lists them under the next calendar day in ET, UTC, or local venue time.
+   - Confirm the user's timezone first unless it is clear from context.
+   - Convert kickoff times into the user's timezone before deciding whether a fixture belongs to today.
+   - Include cross-midnight fixtures when they fall on the user's date, even if a source lists them under the next calendar day in ET, UTC, or local venue time.
+   - Do not mix source-listed calendar dates, venue-local dates, ET, UTC, or runtime timezone into the scope after the user's timezone is selected; mention source timezones only when useful for clarity.
    - If there are no matches today, find the next scheduled matchday or next round.
    - Use absolute dates and name the timezone in the report.
 

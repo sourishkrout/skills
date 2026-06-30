@@ -28,6 +28,10 @@ DATE_RE = re.compile(
     re.I,
 )
 PT_RE = re.compile(r"\b(?:pt|p\.?t\.?|pacific|u\.s\.\s+pacific)\b", re.I)
+TIMEZONE_RE = re.compile(
+    r"\b(?:time ?zone|tz|pacific|eastern|central|mountain|utc|gmt|local time)\b",
+    re.I,
+)
 
 ANCHOR_NAMES = (
     "opta",
@@ -157,6 +161,23 @@ def lineup_status_actionable(workspace: Path) -> float:
 
 def score_artifact_written(report: str) -> float:
     return 1.0 if report.strip() else 0.0
+
+
+def score_timezone_clarification_response(text: str) -> float:
+    if not text.strip():
+        return 0.0
+    if not TIMEZONE_RE.search(text) or "?" not in text:
+        return 0.0
+    if has_scoreline_report_shape(text):
+        return 0.0
+    return 1.0
+
+
+def has_scoreline_report_shape(text: str) -> bool:
+    return bool(
+        re.search(r"\b(?:report scope|scoreline picks)\b", text, re.I)
+        or SCORELINE_RE.search(text)
+    )
 
 
 def score_skill_activation_evidence(atif: bytes | str) -> float:
