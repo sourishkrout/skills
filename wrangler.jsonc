@@ -1,0 +1,34 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "world-cup-picks-report-evals",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-06-30",
+  "workers_dev": true,
+  "containers": [
+    {
+      "class_name": "EvalViewerContainer",
+      "image": "./Dockerfile.eval-viewer",
+      "max_instances": 1
+    }
+  ],
+  "durable_objects": {
+    "bindings": [
+      {
+        "class_name": "EvalViewerContainer",
+        "name": "EVAL_VIEWER"
+      }
+    ]
+  },
+  "migrations": [
+    {
+      "tag": "v1",
+      "new_sqlite_classes": ["EvalViewerContainer"]
+    }
+  ],
+  "routes": [
+    {
+      "pattern": "world-cup-picks-report.evals.visr.dev",
+      "custom_domain": true
+    }
+  ]
+}

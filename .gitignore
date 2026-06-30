@@ -18,6 +18,7 @@ dist/
 *.egg-info/
 .venv/
 venv/
+node_modules/
 
 # Openclaw workspace files
 AGENTS.md
