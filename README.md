@@ -23,5 +23,5 @@ runme eval skills/world-cup-picks-report/evals/regression
 Review each skill's latest eval results:
 
 ```sh {"background":"true","name":"history"}
-uvx harbor view .runme/evals/jobs
+runme eval view
 ```
