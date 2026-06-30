@@ -1,0 +1,13 @@
+FROM python:3.13-slim
+
+ENV PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1
+
+RUN pip install --no-cache-dir harbor
+
+WORKDIR /app
+COPY .runme/evals/jobs /app/.runme/evals/jobs
+
+EXPOSE 8080
+
+CMD ["harbor", "view", "/app/.runme/evals/jobs", "--host", "0.0.0.0", "--port", "8080"]

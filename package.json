@@ -1,0 +1,18 @@
+{
+  "name": "sourishkrout-skills",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "check": "tsc --noEmit",
+    "deploy": "wrangler deploy",
+    "dev": "wrangler dev"
+  },
+  "dependencies": {
+    "@cloudflare/containers": "^0.0.28"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20250630.0",
+    "typescript": "^5.8.3",
+    "wrangler": "^4.22.0"
+  }
+}
