@@ -1,8 +1,33 @@
-# Skills
+# Sourishkrout Skills
+
+This repo contains reusable AI agent skills and their regression evals. The main
+artifact is the eval history for each skill, so start there before cloning or
+running anything locally.
+
+## Review eval history
+
+Published eval history:
+
+```text
+https://world-cup-picks-report-evals.sourishkrout.workers.dev
+```
+
+Local history viewer:
+
+```sh {"background":"true","name":"history"}
+runme eval view
+```
+
+The public showcase is deployed from promoted eval jobs. Review artifacts before
+promoting results because the deployment is intentionally public.
+
+## Run the evals
+
+Current skill:
 
 - `world-cup-picks-report` in `skills/world-cup-picks-report`
 
-Run evals from the skill root:
+Run the full regression eval from the repo root:
 
 ```sh {"name":"eval","terminalRows":"34"}
 runme eval skills/world-cup-picks-report/evals/regression \
@@ -10,34 +35,66 @@ runme eval skills/world-cup-picks-report/evals/regression \
     --ak reasoning_effort=xhigh
 ```
 
-Or, substitute `cursor-cli` with `claude-code` or `codex`.
-
-To only run the oracle, please use:
+To run only the oracle:
 
 ```sh {"name":"oracle","terminalRows":"34"}
 runme eval skills/world-cup-picks-report/evals/regression
 ```
 
-## History
+You can substitute another supported agent, such as `cursor-cli` or
+`claude-code`, for `codex`.
 
-Review each skill's latest eval results:
+## Install a skill
 
-```sh {"background":"true","name":"history"}
-runme eval view
+Install `world-cup-picks-report` globally from this repo:
+
+```sh
+npx skills add -g https://github.com/sourishkrout/skills --skill world-cup-picks-report
 ```
 
-## Public eval showcase
+## Promote fresh results
 
-Eval history is published at:
+Runme's eval workflow is documented at:
 
 ```text
-https://world-cup-picks-report-evals.sourishkrout.workers.dev
+https://docs.runme.dev/eval/
 ```
 
+After running an eval, compare the latest local job against the latest
+Git-tracked baseline:
+
+```sh
+runme eval compare
+```
+
+Preview the promotion before committing evidence:
+
+```sh
+runme eval promote --latest --dry-run
+```
+
+If the result should become the new baseline, stage the related source changes
+and promote the eval evidence:
+
+```sh
+git add <changed-files>
+runme eval promote --latest
+```
+
+Promotion records compact eval evidence by default. Use `--artifacts` only when
+you need full logs and trial outputs; artifacts can contain sensitive
+information. Use `--evidence-only` when promoting eval evidence without source
+changes.
+
+## Deploy the showcase
+
 The showcase is served by a Cloudflare Worker Container running Harbor against
-the committed `.runme/evals/jobs` snapshot. To publish fresh results, commit the
-updated eval jobs and push to `main`; GitHub Actions deploys the new container
-with Wrangler.
+the promoted eval jobs. Push the promotion commit to `main` to publish fresh
+results.
+
+GitHub Actions deploys the new container with Wrangler.
+
+## Viewer development
 
 Local Docker smoke test:
 
@@ -53,6 +110,3 @@ npm install
 npm run check
 npm run deploy
 ```
-
-The deployment is intentionally public, so review artifacts before committing
-eval results.
