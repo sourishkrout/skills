@@ -41,8 +41,8 @@ To run only the oracle:
 runme eval skills/world-cup-picks-report/evals/regression
 ```
 
-You can substitute another supported agent, such as `cursor-cli` or
-`claude-code`, for `codex`.
+You can substitute another supported agent, such as `cursor-cli`, `claude-code`,
+or `openclaw`, for `codex`.
 
 ## Install a skill
 
