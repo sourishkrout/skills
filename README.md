@@ -8,9 +8,7 @@ running anything locally.
 
 Published eval history:
 
-```text
-https://world-cup-picks-report-evals.sourishkrout.workers.dev
-```
+<https://world-cup-picks-report-evals.sourishkrout.workers.dev>
 
 Local history viewer:
 
