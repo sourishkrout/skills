@@ -1,0 +1,15 @@
+{
+  "name": "sourishkrout-skills",
+  "description": "Reusable agent skills by Sebastian Huckleberry, maintained with Harbor-backed regression evals.",
+  "owner": {
+    "name": "Sebastian Huckleberry",
+    "url": "https://github.com/sourishkrout"
+  },
+  "plugins": [
+    {
+      "name": "world-cup-picks-report",
+      "source": "./",
+      "description": "Generate Harbor-backed FIFA World Cup scoreline reports from expert picks, model probabilities, market consensus, Elo ratings, lineup checks, and knockout penalty-risk analysis."
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "name": "sourishkrout-skills",
+  "interface": {
+    "displayName": "sourishkrout Skills"
+  },
+  "plugins": [
+    {
+      "name": "world-cup-picks-report",
+      "source": {
+        "source": "local",
+        "path": "./"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    }
+  ]
+}
