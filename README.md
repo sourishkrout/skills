@@ -50,6 +50,21 @@ Install `world-cup-picks-report` globally from this repo:
 npx skills add -g https://github.com/sourishkrout/skills --skill world-cup-picks-report
 ```
 
+## Install as a plugin
+
+Claude Code marketplace:
+
+```text
+/plugin marketplace add sourishkrout/skills
+/plugin install world-cup-picks-report@sourishkrout-skills
+```
+
+Codex repo marketplace metadata lives at `.agents/plugins/marketplace.json`.
+Codex can read that catalog when this repository is used as a marketplace
+source. The marketplace metadata highlights that the packaged skills are
+maintained with Harbor-backed regression evals, with public eval history linked
+above.
+
 ## Promote fresh results
 
 Runme's eval workflow is documented at:

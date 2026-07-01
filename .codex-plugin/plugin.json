@@ -1,0 +1,35 @@
+{
+  "name": "world-cup-picks-report",
+  "version": "1.0.0",
+  "description": "Generate Harbor-backed FIFA World Cup scoreline reports from expert picks, model probabilities, market consensus, Elo ratings, lineup checks, and knockout penalty-risk analysis.",
+  "author": {
+    "name": "Sebastian Huckleberry",
+    "url": "https://github.com/sourishkrout"
+  },
+  "homepage": "https://github.com/sourishkrout/skills",
+  "repository": "https://github.com/sourishkrout/skills",
+  "license": "MIT",
+  "keywords": [
+    "world-cup",
+    "soccer",
+    "football",
+    "predictions",
+    "sports"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "World Cup Picks Report",
+    "shortDescription": "Generate evaluated World Cup scoreline reports.",
+    "longDescription": "Creates timezone-aware World Cup picks reports using expert scorelines, model probabilities, betting-market consensus, Elo ratings, lineup checks, and knockout penalty-risk analysis. The skill is maintained with Harbor-backed regression evals and published eval history.",
+    "developerName": "Sebastian Huckleberry",
+    "category": "Productivity",
+    "capabilities": [
+      "Read"
+    ],
+    "websiteURL": "https://github.com/sourishkrout/skills",
+    "defaultPrompt": [
+      "Use World Cup Picks Report for today's World Cup scoreline picks.",
+      "Generate the next World Cup knockout round picks report."
+    ]
+  }
+}
