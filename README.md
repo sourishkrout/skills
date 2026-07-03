@@ -1,4 +1,4 @@
-# Sourishkrout Skills
+# Sebastian's Benchmarked Skills
 
 This repo contains reusable AI agent skills and their regression evals. The main
 artifact is the eval history for each skill, so start there before cloning or
