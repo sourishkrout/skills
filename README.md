@@ -77,13 +77,13 @@ After running an eval, compare the latest local job against the latest
 Git-tracked baseline:
 
 ```sh
-runme eval compare
+runme eval compare skills/world-cup-picks-report/evals/regression
 ```
 
 Preview the promotion before committing evidence:
 
 ```sh
-runme eval promote --latest --dry-run
+runme eval promote skills/world-cup-picks-report/evals/regression --latest --dry-run
 ```
 
 If the result should become the new baseline, stage the related source changes
@@ -91,7 +91,7 @@ and promote the eval evidence:
 
 ```sh
 git add <changed-files>
-runme eval promote --latest
+runme eval promote skills/world-cup-picks-report/evals/regression --latest
 ```
 
 Promotion records compact eval evidence by default. Use `--artifacts` only when
