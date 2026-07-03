@@ -21,6 +21,8 @@ promoting results because the deployment is intentionally public.
 
 ## Run the evals
 
+Runme's eval workflow is documented at <https://docs.runme.dev/eval/>.
+
 Current skill:
 
 - `world-cup-picks-report` in `skills/world-cup-picks-report`
@@ -66,12 +68,6 @@ maintained with Harbor-backed regression evals, with public eval history linked
 above.
 
 ## Promote fresh results
-
-Runme's eval workflow is documented at:
-
-```text
-https://docs.runme.dev/eval/
-```
 
 After running an eval, compare the latest local job against the latest
 Git-tracked baseline:
