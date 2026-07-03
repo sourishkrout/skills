@@ -4,6 +4,9 @@
   "main": "src/index.ts",
   "compatibility_date": "2026-06-30",
   "workers_dev": true,
+  "vars": {
+    "GA_MEASUREMENT_ID": "G-N8HQR9WTV5"
+  },
   "containers": [
     {
       "class_name": "EvalViewerContainer",
