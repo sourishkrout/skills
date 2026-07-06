@@ -27,6 +27,13 @@ Current skill:
 
 - `world-cup-picks-report` in `skills/world-cup-picks-report`
 
+The regression verifier uses Anthropic-backed LLM judges. Export an Anthropic
+API key before running the evals:
+
+```sh
+export ANTHROPIC_API_KEY=...
+```
+
 Run the full regression eval from the repo root:
 
 ```sh {"name":"eval","terminalRows":"34"}
