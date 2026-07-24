@@ -1,31 +1,52 @@
 # Sebastian's Benchmarked Skills
 
-This repo contains reusable AI agent skills and their regression evals. The main
-artifact is the eval history for each skill, so start there before cloning or
-running anything locally.
+Reusable AI agent skills, each with a regression eval track record. That track
+record is the main artifact, so start there before cloning or running anything.
 
-## Review eval history
+## Review the evals
 
-Published eval history:
+The 2026 World Cup has wrapped, but the eval track record lives on and is still
+worth a look.
 
-<https://world-cup-picks-report-evals.sourishkrout.workers.dev>
+| Dashboard | Best for |
+| --- | --- |
+| [**Trend dashboard →**](https://bench.visr.dev/repo/github.com/sourishkrout/skills/skills-world-cup-picks-report-evals-regression/trials) | Top-line metrics and regression trends over time |
+| [**Harbor dashboard →**](https://world-cup-picks-report-evals.sourishkrout.workers.dev) | The complete historical record of every job and task trial |
 
-Local history viewer:
+Or browse the same history locally after cloning:
 
 ```sh {"background":"true","name":"history"}
 runme eval view
 ```
 
-The public showcase is deployed from promoted eval jobs. Review artifacts before
-promoting results because the deployment is intentionally public.
+## Use a skill
 
-## Run the evals
+Install `world-cup-picks-report` globally from this repo:
+
+```sh
+npx skills add -g https://github.com/sourishkrout/skills --skill world-cup-picks-report
+```
+
+Or add it through the Claude Code marketplace:
+
+```text
+/plugin marketplace add sourishkrout/skills
+/plugin install world-cup-picks-report@sourishkrout-skills
+```
+
+---
+
+## Contributing
+
+Everything below is for running, promoting, and deploying the evals locally.
 
 Runme's eval workflow is documented at <https://docs.runme.dev/eval/>.
 
 Current skill:
 
 - `world-cup-picks-report` in `skills/world-cup-picks-report`
+
+### Run the evals
 
 The regression verifier uses Anthropic-backed LLM judges. Export an Anthropic
 API key before running the evals:
@@ -51,7 +72,7 @@ runme eval skills/world-cup-picks-report/evals/regression
 You can substitute another supported agent, such as `cursor-cli`, `claude-code`,
 or `openclaw`, for `codex`.
 
-## Promote fresh results
+### Promote fresh results
 
 After running an eval, compare the latest local job against the latest
 Git-tracked baseline:
@@ -79,50 +100,5 @@ you need full logs and trial outputs; artifacts can contain sensitive
 information. Use `--evidence-only` when promoting eval evidence without source
 changes.
 
-## Deploy the showcase
-
-The showcase is served by a Cloudflare Worker Container running Harbor against
-the promoted eval jobs. Push the promotion commit to `main` to publish fresh
-results.
-
-GitHub Actions deploys the new container with Wrangler.
-
-## Viewer development
-
-Local Docker smoke test:
-
-```sh
-docker build -f Dockerfile.eval-viewer -t skills-eval-viewer .
-docker run --rm -p 8080:8080 skills-eval-viewer
-```
-
-Manual Cloudflare deploy:
-
-```sh
-npm install
-npm run check
-npm run deploy
-```
-
-## Install a skill
-
-Install `world-cup-picks-report` globally from this repo:
-
-```sh
-npx skills add -g https://github.com/sourishkrout/skills --skill world-cup-picks-report
-```
-
-## Install as a plugin
-
-Claude Code marketplace:
-
-```text
-/plugin marketplace add sourishkrout/skills
-/plugin install world-cup-picks-report@sourishkrout-skills
-```
-
-Codex repo marketplace metadata lives at `.agents/plugins/marketplace.json`.
-Codex can read that catalog when this repository is used as a marketplace
-source. The marketplace metadata highlights that the packaged skills are
-maintained with Harbor-backed regression evals, with public eval history linked
-above.
+Review artifacts before promoting, because the Harbor showcase is public. Push
+the promotion commit to `main` and GitHub Actions publishes the fresh results.
