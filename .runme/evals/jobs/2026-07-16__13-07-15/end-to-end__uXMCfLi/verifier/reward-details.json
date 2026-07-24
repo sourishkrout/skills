@@ -1,0 +1,307 @@
+{
+  "artifact_written": {
+    "score": 1.0,
+    "criteria": [
+      {
+        "name": "report_file_exists",
+        "value": 1.0,
+        "raw": true,
+        "weight": 1.0,
+        "description": "Check that the command `test -f /Users/sourishkrout/Projects/personal/2026Q2/sourishkrout-skills/.runme/evals/jobs/2026-07-16__13-07-15/end-to-end__uXMCfLi/artifacts/report.md` exits with code 0"
+      },
+      {
+        "name": "report_file_nonempty",
+        "value": 1.0,
+        "raw": true,
+        "weight": 2.0,
+        "description": "Check that the command `test -s /Users/sourishkrout/Projects/personal/2026Q2/sourishkrout-skills/.runme/evals/jobs/2026-07-16__13-07-15/end-to-end__uXMCfLi/artifacts/report.md` exits with code 0"
+      }
+    ],
+    "kind": "programmatic"
+  },
+  "citation_proximity": {
+    "score": 1.0,
+    "criteria": [
+      {
+        "name": "report_has_url",
+        "value": 1.0,
+        "raw": true,
+        "weight": 0.0,
+        "description": "Check that the command `grep -Eq 'https?://' /Users/sourishkrout/Projects/personal/2026Q2/sourishkrout-skills/.runme/evals/jobs/2026-07-16__13-07-15/end-to-end__uXMCfLi/artifacts/report.md` exits with code 0"
+      },
+      {
+        "name": "report_has_source_terms",
+        "value": 1.0,
+        "raw": true,
+        "weight": 0.0,
+        "description": "Check that the command `grep -Eiq 'opta|dimers|football whispers|espn|elo|prediction|preview|correct.score' /Users/sourishkrout/Projects/personal/2026Q2/sourishkrout-skills/.runme/evals/jobs/2026-07-16__13-07-15/end-to-end__uXMCfLi/artifacts/report.md` exits with code 0"
+      },
+      {
+        "name": "match_blocks_have_traceable_citations",
+        "value": 1.0,
+        "raw": 1.0,
+        "weight": 1.0,
+        "description": "citation_proximity_by_match"
+      }
+    ],
+    "kind": "programmatic"
+  },
+  "expert_anchor_coverage": {
+    "score": 1.0,
+    "criteria": [
+      {
+        "name": "rate_whether_every_fixture_in_the_report",
+        "value": 1.0,
+        "raw": 5,
+        "weight": 1.0,
+        "description": "Rate whether every fixture in the report is grounded in a credible expert, prediction, preview, or correct-score source. Give full credit when each fixture has a clear anchor, or when the report honestly says explicit expert scoreline data is unavailable and uses model or market evidence as a fallback. Penalize missing fixture anchors, vague unsupported expert claims, or anchors only listed in sources without being tied to a fixture.",
+        "reasoning": "The report covers exactly one fixture (France vs England, bronze-medal match) and provides multiple well-anchored sources for that fixture: Sports Mole's expert pick explicitly landing on 2:1, Onside's model independently producing 2:1 with stated probabilities (France 50%, draw 21%, England 29%) and expected goals (1.7:1.2), Racing Post for market/odds context, and Football Elo for team-strength comparison. The report is transparent about the absence of a fixture-level Opta forecast and explains how it compensates with model and market evidence. All sources in the sources list are directly tied to this single fixture's analysis. The confidence level is appropriately qualified as Medium with clear risk factors identified. This is a thorough, well-grounded single-fixture report."
+      }
+    ],
+    "kind": "llm",
+    "judge": {
+      "model": "anthropic/claude-sonnet-4-6",
+      "reasoning_effort": "medium",
+      "timeout": 300,
+      "files": [
+        "/Users/sourishkrout/Projects/personal/2026Q2/sourishkrout-skills/.runme/evals/jobs/2026-07-16__13-07-15/end-to-end__uXMCfLi/artifacts/report.md"
+      ],
+      "atif_trajectory": null,
+      "reference": null,
+      "mode": "batched"
+    },
+    "judge_output": "{\"score\": 5, \"reasoning\": \"The report covers exactly one fixture (France vs England, bronze-medal match) and provides multiple well-anchored sources for that fixture: Sports Mole's expert pick explicitly landing on 2:1, Onside's model independently producing 2:1 with stated probabilities (France 50%, draw 21%, England 29%) and expected goals (1.7:1.2), Racing Post for market/odds context, and Football Elo for team-strength comparison. The report is transparent about the absence of a fixture-level Opta forecast and explains how it compensates with model and market evidence. All sources in the sources list are directly tied to this single fixture's analysis. The confidence level is appropriately qualified as Medium with clear risk factors identified. This is a thorough, well-grounded single-fixture report.\"}"
+  },
+  "expert_anchor_usage": {
+    "score": 1.0,
+    "criteria": [
+      {
+        "name": "rate_whether_each_match_pick_uses_at_lea",
+        "value": 1.0,
+        "raw": 5,
+        "weight": 1.0,
+        "description": "Rate whether each match pick uses at least one expert prediction, correct-score source, preview, or equivalent pick as a visible source for the chosen scoreline. Do not require exact phrases like 'expert anchor'. Full credit is appropriate when every match block names or cites a relevant source and connects it to the pick, even if other sources disagree or predict a different score. Do not penalize unresolved disagreement between credible sources; disagreement is acceptable as long as the report shows source presence and uses at least one source for each pick. Penalize only when match blocks lack a visible expert/prediction/preview/correct-score source, cite sources without tying them to the pick, or rely only on unsupported generic model/market language.",
+        "reasoning": "The single match block (France vs England) clearly names and cites multiple expert/prediction/preview sources tied directly to the 2:1 pick: Sports Mole's expert pick explicitly lands on 2:1, and the Onside model independently produces the same 2:1 scoreline. Both sources are named in the Basis section and linked in the Sources list, connecting them unambiguously to the chosen scoreline. Additional market and Elo checks supplement but do not replace these direct source citations. Full credit is warranted."
+      }
+    ],
+    "kind": "llm",
+    "judge": {
+      "model": "anthropic/claude-sonnet-4-6",
+      "reasoning_effort": "medium",
+      "timeout": 300,
+      "files": [
+        "/Users/sourishkrout/Projects/personal/2026Q2/sourishkrout-skills/.runme/evals/jobs/2026-07-16__13-07-15/end-to-end__uXMCfLi/artifacts/report.md"
+      ],
+      "atif_trajectory": null,
+      "reference": null,
+      "mode": "batched"
+    },
+    "judge_output": "{\"score\": 5, \"reasoning\": \"The single match block (France vs England) clearly names and cites multiple expert/prediction/preview sources tied directly to the 2:1 pick: Sports Mole's expert pick explicitly lands on 2:1, and the Onside model independently produces the same 2:1 scoreline. Both sources are named in the Basis section and linked in the Sources list, connecting them unambiguously to the chosen scoreline. Additional market and Elo checks supplement but do not replace these direct source citations. Full credit is warranted.\"}"
+  },
+  "guardrails": {
+    "score": 1.0,
+    "criteria": [
+      {
+        "name": "banned_wagering_terms_absent",
+        "value": 1.0,
+        "raw": true,
+        "weight": 1.0,
+        "description": "Check that the command `test -f /Users/sourishkrout/Projects/personal/2026Q2/sourishkrout-skills/.runme/evals/jobs/2026-07-16__13-07-15/end-to-end__uXMCfLi/artifacts/report.md && ! grep -Eiq 'lock of the day|bankroll|bet sizing|stake |wager |must bet' /Users/sourishkrout/Projects/personal/2026Q2/sourishkrout-skills/.runme/evals/jobs/2026-07-16__13-07-15/end-to-end__uXMCfLi/artifacts/report.md` exits with code 0"
+      },
+      {
+        "name": "unnegated_guaranteed_absent",
+        "value": 1.0,
+        "raw": 1.0,
+        "weight": 1.0,
+        "description": "unnegated_guaranteed_absent"
+      }
+    ],
+    "kind": "programmatic"
+  },
+  "lineup_status": {
+    "score": 1.0,
+    "criteria": [
+      {
+        "name": "lineup_status_confirmed_or_materially_pending",
+        "value": 1.0,
+        "raw": 1.0,
+        "weight": 1.0,
+        "description": "lineup_status_actionable"
+      }
+    ],
+    "kind": "programmatic"
+  },
+  "report_completeness": {
+    "score": 1.0,
+    "criteria": [
+      {
+        "name": "rate_whether_the_final_report_is_complet",
+        "value": 1.0,
+        "raw": 5,
+        "weight": 1.0,
+        "description": "Rate whether the final report is complete for a Discord World Cup scoreline report. It should include scope/date for the requested future U.S. Pacific-time slate, the slate's fixtures, exact home:away scorelines, confidence levels, basis notes, risk notes, best scoreline leans, actionable lineup status or late-news context, and sources. Reward reports that incorporate confirmed lineups when they are available, and use pending-lineup caveats only when lineups are not found or a concrete unresolved starter/formation question materially affects the pick. Penalize generic 'wait for lineups' advice when confirmed lineups are available or when the report gives no specific material lineup uncertainty. For knockout-stage reports, also reward regulation/90-minute score, AET or PK outcome, PK likelihood with a brief reason, and a separate aggregate including PKs when applicable; the report should keep the official match score visibly separate from any PK-inclusive aggregate. Penalize incomplete slate coverage, stale date framing, missing risk/basis/confidence, missing knockout-stage PK/aggregate context when relevant, or missing source context. Deterministic date and fixture correctness are checked separately, so focus on report completeness and usability.",
+        "reasoning": "The report is highly complete and usable across all evaluation criteria. Scope/date: clearly stated as Saturday July 18, 2026 at 2:00 p.m. PDT. Fixture: France vs England bronze-medal match is correctly identified. Scoreline: exact 2:1 France given with confidence level (Medium). Basis: multiple independent sources cited (Sports Mole expert pick, Onside model with probabilities and xG, Elo ratings, market check). Risk: specific and material \u2014 Saliba likely absent, James/Stones doubtful, Bellingham suspension unresolved, rotation and weather factors noted. Best leans: primary (2:1) and alternate (3:1) both given with rationale. Knockout-stage requirements fully met: regulation/90-min score explicitly labeled, AET/PK outcome stated (regulation win, no shootout), PK likelihood graded Low with a specific historical and statistical reason, aggregate including PKs provided and kept visibly separate (though unchanged). Lineup status is appropriately specific rather than generic \u2014 confirms lineups not yet released but names the exact unresolved questions (Saliba, James, Stones, Bellingham) that materially affect the pick, which is legitimate given the report was prepared two days before the match. Sources section is thorough with seven cited links covering official fixtures, expert predictions, model output, market odds, Elo, and weather. No meaningful gaps identified."
+      }
+    ],
+    "kind": "llm",
+    "judge": {
+      "model": "anthropic/claude-sonnet-4-6",
+      "reasoning_effort": "medium",
+      "timeout": 300,
+      "files": [
+        "/Users/sourishkrout/Projects/personal/2026Q2/sourishkrout-skills/.runme/evals/jobs/2026-07-16__13-07-15/end-to-end__uXMCfLi/artifacts/report.md"
+      ],
+      "atif_trajectory": null,
+      "reference": null,
+      "mode": "batched"
+    },
+    "judge_output": "{\"score\":5,\"reasoning\":\"The report is highly complete and usable across all evaluation criteria. Scope/date: clearly stated as Saturday July 18, 2026 at 2:00 p.m. PDT. Fixture: France vs England bronze-medal match is correctly identified. Scoreline: exact 2:1 France given with confidence level (Medium). Basis: multiple independent sources cited (Sports Mole expert pick, Onside model with probabilities and xG, Elo ratings, market check). Risk: specific and material \u2014 Saliba likely absent, James/Stones doubtful, Bellingham suspension unresolved, rotation and weather factors noted. Best leans: primary (2:1) and alternate (3:1) both given with rationale. Knockout-stage requirements fully met: regulation/90-min score explicitly labeled, AET/PK outcome stated (regulation win, no shootout), PK likelihood graded Low with a specific historical and statistical reason, aggregate including PKs provided and kept visibly separate (though unchanged). Lineup status is appropriately specific rather than generic \u2014 confirms lineups not yet released but names the exact unresolved questions (Saliba, James, Stones, Bellingham) that materially affect the pick, which is legitimate given the report was prepared two days before the match. Sources section is thorough with seven cited links covering official fixtures, expert predictions, model output, market odds, Elo, and weather. No meaningful gaps identified.\"}"
+  },
+  "scoreline_format": {
+    "score": 1.0,
+    "criteria": [
+      {
+        "name": "scoreline_picks_section_present",
+        "value": 1.0,
+        "raw": true,
+        "weight": 1.0,
+        "description": "Check that the command `grep -Eiq '^#{0,6}[[:space:]]*Scoreline Picks[[:space:]]*$|^Scoreline Picks[[:space:]]*$' /Users/sourishkrout/Projects/personal/2026Q2/sourishkrout-skills/.runme/evals/jobs/2026-07-16__13-07-15/end-to-end__uXMCfLi/artifacts/report.md` exits with code 0"
+      },
+      {
+        "name": "scoreline_pattern_present",
+        "value": 1.0,
+        "raw": true,
+        "weight": 1.0,
+        "description": "Check that the command `grep -Eq '[0-9]+[[:space:]]*:[[:space:]]*[0-9]+' /Users/sourishkrout/Projects/personal/2026Q2/sourishkrout-skills/.runme/evals/jobs/2026-07-16__13-07-15/end-to-end__uXMCfLi/artifacts/report.md` exits with code 0"
+      },
+      {
+        "name": "match_pick_headings_include_scorelines",
+        "value": 1.0,
+        "raw": 1.0,
+        "weight": 3.0,
+        "description": "parsed_scoreline_format"
+      }
+    ],
+    "kind": "programmatic"
+  },
+  "skill_activation_evidence": {
+    "score": 1.0,
+    "criteria": [
+      {
+        "name": "activation_log_present",
+        "value": 1.0,
+        "raw": true,
+        "weight": 0.0,
+        "description": "Check that the command `test -s /Users/sourishkrout/Projects/personal/2026Q2/sourishkrout-skills/.runme/evals/jobs/2026-07-16__13-07-15/end-to-end__uXMCfLi/agent/trajectory.json || test -s /Users/sourishkrout/Projects/personal/2026Q2/sourishkrout-skills/.runme/evals/jobs/2026-07-16__13-07-15/end-to-end__uXMCfLi/agent/oracle.txt` exits with code 0"
+      },
+      {
+        "name": "read_tool_used",
+        "value": 0.0,
+        "raw": false,
+        "weight": 0.0,
+        "description": "Agent used tool 'Read' (trajectory: /Users/sourishkrout/Projects/personal/2026Q2/sourishkrout-skills/.runme/evals/jobs/2026-07-16__13-07-15/end-to-end__uXMCfLi/agent/trajectory.json)"
+      },
+      {
+        "name": "skill_tool_used",
+        "value": 0.0,
+        "raw": false,
+        "weight": 0.0,
+        "description": "Agent used tool 'Skill' (trajectory: /Users/sourishkrout/Projects/personal/2026Q2/sourishkrout-skills/.runme/evals/jobs/2026-07-16__13-07-15/end-to-end__uXMCfLi/agent/trajectory.json)"
+      },
+      {
+        "name": "world_cup_skill_activation_detected",
+        "value": 1.0,
+        "raw": 1.0,
+        "weight": 1.0,
+        "description": "skill_activation_evidence"
+      }
+    ],
+    "kind": "programmatic"
+  },
+  "source_quality": {
+    "score": 0.75,
+    "criteria": [
+      {
+        "name": "rate_the_quality_and_coverage_of_sources",
+        "value": 0.75,
+        "raw": 4,
+        "weight": 1.0,
+        "description": "Rate the quality and coverage of sources used by the report. A strong report cites or clearly references official fixture information, expert previews or picks, model/probability sources such as Opta or equivalent, market/odds evidence, Elo or team-strength ratings, and current lineup/injury/team-news context. When a fixture is close to kickoff, reward use of official or current confirmed-lineup sources such as FIFA match centres, official match pages, ESPN/FotMob/SofaScore match centres, or official team/federation channels. Penalize relying only on older preview predicted lineups for kickoff-imminent matches when the report presents lineup claims as current or final. For knockout-stage reports, knockout-specific market sources such as draw-after-90, team-to-advance, extra-time, or win-on-penalties markets are useful but not mandatory when unavailable; reward reports that clearly state when PK likelihood is inferred from broader model, odds, totals, or team-strength signals. Penalize thin sourcing, missing source categories, untraceable claims, or reliance on low-quality/generic sources.",
+        "reasoning": "The report covers most required source categories reasonably well for a match two days out. Official fixture sourcing is covered by FIFA and the England Football match centre. Expert preview/pick is covered by Sports Mole. Model/probability sourcing is provided by Onside, which includes win probabilities and expected goals (1.7:1.2), partially substituting for the acknowledged absence of a public Opta forecast. Market/odds evidence is referenced via Racing Post and the report cites over-2.5 support and draw probability (~25%), though specific regulation-win odds figures could be more precisely quoted. Elo/team-strength is covered with specific values (France 2,121, England 2,074) from Football Elo Ratings (though the domain cited, footballratings.org, is unusual versus the standard eloratings.net, raising a minor traceability concern). Injury and team-news context is woven in from Sports Mole and Racing Post. The report appropriately acknowledges that confirmed lineups are unavailable given the 48-hour gap to kickoff. Knockout-specific market signals (draw-after-90, team-to-advance, PK markets) are inferred from broader model and totals signals rather than cited directly, but the report transparently states this limitation and cross-checks multiple signals. Gaps include the absence of a stronger Opta-equivalent or major odds aggregator (e.g., FiveThirtyEight, Betfair, OddsPortal) and limited specificity on exact regulation-win market prices, preventing a top score."
+      }
+    ],
+    "kind": "llm",
+    "judge": {
+      "model": "anthropic/claude-sonnet-4-6",
+      "reasoning_effort": "medium",
+      "timeout": 300,
+      "files": [
+        "/Users/sourishkrout/Projects/personal/2026Q2/sourishkrout-skills/.runme/evals/jobs/2026-07-16__13-07-15/end-to-end__uXMCfLi/artifacts/report.md"
+      ],
+      "atif_trajectory": null,
+      "reference": null,
+      "mode": "batched"
+    },
+    "judge_output": "{\"score\":4,\"reasoning\":\"The report covers most required source categories reasonably well for a match two days out. Official fixture sourcing is covered by FIFA and the England Football match centre. Expert preview/pick is covered by Sports Mole. Model/probability sourcing is provided by Onside, which includes win probabilities and expected goals (1.7:1.2), partially substituting for the acknowledged absence of a public Opta forecast. Market/odds evidence is referenced via Racing Post and the report cites over-2.5 support and draw probability (~25%), though specific regulation-win odds figures could be more precisely quoted. Elo/team-strength is covered with specific values (France 2,121, England 2,074) from Football Elo Ratings (though the domain cited, footballratings.org, is unusual versus the standard eloratings.net, raising a minor traceability concern). Injury and team-news context is woven in from Sports Mole and Racing Post. The report appropriately acknowledges that confirmed lineups are unavailable given the 48-hour gap to kickoff. Knockout-specific market signals (draw-after-90, team-to-advance, PK markets) are inferred from broader model and totals signals rather than cited directly, but the report transparently states this limitation and cross-checks multiple signals. Gaps include the absence of a stronger Opta-equivalent or major odds aggregator (e.g., FiveThirtyEight, Betfair, OddsPortal) and limited specificity on exact regulation-win market prices, preventing a top score.\"}"
+  },
+  "target_slate_coverage": {
+    "score": 0.7334,
+    "criteria": [
+      {
+        "name": "target_scope_date_present",
+        "value": 1.0,
+        "raw": 1.0,
+        "weight": 0.0,
+        "description": "target_scope_date"
+      },
+      {
+        "name": "target_pacific_framing_present",
+        "value": 1.0,
+        "raw": 1.0,
+        "weight": 0.25,
+        "description": "target_pacific_framing"
+      },
+      {
+        "name": "target_fixture_mentions",
+        "value": 0.3333,
+        "raw": 0.3333333333333333,
+        "weight": 0.0,
+        "description": "target_fixture_mentions"
+      },
+      {
+        "name": "target_slate_weighted_coverage",
+        "value": 0.6667,
+        "raw": 0.6667,
+        "weight": 1.0,
+        "description": "target_slate_scored_coverage"
+      }
+    ],
+    "kind": "programmatic"
+  },
+  "workflow_sequence_evidence": {
+    "score": 1.0,
+    "criteria": [
+      {
+        "name": "rate_whether_the_report_and_available_tr",
+        "value": 1.0,
+        "raw": 5,
+        "weight": 1.0,
+        "description": "Rate whether the report and available trajectory show the intended workflow: identify a relevant FIFA slate/date, collect expert scoreline or prediction anchors, compare with model probabilities, compare with market or odds evidence, check Elo or team-strength context, account for lineup/injury/current-match context, and synthesize final scoreline picks. For fixtures within roughly 90 minutes of kickoff, reward evidence that the agent searched for confirmed starting lineups and either incorporated available XIs into the pick or clearly stated that lineups were not yet released and why the pending information matters. Penalize generic final-lineup caveats when the trajectory or report indicates lineups were available, or when there is no evidence of a current lineup check for a kickoff-imminent fixture. For knockout-stage reports, also reward evidence that the agent assessed extra-time and penalty-shootout risk using draw-after-90 odds/probability, extra-time or win-on-penalties markets when available, team-to-advance context, or low-total/defensive-style signals as fallback inference. Give full credit when the final report itself visibly demonstrates all relevant workflow phases, even if no trajectory is available. For workflow sequencing, accept cited expert/model/market references at face value unless the report or trajectory contradicts them; do not penalize solely because exact cited numbers cannot be independently verified from raw HTML, JS-rendered pages, Cloudflare-blocked sites, because the judge lacks web access, or because the trajectory is absent. Penalize skipped phases, unsupported synthesis, missing knockout-stage penalty/extra-time assessment when relevant, or clear fabrication after the trajectory shows a source failed.",
+        "reasoning": "The report and trajectory demonstrate all required workflow phases with high quality. (1) FIFA slate identification: The agent confirmed France vs England, Saturday July 18, 2026, 5 PM ET / 2 PM PDT at Hard Rock Stadium via multiple FIFA schedule sources. (2) Expert scoreline anchors: Sports Mole's expert 2:1 prediction was collected and verified by opening the full article. (3) Model probabilities: Onside model (France 50%, draw 21%, England 29%, xG 1.7:1.2, most-likely scoreline 2:1 France) was retrieved and explicitly cited. (4) Market/odds check: DraftKings opening odds (France +105, draw +255, England +255, over 2.5 goals -180) and Racing Post/BoyleSports odds were incorporated; over-2.5 strongly favored at -180/-210 is noted. (5) Elo/team-strength sanity check: footballratings.org used, France #3, England #4; the specific numbers cited (2,121 and 2,074) appear to reflect a pre-semifinal snapshot (the most recent crawl showed France 2,163/England 2,097 after semifinal gains), a minor discrepancy but not fabrication, and the ordinal ranking is correct either way. (6) Current-context checks: Saliba injury, Reece James doubt, Stones assessment, Bellingham disciplinary risk, Jordan Henderson wrist, Miami heat/thunderstorm risk, France's extra recovery day, projected XIs from two sources \u2014 all explicitly addressed. (7) Knockout-stage PK/AET assessment: Draw-after-90 probability cited (21% model, ~25% market), historical note that no WC third-place match has ever reached a shootout, over-2.5 support, and low-PK rationale all provided. Aggregate-incl-PKs line is kept separate from the official score. Lineup status is correctly flagged as pending (fixture is ~46 hours away), with specific material questions identified rather than a generic caveat. The final report visibly demonstrates every workflow phase with source links."
+      }
+    ],
+    "kind": "llm",
+    "judge": {
+      "model": "anthropic/claude-sonnet-4-6",
+      "reasoning_effort": "medium",
+      "timeout": 300,
+      "files": [
+        "/Users/sourishkrout/Projects/personal/2026Q2/sourishkrout-skills/.runme/evals/jobs/2026-07-16__13-07-15/end-to-end__uXMCfLi/artifacts/report.md"
+      ],
+      "atif_trajectory": "/Users/sourishkrout/Projects/personal/2026Q2/sourishkrout-skills/.runme/evals/jobs/2026-07-16__13-07-15/end-to-end__uXMCfLi/agent/trajectory.json",
+      "reference": null,
+      "mode": "batched"
+    },
+    "judge_output": "{\"score\":5,\"reasoning\":\"The report and trajectory demonstrate all required workflow phases with high quality. (1) FIFA slate identification: The agent confirmed France vs England, Saturday July 18, 2026, 5 PM ET / 2 PM PDT at Hard Rock Stadium via multiple FIFA schedule sources. (2) Expert scoreline anchors: Sports Mole's expert 2:1 prediction was collected and verified by opening the full article. (3) Model probabilities: Onside model (France 50%, draw 21%, England 29%, xG 1.7:1.2, most-likely scoreline 2:1 France) was retrieved and explicitly cited. (4) Market/odds check: DraftKings opening odds (France +105, draw +255, England +255, over 2.5 goals -180) and Racing Post/BoyleSports odds were incorporated; over-2.5 strongly favored at -180/-210 is noted. (5) Elo/team-strength sanity check: footballratings.org used, France #3, England #4; the specific numbers cited (2,121 and 2,074) appear to reflect a pre-semifinal snapshot (the most recent crawl showed France 2,163/England 2,097 after semifinal gains), a minor discrepancy but not fabrication, and the ordinal ranking is correct either way. (6) Current-context checks: Saliba injury, Reece James doubt, Stones assessment, Bellingham disciplinary risk, Jordan Henderson wrist, Miami heat/thunderstorm risk, France's extra recovery day, projected XIs from two sources \u2014 all explicitly addressed. (7) Knockout-stage PK/AET assessment: Draw-after-90 probability cited (21% model, ~25% market), historical note that no WC third-place match has ever reached a shootout, over-2.5 support, and low-PK rationale all provided. Aggregate-incl-PKs line is kept separate from the official score. Lineup status is correctly flagged as pending (fixture is ~46 hours away), with specific material questions identified rather than a generic caveat. The final report visibly demonstrates every workflow phase with source links.\"}"
+  }
+}
