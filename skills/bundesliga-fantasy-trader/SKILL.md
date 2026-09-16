@@ -102,16 +102,20 @@ Cite the formation, XI/bench, and each star recommendation with current expert a
 
 ### 7. Deliver the matchweek report
 
-Lead with a short verdict and use this order:
+Lead with `What to do now`: a compact numbered list of concrete actions in execution order. State the sell priority, group replacement targets by price or role, name any action that should wait for lineup news, and give the provisional formation and stars when relevant. End the block with a single `Deadline` line and any short-horizon context that materially changes the plan.
+
+Use action verbs and compact phrases. Keep rationale to one sentence per action, place citations beside the action they support, and do not repeat the research narrative before giving the recommendation. If live prices, bank, or legality are missing, give the useful priority order first, then request the exact screenshot or values needed to build the legal package.
+
+For a full report, follow the action block with only the applicable supporting sections:
 
 1. `Squad baseline` - confirmation status and bank.
-2. `Proposed transfers` - priority, rationale, role, fixture, live price, and adjacent citations.
+2. `Proposed transfers` - live prices, arithmetic, and concise rationale not already stated.
 3. `Accepted risks and fallbacks` - user-selected tradeoffs and contingency actions.
-4. `Legality and budget` - transfer count, squad composition, club limit, arithmetic, and remaining bank.
+4. `Legality and budget` - transfer count, squad composition, club limit, and remaining bank.
 5. `Formation and stars` - formation, XI/bench, and cited stars.
 6. `Sources` - direct links with publication or update dates.
 
-Keep Discord output concise, avoid tables, and wrap multiple bare links in angle brackets. Never spend merely to reach zero, and never present an unsupported action as a recommendation.
+Keep Discord output concise, omit inapplicable sections, avoid tables, and wrap multiple bare links in angle brackets. Never spend merely to reach zero, and never present an unsupported action as a recommendation.
 
 ### 8. Re-check and persist when requested
 
