@@ -19,16 +19,16 @@ Pure rules, fixture, or deadline questions may be answered without completing th
 
 Use direct pages rather than search-result links and include publication or update dates when available.
 
-1. [Bundesliga.com](https://www.bundesliga.com/en/bundesliga) and the [DFB Datencenter](https://datencenter.dfb.de/) for rules, fixtures, and deadlines.
-2. The Bundesliga app for the user's live squad, player positions, prices, sell values, and budget.
+1. [Bundesliga.com](https://www.bundesliga.com/en/bundesliga) and the [DFB Datencenter](https://datencenter.dfb.de/) for published rules, fixtures, and deadlines.
+2. The Bundesliga app for current in-app rules and the user's live squad, player positions, prices, sell values, budget, and transfer legality.
 3. [Bulinews Fantasy](https://bulinews.com/fantasy) as the primary source for expert picks, scout squads, predicted XIs, and Fantasy Show analysis.
 4. [LigaInsider](https://www.ligainsider.de/), official club reports and press conferences, and [FotMob](https://www.fotmob.com/leagues/54/overview/bundesliga) to corroborate lineup and availability claims.
 5. [TheFantasyTool](https://thefantasytool.com/optimal-teams-bl) as an occasional projection and value-model supplement.
 
 Resolve source conflicts by subject:
 
-- Prefer the newest dated Bundesliga or DFB publication for official rules and schedules.
-- Prefer the Bundesliga app for live game state.
+- Prefer the newest dated Bundesliga or DFB publication for published rules and schedules.
+- Prefer the Bundesliga app when its current rule text or enforced behavior differs from an article, and for all live game state.
 - Prefer official club news for a player's confirmed availability.
 - Report material expert disagreement instead of silently choosing one view.
 
