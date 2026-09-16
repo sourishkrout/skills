@@ -38,6 +38,8 @@ Resolve source conflicts by subject:
 
 Make a best effort to recover the previous squad from memory, the latest squad log, recent matchweek notes, and screenshots. Prefer a full-team screenshot over reconstructed conversation history.
 
+Do not use `browser-use` or independently explore bundesliga.com to recover or confirm the previous matchweek's squad. Those methods do not satisfy this confirmation gate; rely on user-provided screenshots, the squad log, prior conversation records, and the user's explicit confirmation or correction.
+
 Present a `Previous squad confirmation` block containing all 15 players, with each player's app position and club, plus the known bank. Mark unknown or disputed entries explicitly; never fill a gap by guessing. Even when the user supplied a screenshot, restate the squad so the baseline is unambiguous.
 
 Ask the user to confirm or correct the full squad. Do not provide squad-dependent recommendations until the user explicitly confirms the 15-player baseline. Current-source research may proceed while confirmation is pending.
