@@ -46,7 +46,7 @@ Ask the user to confirm or correct the full squad. Do not provide squad-dependen
 
 ### 2. Establish the rules and deadline
 
-Before checking a transfer package, read [the 2026/27 rules reference](references/rules-2026-27.md). Treat it as the working baseline, then check current official sources if the season has changed, a rule is unclear, or current official/app behavior conflicts with the reference. A newer dated official rule wins; disclose the change and flag the bundled reference for updating.
+Before checking a squad or transfer package, read sections 2-4 of [the authoritative 2026/27 app rules transcript](references/rules-2026-27.md). Load sections 5-7 only when the user asks about leagues, league formats, or prizes. If the season has changed, a rule is unclear, or current app behavior conflicts with the transcript, verify the current in-app rules. The current app rule wins; disclose the change and flag the bundled transcript for updating.
 
 Verify the target matchweek and first kickoff through Bundesliga.com, with the DFB Datencenter as the schedule cross-check. Treat the first kickoff as the transfer, formation, lineup, and star deadline unless newer official rules state otherwise. Show the fixture's local time, UTC, and `America/Los_Angeles`.
 
