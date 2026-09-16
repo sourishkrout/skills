@@ -33,6 +33,17 @@ Resolve source conflicts by subject:
 - Prefer official club news for a player's confirmed availability.
 - Report material expert disagreement instead of silently choosing one view.
 
+### TheFantasyTool limitations
+
+When using or summarizing TheFantasyTool, make these limitations clear and concise:
+
+- Full rankings, the personalized transfer solver, and the optimal-team calculator require a paid subscription or credit-card trial. Public access is limited to previews, selected projections, predicted lineups, and partial rankings.
+- The site has no documented public developer API. Its internal endpoints, including `/api/games`, `/api/core_players`, `/api/schedule`, `/api/lineups`, and `/api/xp_filtered_players`, may be used as best-effort data sources, but they are unsupported and may change, become restricted, or require authentication. On an HTTP error, authentication failure, schema mismatch, missing required field, or incomplete response, stop API-dependent processing and report the error; never silently treat failed or partial data as valid. A clearly disclosed fallback to published pages or another source is allowed.
+- Its projections are probabilistic and may change with betting odds, injuries, and lineup news. They cannot reliably anticipate rotation, early substitutions, injuries, or cards.
+- Confidence is lower for newly promoted teams and recent transfers because less historical data is available.
+- Its displayed rules may not exactly match Bundesliga Fantasy; for example, references to captains do not reflect the app's three-star system.
+- Treat it as one supplementary input. Cross-check its output against current Bundesliga app rules, official lineup and availability information, and independent fantasy analysis before recommending an action.
+
 ## Workflow
 
 ### 1. Confirm the previous matchweek's full squad
