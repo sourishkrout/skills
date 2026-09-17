@@ -1,34 +1,35 @@
 schema_version = "1.3"
-artifacts = []
 
 [task]
 name = "sourishkrout/bundesliga-fantasy-trader_end-to-end"
-description = ""
+description = "Evaluate a frozen pre-deadline Bundesliga Fantasy Matchday 4 planning workflow."
 authors = [
   { name = "Sebastian (Tiedtke) Huckleberry", email = "sebastiantiedtke@gmail.com" },
 ]
-keywords = ["runme", "harbor", "eval"]
+keywords = ["skills", "harbor", "bundesliga", "fantasy", "research"]
 
 [metadata]
-category = "software_engineering"
-tags = ["runme", "harbor", "eval"]
+difficulty = "medium"
+category = "research"
+tags = ["skills", "bundesliga", "fantasy", "transfers", "temporal-integrity"]
 
 [verifier]
-timeout_sec = 600.0
-collect = []
+timeout_sec = 900.0
 
 [agent]
-timeout_sec = 600.0
+timeout_sec = 1800.0
 
 [environment]
 network_mode = "public"
 build_timeout_sec = 600.0
 os = "linux"
-workdir = "/app/evals/regression/end-to-end/workdir"
+workdir = "/app/skills/bundesliga-fantasy-trader/evals/regression/end-to-end/workdir"
+skills_dir = "/app/skills/bundesliga-fantasy-trader/evals/regression/end-to-end/workdir/.agents/skills"
 mcp_servers = []
 
 [environment.env]
 
 [verifier.env]
+ANTHROPIC_API_KEY = "${ANTHROPIC_API_KEY}"
 
 [solution.env]

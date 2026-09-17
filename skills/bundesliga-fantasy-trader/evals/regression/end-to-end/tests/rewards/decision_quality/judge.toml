@@ -1,0 +1,12 @@
+[judge]
+judge = "anthropic/claude-sonnet-4-6"
+files = [
+  "/logs/artifacts/report.md",
+  "/app/skills/bundesliga-fantasy-trader/evals/regression/end-to-end/workdir/snapshot/squad.md",
+  "/app/skills/bundesliga-fantasy-trader/evals/regression/end-to-end/workdir/snapshot/evidence.md",
+]
+
+[[criterion]]
+description = "Rate the quality and executability of the proposed Bundesliga Fantasy Matchday 4 plan. A strong report audits the confirmed squad, prioritizes evidence-backed minutes or fixture problems, gives concrete player-out to player-in transfers, preserves the five-transfer allowance, stays within the allowed positional ranges and three-player club limit, treats uncertain prices with explicit feasibility thresholds, supplies at most one genuinely cheaper triggered fallback, and chooses a coherent formation, provisional XI, bench, and one defender, midfielder, and forward star for Top 11 mode. Defensible alternatives to any reference solution should receive full credit. Penalize menus instead of a package, unsupported churn, illegal composition, uncomputed uncertainty, or recommendations that do not follow from the frozen evidence."
+type = "likert"
+points = 5

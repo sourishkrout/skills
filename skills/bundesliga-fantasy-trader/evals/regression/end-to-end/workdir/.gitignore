@@ -1,3 +1,11 @@
 *
 !.gitignore
 !.gitkeep
+!.agents/
+!.agents/skills/
+!.agents/skills/bundesliga-fantasy-trader/
+!.agents/skills/bundesliga-fantasy-trader/SKILL.md
+!.agents/skills/bundesliga-fantasy-trader/references/
+!.agents/skills/bundesliga-fantasy-trader/references/rules-2026-27.md
+!snapshot/
+!snapshot/*.md

@@ -1,0 +1,15 @@
+{
+  "schema_version": "1.5",
+  "steps": [
+    {
+      "tool_calls": [
+        {
+          "function_name": "exec_command",
+          "arguments": {
+            "cmd": "printf a-report > /logs/artifacts/report.md"
+          }
+        }
+      ]
+    }
+  ]
+}

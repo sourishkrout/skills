@@ -1,23 +1,16 @@
-#!/bin/bash
-set -euo pipefail
+#!/usr/bin/env sh
+set -eu
 
 verifier_dir="${RUNME_VERIFIER_DIR:-/logs/verifier}"
 reward_path="${RUNME_REWARD_PATH:-$verifier_dir/reward.json}"
-stdout_path="$verifier_dir/test-stdout.txt"
 
 mkdir -p "$verifier_dir"
 
-{
-  echo "Verifier started for ${RUNME_TASK_NAME:-bundesliga-fantasy-trader_end-to-end}"
-  echo "Task workdir: ${RUNME_TASK_WORKDIR:-/app/evals/regression/end-to-end/workdir}"
-  echo
-  echo "Checking stub success condition: implement real checks before expecting this task to pass"
+uvx --quiet --from harbor-rewardkit rewardkit \
+  --workspace /app \
+  --output "$reward_path" \
+  /tests/rewards \
+  2> "$verifier_dir/uvx-stderr.txt"
 
-  # Harbor expects the canonical reward JSON to be a reward-name-to-score map.
-  printf '{"reward": 0.0}\n' > "$reward_path"
-
-  echo "Reward written to: $reward_path"
-  echo "Reward: 0.0"
-  echo
-  echo "Verifier completed successfully"
-} | tee "$stdout_path"
+uvx --quiet --from harbor-rewardkit python \
+  /tests/rollup_reward.py "$reward_path"
