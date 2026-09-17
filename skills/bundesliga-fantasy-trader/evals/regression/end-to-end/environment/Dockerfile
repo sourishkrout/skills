@@ -9,4 +9,9 @@ RUN apt-get update \
 
 COPY workdir /app/skills/bundesliga-fantasy-trader/evals/regression/end-to-end/workdir
 
+RUN test -s /app/skills/bundesliga-fantasy-trader/evals/regression/end-to-end/workdir/.agents/skills/bundesliga-fantasy-trader/SKILL.md \
+  && test -s /app/skills/bundesliga-fantasy-trader/evals/regression/end-to-end/workdir/.agents/skills/bundesliga-fantasy-trader/references/rules-2026-27.md \
+  && test -s /app/skills/bundesliga-fantasy-trader/evals/regression/end-to-end/workdir/.claude/skills/bundesliga-fantasy-trader/SKILL.md \
+  && test -s /app/skills/bundesliga-fantasy-trader/evals/regression/end-to-end/workdir/.claude/skills/bundesliga-fantasy-trader/references/rules-2026-27.md
+
 WORKDIR /app/skills/bundesliga-fantasy-trader/evals/regression/end-to-end/workdir

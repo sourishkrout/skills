@@ -4,6 +4,11 @@ import importlib.util
 from pathlib import Path
 
 
+SKILL_DIR = Path(__file__).parents[5]
+WORKDIR_SKILL_DIRS = (
+    Path(__file__).parents[2] / "workdir" / ".agents" / "skills" / SKILL_DIR.name,
+    Path(__file__).parents[2] / "workdir" / ".claude" / "skills" / SKILL_DIR.name,
+)
 CRITERIA_PATH = Path(__file__).parents[1] / "rewards" / "criteria.py"
 SPEC = importlib.util.spec_from_file_location("criteria", CRITERIA_PATH)
 assert SPEC is not None and SPEC.loader is not None
@@ -19,6 +24,13 @@ ROLLUP_SPEC.loader.exec_module(rollup_reward)
 
 def read_fixture(path: str) -> str:
     return (Path(__file__).parents[1] / path).read_text()
+
+
+def test_materialized_skill_files_match_canonical_sources() -> None:
+    for materialized_dir in WORKDIR_SKILL_DIRS:
+        assert (materialized_dir / "SKILL.md").read_bytes() == (
+            SKILL_DIR / "SKILL.md"
+        ).read_bytes()
 
 
 def registered_criteria_for_reward(name: str) -> list[tuple[str, float]]:

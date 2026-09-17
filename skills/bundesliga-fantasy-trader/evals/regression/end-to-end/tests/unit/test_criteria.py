@@ -8,6 +8,11 @@ from pathlib import Path
 
 TESTS_DIR = Path(__file__).parents[1]
 REWARDS_DIR = TESTS_DIR / "rewards"
+SKILL_DIR = Path(__file__).parents[5]
+WORKDIR_SKILL_DIRS = (
+    Path(__file__).parents[2] / "workdir" / ".agents" / "skills" / SKILL_DIR.name,
+    Path(__file__).parents[2] / "workdir" / ".claude" / "skills" / SKILL_DIR.name,
+)
 CRITERIA_PATH = REWARDS_DIR / "criteria.py"
 SPEC = importlib.util.spec_from_file_location("bundesliga_criteria", CRITERIA_PATH)
 assert SPEC is not None and SPEC.loader is not None
@@ -40,6 +45,16 @@ def registered_criteria_for_reward(name: str) -> list[tuple[str, float]]:
     ]
     session.current().clear()
     return registered
+
+
+def test_materialized_skill_files_match_canonical_sources() -> None:
+    for materialized_dir in WORKDIR_SKILL_DIRS:
+        assert (materialized_dir / "SKILL.md").read_bytes() == (
+            SKILL_DIR / "SKILL.md"
+        ).read_bytes()
+        assert (materialized_dir / "references" / "rules-2026-27.md").read_bytes() == (
+            SKILL_DIR / "references" / "rules-2026-27.md"
+        ).read_bytes()
 
 
 def test_programmatic_rewards_register_expected_metrics() -> None:
