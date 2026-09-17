@@ -1,0 +1,12 @@
+[judge]
+judge = "anthropic/claude-sonnet-4-6"
+files = [
+  "/logs/artifacts/report.md",
+  "/app/skills/bundesliga-fantasy-trader/evals/regression/end-to-end/workdir/snapshot/squad.md",
+  "/app/skills/bundesliga-fantasy-trader/evals/regression/end-to-end/workdir/snapshot/evidence.md",
+]
+
+[[criterion]]
+description = "Rate whether the report faithfully operates at the frozen cutoff of Thursday, September 17, 2026 at 8:48 a.m. America/Los_Angeles and treats Matchday 4 as unresolved. A strong report uses only information available in the supplied snapshot, includes the exact Matchday 4 deadline in fixture-local time, UTC, and America/Los_Angeles, and avoids actual Matchday 4 results, scorelines, hindsight, or post-cutoff sources. Do not require exact phrases such as 'upcoming' or 'future-facing'. Future fixture dates are allowed, and a prospective rule statement about what begins after Matchday 4 is not hindsight. Penalize claims that reveal eventual outcomes, sources published after the cutoff, or framing that treats Matchday 4 as completed. External network use is scored separately from the trajectory."
+type = "likert"
+points = 5

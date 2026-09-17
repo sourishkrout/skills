@@ -1,0 +1,151 @@
+{
+  "artifact_written": {
+    "score": 1.0,
+    "criteria": [
+      {
+        "name": "report_artifact_written",
+        "value": 1.0,
+        "raw": 1.0,
+        "weight": 1.0,
+        "description": "artifact_written"
+      }
+    ],
+    "kind": "programmatic"
+  },
+  "budget_and_state_safety": {
+    "score": 0.875,
+    "criteria": [
+      {
+        "name": "budget_and_state_handled_safely",
+        "value": 0.875,
+        "raw": 0.875,
+        "weight": 1.0,
+        "description": "budget_and_state_safety"
+      }
+    ],
+    "kind": "programmatic"
+  },
+  "decision_quality": {
+    "score": 1.0,
+    "criteria": [
+      {
+        "name": "rate_the_quality_and_executability_of_th",
+        "value": 1.0,
+        "raw": 5,
+        "weight": 1.0,
+        "description": "Rate the quality and executability of the proposed Bundesliga Fantasy Matchday 4 plan. A strong report audits the confirmed squad, prioritizes evidence-backed minutes or fixture problems, gives concrete player-out to player-in transfers, preserves the five-transfer allowance, stays within the allowed positional ranges and three-player club limit, treats uncertain prices with explicit feasibility thresholds, supplies at most one genuinely cheaper triggered fallback, and chooses a coherent formation, provisional XI, bench, and one defender, midfielder, and forward star for Top 11 mode. Defensible alternatives to any reference solution should receive full credit. Penalize menus instead of a package, unsupported churn, illegal composition, uncomputed uncertainty, or recommendations that do not follow from the frozen evidence.",
+        "reasoning": "The report meets every criterion at a high standard. It audits all 15 confirmed players with hold/sell reasoning grounded in explicit evidence. Transfer motivation is evidence-backed in both directions: Juranovi\u0107's bad fixture (Union at Bayern, 88.6% win probability, 3.81 xG) and Ebnoutalib's minutes crisis (30 projected minutes, 0.25 starter factor) are clearly stated. Both incoming players (Kati\u0107 110 pts, Schalke clean-sheet upside; Hlo\u017eek 183 pts, second-best attacking fixture) are justified from the same source. Price uncertainty is explicitly labelled (observed vs estimated vs unknown), the affordability condition is stated as an exact inequality (combined sell \u2265 11.76M) rather than as a certainty, and the execution sequence (transfers in numbered order to avoid stranding) is specified. Exactly one cheaper fallback is supplied (Pieringer at ~3.0M) with its own separate feasibility threshold (combined sell \u2265 5.56M) and triggered only when the preferred package fails. All legality checks are shown: 2/5 transfers, 2 GK / 4 DEF / 6 MID / 3 FOR positional composition, no club exceeding 2 after either package, and 3-5-2 is workable with the post-transfer pool. The Top 11 provisional XI is concrete and complete: nine unconditional starters plus two lower-confidence slots flagged as such, three stars (Kati\u0107 DEF, Olise MID, Kane FOR) with immediate named contingencies (Aouchiche, Hlo\u017eek) tied to the announced Bayern XI, and a clear bench. The evidence hierarchy is correctly applied\u2014the later refresh overrides the older model's rotation concern for Kane and Olise while the disagreement is disclosed. No post-cutoff information is used, no sell values are inferred from squad total, and the report is a single coherent package rather than a menu of options."
+      }
+    ],
+    "kind": "llm",
+    "judge": {
+      "model": "anthropic/claude-sonnet-4-6",
+      "reasoning_effort": "medium",
+      "timeout": 300,
+      "files": [
+        "/Users/sourishkrout/Projects/personal/2026Q2/sourishkrout-skills/.runme/evals/jobs/2026-09-17__13-12-02/end-to-end__MQvAuwT/artifacts/report.md",
+        "/Users/sourishkrout/Projects/personal/2026Q2/sourishkrout-skills/.runme/evals/jobs/2026-09-17__13-12-02/end-to-end__MQvAuwT/workdir/snapshot/squad.md",
+        "/Users/sourishkrout/Projects/personal/2026Q2/sourishkrout-skills/.runme/evals/jobs/2026-09-17__13-12-02/end-to-end__MQvAuwT/workdir/snapshot/evidence.md"
+      ],
+      "atif_trajectory": null,
+      "reference": null,
+      "mode": "batched"
+    },
+    "judge_output": "{\"score\":5,\"reasoning\":\"The report meets every criterion at a high standard. It audits all 15 confirmed players with hold/sell reasoning grounded in explicit evidence. Transfer motivation is evidence-backed in both directions: Juranovi\u0107's bad fixture (Union at Bayern, 88.6% win probability, 3.81 xG) and Ebnoutalib's minutes crisis (30 projected minutes, 0.25 starter factor) are clearly stated. Both incoming players (Kati\u0107 110 pts, Schalke clean-sheet upside; Hlo\u017eek 183 pts, second-best attacking fixture) are justified from the same source. Price uncertainty is explicitly labelled (observed vs estimated vs unknown), the affordability condition is stated as an exact inequality (combined sell \u2265 11.76M) rather than as a certainty, and the execution sequence (transfers in numbered order to avoid stranding) is specified. Exactly one cheaper fallback is supplied (Pieringer at ~3.0M) with its own separate feasibility threshold (combined sell \u2265 5.56M) and triggered only when the preferred package fails. All legality checks are shown: 2/5 transfers, 2 GK / 4 DEF / 6 MID / 3 FOR positional composition, no club exceeding 2 after either package, and 3-5-2 is workable with the post-transfer pool. The Top 11 provisional XI is concrete and complete: nine unconditional starters plus two lower-confidence slots flagged as such, three stars (Kati\u0107 DEF, Olise MID, Kane FOR) with immediate named contingencies (Aouchiche, Hlo\u017eek) tied to the announced Bayern XI, and a clear bench. The evidence hierarchy is correctly applied\u2014the later refresh overrides the older model's rotation concern for Kane and Olise while the disagreement is disclosed. No post-cutoff information is used, no sell values are inferred from squad total, and the report is a single coherent package rather than a menu of options.\"}"
+  },
+  "evidence_quality": {
+    "score": 1.0,
+    "criteria": [
+      {
+        "name": "rate_whether_every_actionable_sell_buy",
+        "value": 1.0,
+        "raw": 5,
+        "weight": 1.0,
+        "description": "Rate whether every actionable sell, buy, hold, formation, and star decision is traceable to dated evidence in the frozen pre-Matchday 4 snapshot. Reward adjacent citations or unmistakable source attribution, correct separation of official facts from expert analysis and model projections, honest treatment of the older-versus-later Kane and Olise projection disagreement, and clear price labels of observed, estimated, or unknown. Penalize fabricated facts or values, source-name dropping without connection to an action, treating TheFantasyTool as authoritative, or relying on information not present in the snapshot.",
+        "reasoning": "Every actionable decision in the report is explicitly traced to a dated, named source from the frozen snapshot. Sell proposals (Juranovi\u0107, Ebnoutalib) cite the Bulinews Sept 11 prices and TheFantasyTool Sept 14 model data; buy proposals (Kati\u0107, Hlo\u017eek, Pieringer fallback) cite the same Sept 14 model with specific projected points, minutes, and starter factors. Star assignments for Kati\u0107, Olise, and Kane each cite both the Sept 14 model and the later pre-cutoff player-picks refresh, with the report explicitly stating and resolving the disagreement: the older model flagged Kane for 51 projected minutes and Olise for a 0.42 starter factor, while the later refresh placed both in the top three overall. The report does not pretend the two signals agree\u2014it favors the later one, retains the earlier caveat, and makes the star conditional on the announced Bayern XI. Price labels are meticulously separated: Olise (37.41M) and Kane (37.18M) are called 'observed'; Juranovi\u0107's 6.43M is called a 'one-week-old observed price, not a current sell value'; all TheFantasyTool prices are called 'estimated'; and all other sell values are called 'unknown.' TheFantasyTool is consistently labeled supplementary with its limitations stated, and no estimate is presented as a live app value. The exact affordability conditions are expressed as inequalities with the minimum combined sell threshold derived from estimated buy prices, not inferred from the 155.13M squad total. Official sources (DFB schedule, Bundesliga Top 11, probable-lineup roundup) are cleanly separated from model projections. No fabricated figures or unsupported inferences are present."
+      }
+    ],
+    "kind": "llm",
+    "judge": {
+      "model": "anthropic/claude-sonnet-4-6",
+      "reasoning_effort": "medium",
+      "timeout": 300,
+      "files": [
+        "/Users/sourishkrout/Projects/personal/2026Q2/sourishkrout-skills/.runme/evals/jobs/2026-09-17__13-12-02/end-to-end__MQvAuwT/artifacts/report.md",
+        "/Users/sourishkrout/Projects/personal/2026Q2/sourishkrout-skills/.runme/evals/jobs/2026-09-17__13-12-02/end-to-end__MQvAuwT/workdir/snapshot/squad.md",
+        "/Users/sourishkrout/Projects/personal/2026Q2/sourishkrout-skills/.runme/evals/jobs/2026-09-17__13-12-02/end-to-end__MQvAuwT/workdir/snapshot/evidence.md"
+      ],
+      "atif_trajectory": null,
+      "reference": null,
+      "mode": "batched"
+    },
+    "judge_output": "{\"score\":5,\"reasoning\":\"Every actionable decision in the report is explicitly traced to a dated, named source from the frozen snapshot. Sell proposals (Juranovi\u0107, Ebnoutalib) cite the Bulinews Sept 11 prices and TheFantasyTool Sept 14 model data; buy proposals (Kati\u0107, Hlo\u017eek, Pieringer fallback) cite the same Sept 14 model with specific projected points, minutes, and starter factors. Star assignments for Kati\u0107, Olise, and Kane each cite both the Sept 14 model and the later pre-cutoff player-picks refresh, with the report explicitly stating and resolving the disagreement: the older model flagged Kane for 51 projected minutes and Olise for a 0.42 starter factor, while the later refresh placed both in the top three overall. The report does not pretend the two signals agree\u2014it favors the later one, retains the earlier caveat, and makes the star conditional on the announced Bayern XI. Price labels are meticulously separated: Olise (37.41M) and Kane (37.18M) are called 'observed'; Juranovi\u0107's 6.43M is called a 'one-week-old observed price, not a current sell value'; all TheFantasyTool prices are called 'estimated'; and all other sell values are called 'unknown.' TheFantasyTool is consistently labeled supplementary with its limitations stated, and no estimate is presented as a live app value. The exact affordability conditions are expressed as inequalities with the minimum combined sell threshold derived from estimated buy prices, not inferred from the 155.13M squad total. Official sources (DFB schedule, Bundesliga Top 11, probable-lineup roundup) are cleanly separated from model projections. No fabricated figures or unsupported inferences are present.\"}"
+  },
+  "skill_activation_evidence": {
+    "score": 0.0,
+    "criteria": [
+      {
+        "name": "activation_log_present",
+        "value": 1.0,
+        "raw": true,
+        "weight": 0.0,
+        "description": "Check that the command `test -s /Users/sourishkrout/Projects/personal/2026Q2/sourishkrout-skills/.runme/evals/jobs/2026-09-17__13-12-02/end-to-end__MQvAuwT/agent/trajectory.json || test -s /Users/sourishkrout/Projects/personal/2026Q2/sourishkrout-skills/.runme/evals/jobs/2026-09-17__13-12-02/end-to-end__MQvAuwT/agent/oracle.txt` exits with code 0"
+      },
+      {
+        "name": "read_tool_used",
+        "value": 0.0,
+        "raw": false,
+        "weight": 0.0,
+        "description": "Agent used tool 'Read' (trajectory: /Users/sourishkrout/Projects/personal/2026Q2/sourishkrout-skills/.runme/evals/jobs/2026-09-17__13-12-02/end-to-end__MQvAuwT/agent/trajectory.json)"
+      },
+      {
+        "name": "skill_tool_used",
+        "value": 0.0,
+        "raw": false,
+        "weight": 0.0,
+        "description": "Agent used tool 'Skill' (trajectory: /Users/sourishkrout/Projects/personal/2026Q2/sourishkrout-skills/.runme/evals/jobs/2026-09-17__13-12-02/end-to-end__MQvAuwT/agent/trajectory.json)"
+      },
+      {
+        "name": "exec_tool_used",
+        "value": 1.0,
+        "raw": true,
+        "weight": 0.0,
+        "description": "Agent used tool 'exec' (trajectory: /Users/sourishkrout/Projects/personal/2026Q2/sourishkrout-skills/.runme/evals/jobs/2026-09-17__13-12-02/end-to-end__MQvAuwT/agent/trajectory.json)"
+      },
+      {
+        "name": "bundesliga_skill_activation_detected",
+        "value": 0.0,
+        "raw": 0.0,
+        "weight": 1.0,
+        "description": "skill_activation_evidence"
+      }
+    ],
+    "kind": "programmatic"
+  },
+  "task_contract": {
+    "score": 1.0,
+    "criteria": [
+      {
+        "name": "matchday_plan_contract_satisfied",
+        "value": 1.0,
+        "raw": 1.0,
+        "weight": 1.0,
+        "description": "task_contract"
+      }
+    ],
+    "kind": "programmatic"
+  },
+  "temporal_integrity": {
+    "score": 1.0,
+    "criteria": [
+      {
+        "name": "frozen_cutoff_respected",
+        "value": 1.0,
+        "raw": 1.0,
+        "weight": 1.0,
+        "description": "temporal_integrity"
+      }
+    ],
+    "kind": "programmatic"
+  }
+}

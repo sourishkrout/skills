@@ -1,0 +1,38 @@
+schema_version = "1.3"
+
+[task]
+name = "sourishkrout/bundesliga-fantasy-trader_end-to-end"
+description = "Evaluate a frozen pre-deadline Bundesliga Fantasy Matchday 4 planning workflow."
+authors = [
+  { name = "Sebastian (Tiedtke) Huckleberry", email = "sebastiantiedtke@gmail.com" },
+]
+keywords = ["skills", "harbor", "bundesliga", "fantasy", "research"]
+
+[metadata]
+difficulty = "medium"
+category = "research"
+tags = ["skills", "bundesliga", "fantasy", "transfers", "temporal-integrity"]
+
+[verifier]
+timeout_sec = 900.0
+
+[agent]
+timeout_sec = 1800.0
+
+[environment]
+# Visr's default Runme environment cannot enforce Harbor's no-network mode.
+# Keep the environment runnable and treat offline behavior as an explicit task
+# contract; the verifier deliberately does not publish a false enforcement score.
+network_mode = "public"
+build_timeout_sec = 600.0
+os = "linux"
+workdir = "/app/skills/bundesliga-fantasy-trader/evals/regression/end-to-end/workdir"
+skills_dir = "/app/skills/bundesliga-fantasy-trader/evals/regression/end-to-end/workdir/.agents/skills"
+mcp_servers = []
+
+[environment.env]
+
+[verifier.env]
+ANTHROPIC_API_KEY = "${ANTHROPIC_API_KEY}"
+
+[solution.env]

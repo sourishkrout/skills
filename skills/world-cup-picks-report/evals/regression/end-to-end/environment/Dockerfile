@@ -9,4 +9,7 @@ RUN apt-get update \
 
 COPY workdir /app/skills/world-cup-picks-report/evals/regression/end-to-end/workdir
 
+RUN test -s /app/skills/world-cup-picks-report/evals/regression/end-to-end/workdir/.agents/skills/world-cup-picks-report/SKILL.md \
+  && test -s /app/skills/world-cup-picks-report/evals/regression/end-to-end/workdir/.claude/skills/world-cup-picks-report/SKILL.md
+
 WORKDIR /app/skills/world-cup-picks-report/evals/regression/end-to-end/workdir

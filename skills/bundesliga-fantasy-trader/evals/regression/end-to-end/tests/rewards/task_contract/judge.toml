@@ -1,0 +1,12 @@
+[judge]
+judge = "anthropic/claude-sonnet-4-6"
+files = [
+  "/logs/artifacts/report.md",
+  "/app/skills/bundesliga-fantasy-trader/evals/regression/end-to-end/workdir/snapshot/squad.md",
+  "/app/skills/bundesliga-fantasy-trader/evals/regression/end-to-end/workdir/snapshot/evidence.md",
+]
+
+[[criterion]]
+description = "Rate whether the report fulfills the requested Matchday 4 deliverable. It should lead with a compact Discord-suitable action summary; audit all 15 confirmed players; give one strongest proposed transfer package in execution order; include no more than one cheaper fallback and only with a concrete trigger; show transfer-count, budget, positional-composition, and club-limit checks; and provide a formation, provisional XI, bench, and exactly one defender, midfielder, and forward star for Top 11 mode. It should also give the deadline in fixture-local time, UTC, and America/Los_Angeles. Judge meaning rather than exact headings, arrow characters, or stock phrases. Repeated discussion of the same primary or fallback package is not an extra package. Remember that 4–6 defenders is the 15-player squad constraint, while a legal 3-5-2 Top 11 formation starts three defenders."
+type = "likert"
+points = 5

@@ -1,0 +1,30 @@
+"""Check that the injected Bundesliga Fantasy skill was activated."""
+
+import rewardkit as rk
+from rewardkit import criteria
+
+
+rk.command_succeeds(
+    "test -s /logs/agent/trajectory.json || test -s /logs/agent/oracle.txt",
+    weight=0.0,
+    name="activation_log_present",
+)
+rk.trajectory_tool_used(
+    "Read",
+    path="/logs/agent/trajectory.json",
+    weight=0.0,
+    name="read_tool_used",
+)
+rk.trajectory_tool_used(
+    "Skill",
+    path="/logs/agent/trajectory.json",
+    weight=0.0,
+    name="skill_tool_used",
+)
+rk.trajectory_tool_used(
+    "exec",
+    path="/logs/agent/trajectory.json",
+    weight=0.0,
+    name="exec_tool_used",
+)
+criteria.skill_activation_evidence(weight=1.0, name="bundesliga_skill_activation_detected")

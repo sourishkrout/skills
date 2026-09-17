@@ -1,0 +1,12 @@
+[judge]
+judge = "anthropic/claude-sonnet-4-6"
+files = [
+  "/logs/artifacts/report.md",
+  "/app/skills/bundesliga-fantasy-trader/evals/regression/end-to-end/workdir/snapshot/squad.md",
+  "/app/skills/bundesliga-fantasy-trader/evals/regression/end-to-end/workdir/snapshot/evidence.md",
+]
+
+[[criterion]]
+description = "Rate whether the report handles budget uncertainty, roster legality, and mutable state safely. Full credit requires treating 3.34M as the spendable bank and 155.13M only as squad market value, never as cash; distinguishing observed, dated estimated, and unknown live prices without inventing values; and expressing preferred-package feasibility with correct arithmetic or an exact inequality or threshold. Any cheaper fallback should have its own affordability condition when price uncertainty matters. The report should preserve the five-transfer allowance, allowed positional ranges, and three-player club limit, and it must keep all moves proposed rather than claiming execution or completion. Accept any clear natural-language formulation; do not require words such as 'threshold', 'not spendable', or a particular equation layout. Remember that the squad must own 4–6 defenders, but a legal 3-5-2 Top 11 formation uses three starting defenders."
+type = "likert"
+points = 5
