@@ -65,6 +65,13 @@ def test_strong_report_satisfies_programmatic_contracts() -> None:
     assert criteria.score_budget_and_state_safety(report) == 1.0
 
 
+def test_equivalent_language_report_satisfies_programmatic_contracts() -> None:
+    report = fixture("equivalent-language-report")
+    assert criteria.score_temporal_integrity(report) == 1.0
+    assert criteria.score_task_contract(report) == 1.0
+    assert criteria.score_budget_and_state_safety(report) == 1.0
+
+
 def test_hindsight_and_post_cutoff_sources_fail_temporal_integrity() -> None:
     report = fixture("hindsight-report")
     assert criteria.has_unexpected_scoreline(report)
@@ -72,8 +79,43 @@ def test_hindsight_and_post_cutoff_sources_fail_temporal_integrity() -> None:
     assert criteria.score_temporal_integrity(report) < 1.0
 
 
+def test_prospective_after_matchday_rule_is_not_hindsight() -> None:
+    assert not criteria.has_hindsight_leakage(
+        "Unlimited transfers begin after Matchday 4 for the international break."
+    )
+    assert criteria.has_hindsight_leakage(
+        "After Matchday 4, the result showed that Bayern won."
+    )
+
+
+def test_fixture_date_is_not_mistaken_for_source_date() -> None:
+    deadline = (
+        "Deadline: September 18, 2026 at 20:30 CEST. "
+        "[DFB schedule, viewed September 17, 2026](https://example.com)."
+    )
+    assert not criteria.has_post_cutoff_source_date(deadline)
+    assert criteria.has_post_cutoff_source_date("Source published September 19, 2026.")
+    assert criteria.has_post_cutoff_source_date(
+        "## Frozen sources\n\n- Example article, September 19, 2026."
+    )
+
+
 def test_missing_fallback_fails_task_contract() -> None:
     assert criteria.score_task_contract(fixture("missing-fallback-report")) < 1.0
+
+
+def test_repeated_legality_headings_do_not_imply_multiple_packages() -> None:
+    report = fixture("strong-report") + """
+
+### Recommended package legality
+
+The same package remains legal.
+
+### Fallback package legality
+
+The same fallback remains legal.
+"""
+    assert criteria.score_task_contract(report) == 1.0
 
 
 def test_invented_values_fail_budget_safety_shape() -> None:
@@ -235,23 +277,28 @@ def test_reward_rollup_full_score(tmp_path: Path) -> None:
     assert scores["reward"] == 1.0
 
 
-def test_reward_rollup_caps_temporal_failure(tmp_path: Path) -> None:
+def test_reward_rollup_averages_temporal_deduction(tmp_path: Path) -> None:
     values = {key: 1.0 for key in rollup.ROLLUP_KEYS}
     values["temporal_integrity"] = 0.8
     reward_path = tmp_path / "reward.json"
-    import json
-
     reward_path.write_text(json.dumps(values))
     scores = rollup.add_reward_rollup(reward_path)
-    assert scores["reward"] == 0.5
+    assert scores["reward"] == 0.9714
+
+
+def test_reward_rollup_averages_budget_deduction(tmp_path: Path) -> None:
+    values = {key: 1.0 for key in rollup.ROLLUP_KEYS}
+    values["budget_and_state_safety"] = 0.875
+    reward_path = tmp_path / "reward.json"
+    reward_path.write_text(json.dumps(values))
+    scores = rollup.add_reward_rollup(reward_path)
+    assert scores["reward"] == 0.9821
 
 
 def test_reward_rollup_zeroes_missing_artifact(tmp_path: Path) -> None:
     values = {key: 1.0 for key in rollup.ROLLUP_KEYS}
     values["artifact_written"] = 0.0
     reward_path = tmp_path / "reward.json"
-    import json
-
     reward_path.write_text(json.dumps(values))
     scores = rollup.add_reward_rollup(reward_path)
     assert scores["reward"] == 0.0

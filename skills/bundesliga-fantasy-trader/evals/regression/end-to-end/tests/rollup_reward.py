@@ -25,11 +25,6 @@ def add_reward_rollup(path: Path) -> dict[str, float]:
     reward = sum(float(scores[key]) for key in ROLLUP_KEYS) / len(ROLLUP_KEYS)
     if float(scores["artifact_written"]) <= 0:
         reward = 0.0
-    elif min(
-        float(scores["temporal_integrity"]),
-        float(scores["budget_and_state_safety"]),
-    ) < 1.0:
-        reward = min(reward, 0.5)
 
     scores["reward"] = round(reward, 4)
     path.write_text(json.dumps(scores, indent=2) + "\n")

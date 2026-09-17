@@ -164,20 +164,18 @@ def score_temporal_integrity(report: str) -> float:
     lower = report.lower()
     checks = [
         "september 17, 2026" in lower and "8:48" in lower,
-        any(term in lower for term in ("upcoming", "unplayed", "future-facing", "treated as upcoming")),
-        not any(
+        any(
             term in lower
             for term in (
-                "matchday 4 result",
-                "after matchday 4",
-                "matchday 4 ended",
-                "final score",
-                "in hindsight",
-                "as we now know",
-                "went on to",
-                "eventual outcome",
+                "upcoming",
+                "unplayed",
+                "future-facing",
+                "treated as upcoming",
+                "treated as future",
+                "future events",
             )
         ),
+        not has_hindsight_leakage(report),
         not has_unexpected_scoreline(report),
         not has_post_cutoff_source_date(report),
     ]
@@ -191,16 +189,48 @@ def has_unexpected_scoreline(report: str) -> bool:
     return bool(re.search(r"\b\d+\s*:\s*\d+\b", scrubbed))
 
 
+def has_hindsight_leakage(report: str) -> bool:
+    lower = report.lower()
+    direct_patterns = (
+        r"\bmatchday 4 results?\b",
+        r"\bmatchday 4 (?:ended|finished|was completed)\b",
+        r"\bfinal score\b",
+        r"\bin hindsight\b",
+        r"\bas we now know\b",
+        r"\bwent on to\b",
+        r"\beventual outcome\b",
+    )
+    if any(re.search(pattern, lower) for pattern in direct_patterns):
+        return True
+    result_terms = r"(?:result|score|outcome|won|lost|drew|finished|ended)"
+    return bool(
+        re.search(rf"\bafter matchday 4\b[^.\n]{{0,80}}\b{result_terms}\b", lower)
+        or re.search(rf"\b{result_terms}\b[^.\n]{{0,80}}\bafter matchday 4\b", lower)
+    )
+
+
 def has_post_cutoff_source_date(report: str) -> bool:
     post_cutoff = re.compile(
         r"\b(?:september\s+(?:1[89]|2\d|30)|october|november|december)"
         r"(?:\s+\d{1,2})?,?\s+2026\b",
         re.I,
     )
+    source_metadata = re.compile(r"\b(?:source|published|updated|viewed|model data)\b", re.I)
+    source_heading_level: int | None = None
     for line in report.splitlines():
-        lower = line.lower()
-        if any(term in lower for term in ("source", "published", "updated", "viewed", "model data")):
-            if post_cutoff.search(line):
+        heading = re.match(r"^(#{1,6})\s+(.+?)\s*$", line)
+        if heading:
+            level = len(heading.group(1))
+            normalized = normalize_heading(heading.group(2))
+            if "source" in normalized:
+                source_heading_level = level
+            elif source_heading_level is not None and level <= source_heading_level:
+                source_heading_level = None
+            continue
+        if source_heading_level is not None and post_cutoff.search(line):
+            return True
+        for metadata in source_metadata.finditer(line):
+            if post_cutoff.search(line[metadata.start() : metadata.end() + 100]):
                 return True
     return False
 
@@ -209,11 +239,23 @@ def score_task_contract(report: str) -> float:
     if not report.strip():
         return 0.0
     lower = report.lower()
-    fallback_count = len(re.findall(r"^#{1,6}\s+fallback package\s*$", report, re.I | re.M))
+    headings = markdown_headings(report)
+    has_primary_package = any(
+        "fallback" not in heading
+        and (
+            "proposed transfers" in heading
+            or (
+                "package" in heading
+                and any(term in heading for term in ("recommended", "preferred", "strongest"))
+            )
+        )
+        for heading in headings
+    )
+    has_fallback = any("fallback" in heading for heading in headings)
     checks = [
         "what to do now" in lower,
-        "recommended package" in lower,
-        fallback_count == 1,
+        has_primary_package,
+        has_fallback,
         "trigger" in lower,
         "proposed" in lower and ("→" in report or "->" in report),
         all(token in lower for token in ("20:30 cest", "18:30 utc", "11:30")),
@@ -229,15 +271,59 @@ def score_budget_and_state_safety(report: str) -> float:
     lower = report.lower()
     checks = [
         "3.34m" in lower,
-        "155.13m" in lower and any(term in lower for term in ("not treated as bank", "not spendable", "not available budget")),
+        has_nonspendable_squad_value(report),
         "unknown" in lower and "estimated" in lower,
-        any(term in lower for term in ("threshold", "feasible when", "budget condition")),
+        has_affordability_boundary(report),
         all(term in report for term in ("+", "-", "=")),
         "0/5" in lower or bool(re.search(r"uses?\s+\d+\s+of\s+5", lower)),
         all(term in lower for term in ("2 gk", "def", "mid", "for")) and "three" in lower,
         not claims_completed_transfer(report),
     ]
     return round(sum(checks) / len(checks), 4)
+
+
+def markdown_headings(report: str) -> list[str]:
+    return [
+        normalize_heading(match.group(1))
+        for line in report.splitlines()
+        if (match := re.match(r"^#{1,6}\s+(.+?)\s*$", line))
+    ]
+
+
+def normalize_heading(heading: str) -> str:
+    return re.sub(r"[*_`]", "", heading).strip(" #:—–-").lower()
+
+
+def has_nonspendable_squad_value(report: str) -> bool:
+    for paragraph in re.split(r"\n\s*\n", report.lower()):
+        if "155.13m" not in paragraph:
+            continue
+        if any(
+            term in paragraph
+            for term in ("not treated as bank", "not spendable", "not available budget")
+        ):
+            return True
+        if re.search(r"\bonly (?:the )?bank\b[^.\n]{0,100}\bspendable\b", paragraph):
+            return True
+        if re.search(
+            r"\b(?:squad|market|total)[^.\n]{0,80}\b(?:context|informational)(?: only)?\b",
+            paragraph,
+        ):
+            return True
+    return False
+
+
+def has_affordability_boundary(report: str) -> bool:
+    lower = report.lower()
+    if any(term in lower for term in ("threshold", "feasible when", "budget condition")):
+        return True
+    patterns = (
+        r"\bminimum combined (?:sell|sale)(?: value)?\b",
+        r"\bmaximum (?:affordable )?(?:combined )?purchase(?: price)?\b",
+        r"\bexact (?:feasibility|legality|affordability) (?:test|equation|condition)\b",
+        r"\baffordable exactly when\b",
+    )
+    return any(re.search(pattern, lower) for pattern in patterns)
 
 
 def claims_completed_transfer(report: str) -> bool:
