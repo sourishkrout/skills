@@ -1,0 +1,34 @@
+schema_version = "1.3"
+artifacts = []
+
+[task]
+name = "sourishkrout/bundesliga-fantasy-trader_end-to-end"
+description = ""
+authors = [
+  { name = "Sebastian (Tiedtke) Huckleberry", email = "sebastiantiedtke@gmail.com" },
+]
+keywords = ["runme", "harbor", "eval"]
+
+[metadata]
+category = "software_engineering"
+tags = ["runme", "harbor", "eval"]
+
+[verifier]
+timeout_sec = 600.0
+collect = []
+
+[agent]
+timeout_sec = 600.0
+
+[environment]
+network_mode = "public"
+build_timeout_sec = 600.0
+os = "linux"
+workdir = "/app/evals/regression/end-to-end/workdir"
+mcp_servers = []
+
+[environment.env]
+
+[verifier.env]
+
+[solution.env]
