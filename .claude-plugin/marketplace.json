@@ -9,7 +9,18 @@
     {
       "name": "world-cup-picks-report",
       "source": "./",
-      "description": "Generate Harbor-backed FIFA World Cup scoreline reports from expert picks, model probabilities, market consensus, Elo ratings, lineup checks, and knockout penalty-risk analysis."
+      "description": "Generate Harbor-backed FIFA World Cup scoreline reports from expert picks, model probabilities, market consensus, Elo ratings, lineup checks, and knockout penalty-risk analysis.",
+      "skills": [
+        "./skills/world-cup-picks-report"
+      ]
+    },
+    {
+      "name": "bundesliga-fantasy-trader",
+      "source": "./",
+      "description": "Research and manage Bundesliga Fantasy squads, transfers, formations, Top 11 lineups, star picks, budgets, and deadline checks.",
+      "skills": [
+        "./skills/bundesliga-fantasy-trader"
+      ]
     }
   ]
 }
