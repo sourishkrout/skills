@@ -2,11 +2,13 @@ from __future__ import annotations
 
 import importlib.util
 import json
+import tomllib
 from pathlib import Path
 
 
 TESTS_DIR = Path(__file__).parents[1]
-CRITERIA_PATH = TESTS_DIR / "rewards" / "criteria.py"
+REWARDS_DIR = TESTS_DIR / "rewards"
+CRITERIA_PATH = REWARDS_DIR / "criteria.py"
 SPEC = importlib.util.spec_from_file_location("bundesliga_criteria", CRITERIA_PATH)
 assert SPEC is not None and SPEC.loader is not None
 criteria = importlib.util.module_from_spec(SPEC)
@@ -19,7 +21,7 @@ rollup = importlib.util.module_from_spec(ROLLUP_SPEC)
 ROLLUP_SPEC.loader.exec_module(rollup)
 
 
-def fixture(name: str, filename: str = "report.md") -> str:
+def fixture(name: str, filename: str) -> str:
     return (TESTS_DIR / "fixtures" / name / filename).read_text()
 
 
@@ -27,7 +29,7 @@ def registered_criteria_for_reward(name: str) -> list[tuple[str, float]]:
     from rewardkit import session
 
     session.current().clear()
-    path = TESTS_DIR / "rewards" / name / "score.py"
+    path = REWARDS_DIR / name / "score.py"
     spec = importlib.util.spec_from_file_location(f"{name}_score", path)
     assert spec is not None and spec.loader is not None
     module = importlib.util.module_from_spec(spec)
@@ -41,14 +43,12 @@ def registered_criteria_for_reward(name: str) -> list[tuple[str, float]]:
 
 
 def test_programmatic_rewards_register_expected_metrics() -> None:
-    expected = {
-        "artifact_written": "report_artifact_written",
-        "temporal_integrity": "frozen_cutoff_respected",
-        "task_contract": "matchday_plan_contract_satisfied",
-        "budget_and_state_safety": "budget_and_state_handled_safely",
-    }
-    for reward, criterion_name in expected.items():
-        assert registered_criteria_for_reward(reward) == [(criterion_name, 1.0)]
+    assert registered_criteria_for_reward("artifact_written") == [
+        ("report_artifact_written", 1.0)
+    ]
+    assert registered_criteria_for_reward("offline_evidence_boundary") == [
+        ("no_external_network_use", 1.0)
+    ]
     assert registered_criteria_for_reward("skill_activation_evidence") == [
         ("activation_log_present", 0.0),
         ("read_tool_used", 0.0),
@@ -58,68 +58,25 @@ def test_programmatic_rewards_register_expected_metrics() -> None:
     ]
 
 
-def test_strong_report_satisfies_programmatic_contracts() -> None:
-    report = fixture("strong-report")
-    assert criteria.score_temporal_integrity(report) == 1.0
-    assert criteria.score_task_contract(report) == 1.0
-    assert criteria.score_budget_and_state_safety(report) == 1.0
+def test_report_rewards_are_semantic_judges() -> None:
+    for name in (
+        "temporal_integrity",
+        "task_contract",
+        "budget_and_state_safety",
+        "decision_quality",
+        "evidence_quality",
+    ):
+        directory = REWARDS_DIR / name
+        assert not (directory / "score.py").exists()
+        config = tomllib.loads((directory / "judge.toml").read_text())
+        assert "/logs/artifacts/report.md" in config["judge"]["files"]
+        assert config["criterion"][0]["type"] == "likert"
+        assert config["criterion"][0]["points"] == 5
 
 
-def test_equivalent_language_report_satisfies_programmatic_contracts() -> None:
-    report = fixture("equivalent-language-report")
-    assert criteria.score_temporal_integrity(report) == 1.0
-    assert criteria.score_task_contract(report) == 1.0
-    assert criteria.score_budget_and_state_safety(report) == 1.0
-
-
-def test_hindsight_and_post_cutoff_sources_fail_temporal_integrity() -> None:
-    report = fixture("hindsight-report")
-    assert criteria.has_unexpected_scoreline(report)
-    assert criteria.has_post_cutoff_source_date(report)
-    assert criteria.score_temporal_integrity(report) < 1.0
-
-
-def test_prospective_after_matchday_rule_is_not_hindsight() -> None:
-    assert not criteria.has_hindsight_leakage(
-        "Unlimited transfers begin after Matchday 4 for the international break."
-    )
-    assert criteria.has_hindsight_leakage(
-        "After Matchday 4, the result showed that Bayern won."
-    )
-
-
-def test_fixture_date_is_not_mistaken_for_source_date() -> None:
-    deadline = (
-        "Deadline: September 18, 2026 at 20:30 CEST. "
-        "[DFB schedule, viewed September 17, 2026](https://example.com)."
-    )
-    assert not criteria.has_post_cutoff_source_date(deadline)
-    assert criteria.has_post_cutoff_source_date("Source published September 19, 2026.")
-    assert criteria.has_post_cutoff_source_date(
-        "## Frozen sources\n\n- Example article, September 19, 2026."
-    )
-
-
-def test_missing_fallback_fails_task_contract() -> None:
-    assert criteria.score_task_contract(fixture("missing-fallback-report")) < 1.0
-
-
-def test_repeated_legality_headings_do_not_imply_multiple_packages() -> None:
-    report = fixture("strong-report") + """
-
-### Recommended package legality
-
-The same package remains legal.
-
-### Fallback package legality
-
-The same fallback remains legal.
-"""
-    assert criteria.score_task_contract(report) == 1.0
-
-
-def test_invented_values_fail_budget_safety_shape() -> None:
-    assert criteria.score_budget_and_state_safety(fixture("invented-values-report")) < 0.5
+def test_artifact_written_requires_nonempty_report() -> None:
+    assert criteria.score_artifact_written("# Report\n") == 1.0
+    assert criteria.score_artifact_written("  \n") == 0.0
 
 
 def test_skill_activation_from_skill_tool() -> None:
@@ -152,16 +109,11 @@ def test_skill_activation_from_claude_read_tool() -> None:
     assert criteria.score_skill_activation_evidence(trajectory) == 1.0
 
 
-def test_skill_activation_from_luna_exec_wrapper() -> None:
-    assert criteria.score_skill_activation_evidence(
-        fixture("luna-exec-activation", "trajectory.json")
-    ) == 1.0
-
-
-def test_skill_activation_from_sol_exec_wrapper() -> None:
-    assert criteria.score_skill_activation_evidence(
-        fixture("sol-exec-activation", "trajectory.json")
-    ) == 1.0
+def test_skill_activation_from_exec_wrappers() -> None:
+    for name in ("luna-exec-activation", "sol-exec-activation"):
+        assert criteria.score_skill_activation_evidence(
+            fixture(name, "trajectory.json")
+        ) == 1.0
 
 
 def test_skill_activation_ignores_source_package_read() -> None:
@@ -268,31 +220,34 @@ def test_wrapped_local_read_and_plain_url_respect_offline_boundary() -> None:
     assert criteria.score_no_external_network_use(trajectory) == 1.0
 
 
+def test_malformed_trajectory_fails_offline_boundary() -> None:
+    assert criteria.score_no_external_network_use("not json") == 0.0
+
+
 def test_reward_rollup_full_score(tmp_path: Path) -> None:
     reward_path = tmp_path / "reward.json"
-    reward_path.write_text(
-        "{" + ",".join(f'\"{key}\": 1.0' for key in rollup.ROLLUP_KEYS) + "}"
-    )
+    reward_path.write_text(json.dumps({key: 1.0 for key in rollup.ROLLUP_KEYS}))
     scores = rollup.add_reward_rollup(reward_path)
     assert scores["reward"] == 1.0
 
 
-def test_reward_rollup_averages_temporal_deduction(tmp_path: Path) -> None:
+def test_reward_rollup_averages_semantic_deductions(tmp_path: Path) -> None:
     values = {key: 1.0 for key in rollup.ROLLUP_KEYS}
     values["temporal_integrity"] = 0.8
+    values["budget_and_state_safety"] = 0.75
     reward_path = tmp_path / "reward.json"
     reward_path.write_text(json.dumps(values))
     scores = rollup.add_reward_rollup(reward_path)
-    assert scores["reward"] == 0.9714
+    assert scores["reward"] == 0.9437
 
 
-def test_reward_rollup_averages_budget_deduction(tmp_path: Path) -> None:
+def test_reward_rollup_includes_offline_boundary(tmp_path: Path) -> None:
     values = {key: 1.0 for key in rollup.ROLLUP_KEYS}
-    values["budget_and_state_safety"] = 0.875
+    values["offline_evidence_boundary"] = 0.0
     reward_path = tmp_path / "reward.json"
     reward_path.write_text(json.dumps(values))
     scores = rollup.add_reward_rollup(reward_path)
-    assert scores["reward"] == 0.9821
+    assert scores["reward"] == 0.875
 
 
 def test_reward_rollup_zeroes_missing_artifact(tmp_path: Path) -> None:

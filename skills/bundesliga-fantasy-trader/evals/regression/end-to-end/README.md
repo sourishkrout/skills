@@ -9,7 +9,14 @@ This task freezes Bundesliga Fantasy 2026/27 Matchday 4 at September 17,
 pre-deadline snapshot, the verifier rejects external retrieval in the agent
 trajectory, and the agent writes `/logs/artifacts/report.md`.
 
-From the repository root, run the deterministic oracle:
+The verifier uses deterministic checks only for the artifact and observable
+trajectory behavior: injected-skill activation and the offline evidence
+boundary. Temporal integrity, task-contract fulfillment, budget and state
+safety, decision quality, and evidence quality are graded semantically so
+equivalent natural-language reports do not depend on exact phrases or
+headings.
+
+From the repository root, run the reference oracle:
 
 ```sh
 visr run skills/bundesliga-fantasy-trader/evals/regression --task-dir end-to-end

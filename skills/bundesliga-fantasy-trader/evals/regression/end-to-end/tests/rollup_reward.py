@@ -8,6 +8,7 @@ from pathlib import Path
 ROLLUP_KEYS = (
     "artifact_written",
     "skill_activation_evidence",
+    "offline_evidence_boundary",
     "temporal_integrity",
     "task_contract",
     "budget_and_state_safety",

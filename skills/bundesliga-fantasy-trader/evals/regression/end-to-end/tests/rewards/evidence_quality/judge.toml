@@ -7,6 +7,6 @@ files = [
 ]
 
 [[criterion]]
-description = "Rate whether every actionable sell, buy, hold, formation, and star decision is traceable to dated evidence in the frozen pre-Matchday 4 snapshot. Reward adjacent citations or unmistakable source attribution, correct separation of official facts from expert analysis and model projections, honest treatment of the older-versus-later Kane and Olise projection disagreement, and clear price labels of observed, estimated, or unknown. Penalize fabricated facts or values, source-name dropping without connection to an action, treating TheFantasyTool as authoritative, or relying on information not present in the snapshot."
+description = "Rate whether every actionable sell, buy, hold, formation, and star decision is traceable to dated evidence in the frozen pre-Matchday 4 snapshot. Reward adjacent citations or unmistakable source attribution, correct separation of official facts from expert analysis and model projections, honest treatment of the older-versus-later Kane and Olise projection disagreement, and clear price labels of observed, estimated, or unknown. Judge semantic traceability rather than requiring specific citation prose. Penalize fabricated facts or values, source-name dropping without connection to an action, treating TheFantasyTool as authoritative, or relying on information not present in the snapshot. Do not infer a rules violation merely because a 3-5-2 Top 11 starts three defenders: the separate 4–6 defender rule applies to the full 15-player squad."
 type = "likert"
 points = 5
