@@ -123,8 +123,9 @@ Sources:
 - `Estimated`: every other price above, with its dated source.
 - `Unknown`: every current sell value not directly visible in the app.
 
-A valid report may recommend a package conditionally, but must show the exact
-minimum combined sell value or maximum purchase price that makes it legal. It
-must also give one cheaper fallback when crossing that threshold would make
-the preferred package unaffordable. It must not infer individual sell values
-from the `155.13M` total squad value.
+A valid initial report should give one highest-potential slate without asking
+for exact sell values, calculating an affordability threshold, or presenting a
+cheaper fallback in advance. It may note whether dated estimates appear to
+cover the slate, but should ask the user to report the app's shortfall only if
+the slate does not fit. It must not infer individual sell values from the
+`155.13M` total squad value.

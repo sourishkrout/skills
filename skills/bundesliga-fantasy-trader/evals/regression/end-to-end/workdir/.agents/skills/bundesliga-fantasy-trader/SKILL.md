@@ -11,7 +11,7 @@ description: "Research and manage Bundesliga Fantasy squads, transfers, formatio
 - Browse current external sources for every matchweek. Memory and prior reports are starting points, not evidence.
 - Support every actionable recommendation with current expert analysis. Fixture or availability facts alone do not justify a fantasy recommendation.
 - Treat trades as an iterative decision with the user. Explain meaningful downside, then respect an informed risk preference when it remains legal.
-- Do the budget iteration yourself. Give the strongest best-effort transfer package available from current evidence, and automatically replace or reorder targets when the first package is too expensive. Do not make the user shuttle screenshots merely to perform arithmetic or discover ordinary player prices.
+- Optimize for fantasy upside before budget precision. Give one highest-potential transfer slate from the current evidence without first asking the user for exact sell values or constructing affordability ladders. If the app rejects it on budget, use the user's reported shortfall or values to produce the next-best slate.
 - Keep proposed and completed actions distinct. Only a user confirmation or authoritative post-transfer screenshot proves completion.
 
 Pure rules, fixture, or deadline questions may be answered without completing the squad-confirmation gate.
@@ -86,22 +86,25 @@ Separate mandatory fixes, upside moves, and budget enablers. Cite each proposed 
 
 **Done when:** each outgoing or retained priority has a current, cited rationale.
 
-### 5. Build and iterate legal trade packages
+### 5. Build the highest-potential trade slate
 
 Use the freshest prices available. Prefer, in order: live values visible in an accessible signed-in Bundesliga app session; app values already supplied in the conversation or squad log; then current prices from direct, dated sources. An overall squad market value is useful context but is not interchangeable with bank or individual sell values. Never assume an older article's price is still exact.
 
-Do not stop at the first unaffordable package. Build a small ranked target pool internally, then solve the package iteratively:
+Build a small ranked target pool internally, then return the single slate with the highest expected fantasy potential. Preserve mandatory minutes fixes, prioritize the highest-impact incoming players, and check squad composition, club limit, transfer allowance, likely formation, and star options. Do not weaken the first recommendation merely to create a comfortable budget buffer.
 
-1. Price the preferred package and show `sale proceeds + bank - purchase cost = remaining bank`.
-2. If it is over budget, preserve mandatory minutes fixes and the highest-impact incoming player; downgrade the lowest-marginal-value move first.
-3. Recalculate after each substitution until the package is feasible. Also check squad composition, club limit, transfer allowance, likely formation, and star options on every pass.
-4. Return one best feasible package plus, only when useful, one cheaper fallback. If prices are estimates, prefer a reasonable safety margin instead of spending to an apparent zero.
+Budget is an iterative constraint, not an intake requirement. Before the user reports an affordability problem:
+
+- Do not ask for exact individual sell values, transfer-builder screenshots, or additional arithmetic inputs merely to make the first slate fit in advance.
+- Do not present downgrade ladders, multiple price tiers, menus of packages, proceeds-needed calculations, or a preemptive cheaper fallback.
+- If reliable values already available in the conversation or app prove the highest-potential slate is unaffordable, give the best slate that is known to fit. Otherwise, state briefly that the user should try the recommended slate and report back if the app shows a shortfall.
+
+If the user reports that the slate does not fit, ask only for the smallest useful budget signal—prefer the app's shortfall or the total amount available for the proposed buys over every player's exact sell value. Then downgrade the lowest-marginal-value move, recalculate, rerun all legality and lineup checks, and return one revised slate. Repeat only if that slate also fails; do not expose the internal ladder.
 
 When a signed-in app session is accessible, inspect the transfer market and current squad values directly and use the transfer builder to test combinations if this can be done without confirming or submitting transfers. Treat staged selections as provisional and never execute a transfer without the user's authorization.
 
-If exact live values remain inaccessible, still make a best-effort proposal from the freshest sourced or previously observed values. Label each price as `live`, `observed at <date/time>`, or `estimated`; show the uncertainty and state whether the package is definitely feasible, feasible with a stated buffer, or conditional on a specific value. Prefer alternatives comfortably below the inferred ceiling.
+If exact live values remain inaccessible, still make a best-effort upside-first proposal. Label any price you quote as `live`, `observed at <date/time>`, or `estimated`, but keep uncertainty concise. Do not turn missing sell values into a preliminary interview or downgrade the slate based on a guessed ceiling.
 
-Present concrete player-for-player trades, not a menu of targets. Lead with one `Recommended package` in execution order. Add at most one `Fallback package`, and only when a doubtful player, price threshold, or materially different risk choice makes it useful. State exactly what triggers the fallback. Keep the broader target pool and rejected combinations out of the user-facing answer unless the user asks for them. Label all moves `Proposed`, not completed. Cite every incoming, outgoing, hold, and spend-or-bank recommendation inline with current expert analysis.
+Present concrete player-for-player trades, not a menu of targets. Lead with one `Recommended package` in execution order. Keep the broader target pool, rejected combinations, budget ladder, and cheaper alternatives out of the user-facing answer unless the user reports a problem or asks for them. A non-budget contingency is appropriate only when late availability news creates a distinct decision. Label all moves `Proposed`, not completed. Cite every incoming, outgoing, hold, and spend-or-bank recommendation inline with current expert analysis.
 
 Invite the user to choose tradeoffs such as minutes security versus upside, short-term fixture strength versus longer horizon, concentrated club exposure versus diversification, and spending versus preserving bank.
 
@@ -111,9 +114,9 @@ When the user's preference carries a material downside:
 2. If the user accepts the risk and the package remains legal, record it as an `Accepted risk` and optimize the remaining moves around it.
 3. Do not repeatedly relitigate an informed choice unless new evidence changes the risk.
 
-After every revision, rerun the full legality, budget, evidence, formation, and star checks. Missing price certainty is not a reason to withhold a package. Ask for user input only after exhausting accessible live state, recent conversation evidence, the squad log, and current direct sources, and only when the remaining uncertainty can change which package is legal. Request the smallest missing datum—such as bank and one or two sell values, preferably as text—while giving the provisional package and the exact threshold at which its fallback should be used. Do not request a transfer-builder screenshot by default.
+After every revision, rerun the full legality, evidence, formation, star, and available budget checks. Missing price certainty is not a reason to withhold the initial package. Ask for budget input only after the user reports that the recommended slate does not fit, and request the smallest datum needed to revise it. Do not request a transfer-builder screenshot by default.
 
-**Done when:** the user has a cited package that is verified feasible or is explicitly conditional on minimal named price data, with an automatically computed fallback for the adverse case.
+**Done when:** the user has one cited, highest-potential slate to try, or—after reporting a budget problem—one revised slate based on the smallest available budget signal.
 
 ### 6. Set formation, Top 11 shape, bench, and stars
 
@@ -125,9 +128,9 @@ Cite the formation, XI/bench, and each star recommendation with current expert a
 
 ### 7. Deliver the matchweek report
 
-Lead with `What to do now`: a compact numbered list of exact player-out → player-in trades in execution order, followed by the provisional formation and stars when relevant. Give one recommended package and no more than one clearly triggered fallback; do not group multiple replacement targets by price or role. Name any action that should wait for lineup news. End the block with a single `Deadline` line and any short-horizon context that materially changes the plan.
+Lead with `What to do now`: a compact numbered list of exact player-out → player-in trades in execution order, followed by the provisional formation and stars when relevant. Give one recommended package; do not group replacements by price or role and do not include a cheaper package preemptively. Name any action that should wait for lineup news. End the block with a single `Deadline` line and any short-horizon context that materially changes the plan.
 
-Use action verbs and compact phrases. Keep rationale to one sentence per action, place citations beside the action they support, and do not repeat the research narrative before giving the recommendation. If live prices, bank, or legality are missing, lead with the best-effort package, its price-confidence labels, budget threshold, and cheaper fallback. Then request only the minimal numeric value that would resolve a consequential uncertainty.
+Use action verbs and compact phrases. Keep rationale to one sentence per action, place citations beside the action they support, and do not repeat the research narrative before giving the recommendation. If live prices or bank are missing, lead with the best-effort highest-potential package and invite the user to report the app's shortfall if it does not fit. Do not ask for exact sell values or provide budget thresholds and cheaper fallbacks before an actual affordability problem appears.
 
 For a full report, follow the action block with only the applicable supporting sections:
 
@@ -154,7 +157,7 @@ Before delivering a squad-dependent recommendation, confirm that:
 - the current rules reference was read and any newer official rule was reconciled;
 - every actionable recommendation has an adjacent, current expert-analysis citation;
 - factual lineup and availability claims use the source hierarchy and accurate certainty labels;
-- every player position, squad constraint, club limit, and transfer count is app-legal, and price/budget claims are either live-verified or clearly labeled with their source, uncertainty, threshold, and fallback;
+- every player position, squad constraint, club limit, and transfer count is app-legal; any price/budget claim is live-verified or clearly labeled, while unknown sell values do not block the initial upside-first slate;
 - kickoff and deadline conversions agree;
 - accepted user risks are recorded without being presented as the evidence-led default;
 - completed transfers are not claimed without explicit confirmation.
