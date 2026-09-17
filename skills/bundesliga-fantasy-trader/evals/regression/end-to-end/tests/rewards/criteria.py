@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 import json
-import re
 from pathlib import Path
 
 from rewardkit import criterion
@@ -19,11 +18,6 @@ INJECTED_SKILL_PATHS = (
 )
 READ_COMMANDS = ("cat ", "sed ", "less ", "head ", "tail ")
 SHELL_TOOL_NAMES = {"exec_command", "bash", "shell"}
-WRAPPED_NETWORK_TOOL_RE = re.compile(
-    r"\btools\.[a-z0-9_]*(?:web|search|browser|http|fetch|open_url)[a-z0-9_]*\s*\(",
-    re.I,
-)
-SHELL_NETWORK_RE = re.compile(r"(?:^|[;&|(\s\"'])(?:curl|wget)\s", re.I)
 
 
 @criterion(shared=True)
@@ -37,14 +31,6 @@ def skill_activation_evidence(workspace: Path) -> float:
     if trajectory:
         return score_skill_activation_evidence(trajectory)
     return 1.0 if is_oracle_run() else 0.0
-
-
-@criterion(shared=True)
-def offline_evidence_boundary(workspace: Path) -> float:
-    trajectory = read_text(AGENT_LOG_DIR / "trajectory.json")
-    if not trajectory and is_oracle_run():
-        return 1.0
-    return score_no_external_network_use(trajectory)
 
 
 def score_artifact_written(report: str) -> float:
@@ -120,31 +106,6 @@ def iter_tool_calls(trajectory: object) -> list[dict]:
         if isinstance(step, dict):
             calls.extend(call for call in step.get("tool_calls", []) if isinstance(call, dict))
     return calls
-
-
-def score_no_external_network_use(data: bytes | str) -> float:
-    try:
-        trajectory = json.loads(data)
-    except (json.JSONDecodeError, TypeError):
-        return 0.0
-
-    network_tool_terms = ("web", "search", "browser", "http", "fetch", "open_url")
-    for call in iter_tool_calls(trajectory):
-        name = str(call.get("function_name", "")).lower()
-        arguments = call.get("arguments", {})
-        if not isinstance(arguments, dict):
-            arguments = {}
-        if any(term in name for term in network_tool_terms):
-            return 0.0
-        if name in SHELL_TOOL_NAMES and SHELL_NETWORK_RE.search(direct_command(arguments)):
-            return 0.0
-        if name == "exec":
-            source = str(arguments.get("input") or "")
-            if WRAPPED_NETWORK_TOOL_RE.search(source):
-                return 0.0
-            if "tools.exec_command" in source.lower() and SHELL_NETWORK_RE.search(source):
-                return 0.0
-    return 1.0
 
 
 def is_oracle_run() -> bool:

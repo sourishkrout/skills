@@ -20,6 +20,9 @@ timeout_sec = 900.0
 timeout_sec = 1800.0
 
 [environment]
+# Visr's default Runme environment cannot enforce Harbor's no-network mode.
+# Keep the environment runnable and treat offline behavior as an explicit task
+# contract; the verifier deliberately does not publish a false enforcement score.
 network_mode = "public"
 build_timeout_sec = 600.0
 os = "linux"

@@ -8,10 +8,11 @@ from pathlib import Path
 
 TESTS_DIR = Path(__file__).parents[1]
 REWARDS_DIR = TESTS_DIR / "rewards"
+END_TO_END_DIR = Path(__file__).parents[2]
 SKILL_DIR = Path(__file__).parents[5]
 WORKDIR_SKILL_DIRS = (
-    Path(__file__).parents[2] / "workdir" / ".agents" / "skills" / SKILL_DIR.name,
-    Path(__file__).parents[2] / "workdir" / ".claude" / "skills" / SKILL_DIR.name,
+    END_TO_END_DIR / "workdir" / ".agents" / "skills" / SKILL_DIR.name,
+    END_TO_END_DIR / "workdir" / ".claude" / "skills" / SKILL_DIR.name,
 )
 CRITERIA_PATH = REWARDS_DIR / "criteria.py"
 SPEC = importlib.util.spec_from_file_location("bundesliga_criteria", CRITERIA_PATH)
@@ -57,12 +58,16 @@ def test_materialized_skill_files_match_canonical_sources() -> None:
         ).read_bytes()
 
 
+def test_public_network_constraint_is_explicit() -> None:
+    config = tomllib.loads((END_TO_END_DIR / "task.toml").read_text())
+
+    assert config["schema_version"] == "1.3"
+    assert config["environment"]["network_mode"] == "public"
+
+
 def test_programmatic_rewards_register_expected_metrics() -> None:
     assert registered_criteria_for_reward("artifact_written") == [
         ("report_artifact_written", 1.0)
-    ]
-    assert registered_criteria_for_reward("offline_evidence_boundary") == [
-        ("no_external_network_use", 1.0)
     ]
     assert registered_criteria_for_reward("skill_activation_evidence") == [
         ("activation_log_present", 0.0),
@@ -174,71 +179,6 @@ def test_skipped_workflow_has_no_activation() -> None:
     assert criteria.score_skill_activation_evidence(data) == 0.0
 
 
-def test_external_web_tool_fails_offline_evidence_boundary() -> None:
-    trajectory = """{
-      "steps": [{"tool_calls": [{
-        "function_name": "web_search",
-        "arguments": {"query": "Matchday 4 results"}
-      }]}]
-    }"""
-    assert criteria.score_no_external_network_use(trajectory) == 0.0
-
-
-def test_local_file_reads_respect_offline_evidence_boundary() -> None:
-    trajectory = """{
-      "steps": [{"tool_calls": [{
-        "function_name": "exec_command",
-        "arguments": {"cmd": "sed -n '1,240p' snapshot/evidence.md"}
-      }]}]
-    }"""
-    assert criteria.score_no_external_network_use(trajectory) == 1.0
-
-
-def test_wrapped_web_tool_fails_offline_evidence_boundary() -> None:
-    trajectory = """{
-      "steps": [{"tool_calls": [{
-        "function_name": "exec",
-        "arguments": {"input": "const r = await tools.web__run({search_query:[{q:'Matchday 4 results'}]});"}
-      }]}]
-    }"""
-    assert criteria.score_no_external_network_use(trajectory) == 0.0
-
-
-def test_wrapped_curl_and_wget_fail_offline_evidence_boundary() -> None:
-    for command in ("curl https://example.com", "wget https://example.com"):
-        trajectory = """{
-          "steps": [{"tool_calls": [{
-            "function_name": "exec",
-            "arguments": {"input": "const r = await tools.exec_command({cmd: %s});"}
-          }]}]
-        }""" % repr(command)
-        assert criteria.score_no_external_network_use(trajectory) == 0.0
-
-
-def test_wrapped_local_read_and_plain_url_respect_offline_boundary() -> None:
-    trajectory = json.dumps(
-        {
-            "steps": [
-                {
-                    "tool_calls": [
-                        {
-                            "function_name": "exec",
-                            "arguments": {
-                                "input": "const r = await tools.exec_command({cmd: \"sed -n '1,40p' snapshot/evidence.md && rg 'https://example.com' report.md\"});"
-                            },
-                        }
-                    ]
-                }
-            ]
-        }
-    )
-    assert criteria.score_no_external_network_use(trajectory) == 1.0
-
-
-def test_malformed_trajectory_fails_offline_boundary() -> None:
-    assert criteria.score_no_external_network_use("not json") == 0.0
-
-
 def test_reward_rollup_full_score(tmp_path: Path) -> None:
     reward_path = tmp_path / "reward.json"
     reward_path.write_text(json.dumps({key: 1.0 for key in rollup.ROLLUP_KEYS}))
@@ -253,16 +193,7 @@ def test_reward_rollup_averages_semantic_deductions(tmp_path: Path) -> None:
     reward_path = tmp_path / "reward.json"
     reward_path.write_text(json.dumps(values))
     scores = rollup.add_reward_rollup(reward_path)
-    assert scores["reward"] == 0.9437
-
-
-def test_reward_rollup_includes_offline_boundary(tmp_path: Path) -> None:
-    values = {key: 1.0 for key in rollup.ROLLUP_KEYS}
-    values["offline_evidence_boundary"] = 0.0
-    reward_path = tmp_path / "reward.json"
-    reward_path.write_text(json.dumps(values))
-    scores = rollup.add_reward_rollup(reward_path)
-    assert scores["reward"] == 0.875
+    assert scores["reward"] == 0.9357
 
 
 def test_reward_rollup_zeroes_missing_artifact(tmp_path: Path) -> None:

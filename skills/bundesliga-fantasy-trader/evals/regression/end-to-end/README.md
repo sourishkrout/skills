@@ -6,15 +6,16 @@ cwd: ../../../../..
 
 This task freezes Bundesliga Fantasy 2026/27 Matchday 4 at September 17,
 2026, 8:48 a.m. America/Los_Angeles. The agent works only from the staged
-pre-deadline snapshot, the verifier rejects external retrieval in the agent
-trajectory, and the agent writes `/logs/artifacts/report.md`.
+pre-deadline snapshot and writes `/logs/artifacts/report.md`.
 
-The verifier uses deterministic checks only for the artifact and observable
-trajectory behavior: injected-skill activation and the offline evidence
-boundary. Temporal integrity, task-contract fulfillment, budget and state
-safety, decision quality, and evidence quality are graded semantically so
-equivalent natural-language reports do not depend on exact phrases or
-headings.
+Visr's default Runme environment does not currently support Harbor's
+`no-network` mode, so offline operation remains an explicit task contract rather
+than a claimed infrastructure guarantee. The verifier therefore does not emit
+a misleading offline-enforcement score. It uses deterministic checks for the
+artifact and observable injected-skill activation. Temporal integrity,
+task-contract fulfillment, budget and state safety, decision quality, and
+evidence quality are graded semantically so equivalent natural-language reports
+do not depend on exact phrases or headings.
 
 From the repository root, run the reference oracle:
 
