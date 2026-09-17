@@ -7,5 +7,11 @@
 !.agents/skills/bundesliga-fantasy-trader/SKILL.md
 !.agents/skills/bundesliga-fantasy-trader/references/
 !.agents/skills/bundesliga-fantasy-trader/references/rules-2026-27.md
+!.claude/
+!.claude/skills/
+!.claude/skills/bundesliga-fantasy-trader/
+!.claude/skills/bundesliga-fantasy-trader/SKILL.md
+!.claude/skills/bundesliga-fantasy-trader/references/
+!.claude/skills/bundesliga-fantasy-trader/references/rules-2026-27.md
 !snapshot/
 !snapshot/*.md

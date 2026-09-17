@@ -11,6 +11,19 @@ AGENT_LOG_DIR = Path("/logs/agent")
 ARTIFACTS_DIR = Path("/logs/artifacts")
 CONFIG_PATH = Path("/logs/config.json")
 REPORT_PATH = ARTIFACTS_DIR / "report.md"
+INJECTED_SKILL_PATHS = (
+    ".agents/skills/bundesliga-fantasy-trader/skill.md",
+    "/.agents/skills/bundesliga-fantasy-trader/skill.md",
+    ".claude/skills/bundesliga-fantasy-trader/skill.md",
+    "/.claude/skills/bundesliga-fantasy-trader/skill.md",
+)
+READ_COMMANDS = ("cat ", "sed ", "less ", "head ", "tail ")
+SHELL_TOOL_NAMES = {"exec_command", "bash", "shell"}
+WRAPPED_NETWORK_TOOL_RE = re.compile(
+    r"\btools\.[a-z0-9_]*(?:web|search|browser|http|fetch|open_url)[a-z0-9_]*\s*\(",
+    re.I,
+)
+SHELL_NETWORK_RE = re.compile(r"(?:^|[;&|(\s\"'])(?:curl|wget)\s", re.I)
 
 
 @criterion(shared=True)
@@ -60,20 +73,54 @@ def score_skill_activation_evidence(data: bytes | str) -> float:
         arguments = call.get("arguments", {})
         if not isinstance(arguments, dict):
             arguments = {}
-        serialized = json.dumps(arguments).lower()
-        if name == "skill" and "bundesliga-fantasy-trader" in serialized:
+
+        if name == "skill" and skill_tool_names_bundesliga_skill(arguments):
             return 1.0
-        if name in {"read", "exec_command", "bash"} and reads_injected_skill(serialized):
+        if name == "read" and is_injected_skill_path(
+            str(arguments.get("file_path") or arguments.get("path") or "")
+        ):
+            return 1.0
+        if name in SHELL_TOOL_NAMES and command_reads_injected_skill(
+            direct_command(arguments)
+        ):
+            return 1.0
+        if name == "exec" and wrapped_exec_reads_injected_skill(
+            str(arguments.get("input") or "")
+        ):
             return 1.0
     return 0.0
 
 
-def reads_injected_skill(text: str) -> bool:
-    if "bundesliga-fantasy-trader/skill.md" not in text:
-        return False
-    if "/.agents/skills/" not in text and "/.claude/skills/" not in text:
-        return False
-    return any(token in text for token in ("read", "cat ", "sed ", "head ", "tail "))
+def skill_tool_names_bundesliga_skill(arguments: dict) -> bool:
+    skill_name = str(
+        arguments.get("skill")
+        or arguments.get("skill_name")
+        or arguments.get("name")
+        or arguments.get("path")
+        or ""
+    ).lower()
+    return "bundesliga-fantasy-trader" in skill_name
+
+
+def is_injected_skill_path(path: str) -> bool:
+    normalized = path.strip().lower()
+    return any(normalized.endswith(suffix) for suffix in INJECTED_SKILL_PATHS)
+
+
+def command_reads_injected_skill(command: str) -> bool:
+    normalized = command.lower()
+    return any(token in normalized for token in READ_COMMANDS) and any(
+        path in normalized for path in INJECTED_SKILL_PATHS
+    )
+
+
+def wrapped_exec_reads_injected_skill(source: str) -> bool:
+    normalized = source.lower()
+    return "tools.exec_command" in normalized and command_reads_injected_skill(normalized)
+
+
+def direct_command(arguments: dict) -> str:
+    return str(arguments.get("cmd") or arguments.get("command") or "")
 
 
 def iter_tool_calls(trajectory: object) -> list[dict]:
@@ -93,7 +140,6 @@ def score_no_external_network_use(data: bytes | str) -> float:
         return 0.0
 
     network_tool_terms = ("web", "search", "browser", "http", "fetch", "open_url")
-    command_network_re = re.compile(r"(?:^|[;&|\s])(?:curl|wget)\s", re.I)
     for call in iter_tool_calls(trajectory):
         name = str(call.get("function_name", "")).lower()
         arguments = call.get("arguments", {})
@@ -101,9 +147,13 @@ def score_no_external_network_use(data: bytes | str) -> float:
             arguments = {}
         if any(term in name for term in network_tool_terms):
             return 0.0
-        if name in {"exec_command", "bash"}:
-            command = str(arguments.get("cmd") or arguments.get("command") or "")
-            if command_network_re.search(command):
+        if name in SHELL_TOOL_NAMES and SHELL_NETWORK_RE.search(direct_command(arguments)):
+            return 0.0
+        if name == "exec":
+            source = str(arguments.get("input") or "")
+            if WRAPPED_NETWORK_TOOL_RE.search(source):
+                return 0.0
+            if "tools.exec_command" in source.lower() and SHELL_NETWORK_RE.search(source):
                 return 0.0
     return 1.0
 

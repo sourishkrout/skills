@@ -1,0 +1,15 @@
+{
+  "schema_version": "ATIF-v1.7",
+  "steps": [
+    {
+      "tool_calls": [
+        {
+          "function_name": "exec",
+          "arguments": {
+            "input": "const r = await tools.exec_command({\n  cmd: \"sed -n '1,240p' /repo/workdir/.agents/skills/bundesliga-fantasy-trader/SKILL.md\",\n  workdir: \"/repo/workdir\",\n  yield_time_ms: 10000\n});\ntext(r.output);"
+          }
+        }
+      ]
+    }
+  ]
+}
