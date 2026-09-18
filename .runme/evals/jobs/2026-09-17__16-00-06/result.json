@@ -1,0 +1,81 @@
+{
+    "id": "f424ffb6-0a86-44fc-a315-979df0bc24f1",
+    "started_at": "2026-09-17T16:00:06.450071",
+    "updated_at": "2026-09-17T16:05:20.252895",
+    "finished_at": "2026-09-17T16:05:20.252895",
+    "n_total_trials": 1,
+    "stats": {
+        "n_completed_trials": 1,
+        "n_errored_trials": 0,
+        "n_running_trials": 0,
+        "n_pending_trials": 0,
+        "n_cancelled_trials": 0,
+        "n_retries": 0,
+        "evals": {
+            "runme-codex__gpt-5.6-sol__regression": {
+                "n_trials": 1,
+                "n_errors": 0,
+                "metrics": [
+                    {
+                        "artifact_written": 1.0,
+                        "budget_and_state_safety": 1.0,
+                        "decision_quality": 1.0,
+                        "evidence_quality": 1.0,
+                        "reward": 1.0,
+                        "skill_activation_evidence": 1.0,
+                        "task_contract": 1.0,
+                        "temporal_integrity": 1.0
+                    }
+                ],
+                "pass_at_k": {},
+                "reward_stats": {
+                    "artifact_written": {
+                        "1.0": [
+                            "end-to-end__pbfB3Yi"
+                        ]
+                    },
+                    "budget_and_state_safety": {
+                        "1.0": [
+                            "end-to-end__pbfB3Yi"
+                        ]
+                    },
+                    "decision_quality": {
+                        "1.0": [
+                            "end-to-end__pbfB3Yi"
+                        ]
+                    },
+                    "evidence_quality": {
+                        "1.0": [
+                            "end-to-end__pbfB3Yi"
+                        ]
+                    },
+                    "skill_activation_evidence": {
+                        "1.0": [
+                            "end-to-end__pbfB3Yi"
+                        ]
+                    },
+                    "task_contract": {
+                        "1.0": [
+                            "end-to-end__pbfB3Yi"
+                        ]
+                    },
+                    "temporal_integrity": {
+                        "1.0": [
+                            "end-to-end__pbfB3Yi"
+                        ]
+                    },
+                    "reward": {
+                        "1.0": [
+                            "end-to-end__pbfB3Yi"
+                        ]
+                    }
+                },
+                "exception_stats": {}
+            }
+        },
+        "n_input_tokens": 257910,
+        "n_cache_tokens": 210816,
+        "n_output_tokens": 14164,
+        "cost_usd": 0.5559824
+    }
+}
