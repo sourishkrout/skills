@@ -1,0 +1,140 @@
+{
+    "id": "93c4e35d-a6cc-4167-945e-b2bcd841b41b",
+    "task_name": "sourishkrout/bundesliga-fantasy-trader_end-to-end",
+    "trial_name": "end-to-end__9RAuL5Y",
+    "trial_uri": "file:///Users/sourishkrout/Projects/personal/2026Q2/sourishkrout-skills/.runme/evals/jobs/2026-09-17__14-20-31/end-to-end__9RAuL5Y",
+    "task_id": {
+        "path": "skills/bundesliga-fantasy-trader/evals/regression/end-to-end"
+    },
+    "source": "regression",
+    "task_checksum": "347f9b6bff91f1d98e25c1c42b17b4003ba4706be45648ceb719d0ad4637a487",
+    "config": {
+        "task": {
+            "path": "skills/bundesliga-fantasy-trader/evals/regression/end-to-end",
+            "git_url": null,
+            "git_commit_id": null,
+            "name": null,
+            "ref": null,
+            "overwrite": false,
+            "download_dir": null,
+            "source": "regression"
+        },
+        "trial_name": "end-to-end__9RAuL5Y",
+        "trials_dir": ".runme/evals/jobs/2026-09-17__14-20-31",
+        "install_only": false,
+        "timeout_multiplier": 1.0,
+        "agent_timeout_multiplier": null,
+        "verifier_timeout_multiplier": null,
+        "agent_setup_timeout_multiplier": null,
+        "environment_build_timeout_multiplier": null,
+        "agent": {
+            "name": "runme_harbor.runme_agents:RunmeCodex",
+            "import_path": null,
+            "model_name": "openai/gpt-5.6-sol",
+            "n_concurrent": null,
+            "concurrency_group": null,
+            "skills": [],
+            "override_timeout_sec": null,
+            "override_setup_timeout_sec": null,
+            "max_timeout_sec": null,
+            "resume_trajectory": false,
+            "load_trajectory": null,
+            "extra_allowed_hosts": [],
+            "kwargs": {
+                "reasoning_effort": "xhigh",
+                "route_oauth_credentials": false
+            },
+            "env": {
+                "RUNME_ROUTER_FALLBACK_OPENAI_API_KEY": "visr****Hi4",
+                "RUNME_ROUTER_FALLBACK_ANTHROPIC_API_KEY": "visr****Hi4",
+                "RUNME_ROUTER_FALLBACK_GOOGLE_API_KEY": "visr****Hi4",
+                "OPENAI_BASE_URL": "https://api.visr.dev/api/router/v1/openai/v1",
+                "ANTHROPIC_BASE_URL": "https://api.visr.dev/api/router/v1/anthropic",
+                "GOOGLE_GEMINI_BASE_URL": "https://api.visr.dev/api/router/v1/google"
+            },
+            "mcp_servers": []
+        },
+        "user_agent": null,
+        "environment": {
+            "type": null,
+            "import_path": "runme_harbor.environment:RunmeEnvironment",
+            "force_build": false,
+            "delete": true,
+            "cpu_enforcement_policy": "auto",
+            "memory_enforcement_policy": "auto",
+            "override_cpus": null,
+            "override_memory_mb": null,
+            "override_storage_mb": null,
+            "override_gpus": null,
+            "override_tpu": null,
+            "mounts": null,
+            "extra_docker_compose": [],
+            "kwargs": {},
+            "extra_allowed_hosts": []
+        },
+        "verifier": {
+            "override_timeout_sec": null,
+            "max_timeout_sec": null,
+            "env": {
+                "OPENAI_BASE_URL": "https://api.visr.dev/api/router/v1/openai/v1",
+                "ANTHROPIC_BASE_URL": "https://api.visr.dev/api/router/v1/anthropic",
+                "GOOGLE_GEMINI_BASE_URL": "https://api.visr.dev/api/router/v1/google"
+            },
+            "disable": false
+        },
+        "artifacts": [],
+        "extra_instruction_paths": [],
+        "extra_instructions": [],
+        "job_id": "d4940115-964f-43f7-b123-abdf8118fc04",
+        "source_trial": null
+    },
+    "agent_info": {
+        "name": "runme-codex",
+        "version": "unknown",
+        "model_info": {
+            "name": "gpt-5.6-sol",
+            "provider": "openai"
+        }
+    },
+    "agent_result": {
+        "n_input_tokens": 222058,
+        "n_cache_tokens": 186112,
+        "n_output_tokens": 15052,
+        "cost_usd": 0.5192688,
+        "rollout_details": null,
+        "metadata": null
+    },
+    "verifier_result": {
+        "rewards": {
+            "artifact_written": 1.0,
+            "budget_and_state_safety": 1.0,
+            "decision_quality": 1.0,
+            "evidence_quality": 1.0,
+            "skill_activation_evidence": 1.0,
+            "task_contract": 1.0,
+            "temporal_integrity": 1.0,
+            "reward": 1.0
+        }
+    },
+    "verifier_environment_mode": "shared",
+    "exception_info": null,
+    "started_at": "2026-09-17T21:20:31.717165Z",
+    "finished_at": "2026-09-17T21:26:10.286219Z",
+    "environment_setup": {
+        "started_at": "2026-09-17T21:20:31.746381Z",
+        "finished_at": "2026-09-17T21:20:31.903574Z"
+    },
+    "agent_setup": {
+        "started_at": "2026-09-17T21:20:31.903683Z",
+        "finished_at": "2026-09-17T21:20:31.903772Z"
+    },
+    "agent_execution": {
+        "started_at": "2026-09-17T21:20:31.903968Z",
+        "finished_at": "2026-09-17T21:25:22.107333Z"
+    },
+    "verifier": {
+        "started_at": "2026-09-17T21:25:22.107671Z",
+        "finished_at": "2026-09-17T21:26:10.281690Z"
+    },
+    "step_results": null
+}

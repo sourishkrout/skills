@@ -1,0 +1,35 @@
+{
+    "task": {
+        "path": "skills/bundesliga-fantasy-trader/evals/regression/end-to-end",
+        "source": "regression"
+    },
+    "trial_name": "end-to-end__MQvAuwT",
+    "trials_dir": ".runme/evals/jobs/2026-09-17__13-12-02",
+    "agent": {
+        "name": "runme_harbor.runme_agents:RunmeCodex",
+        "model_name": "openai/gpt-5.6-sol",
+        "kwargs": {
+            "reasoning_effort": "xhigh",
+            "route_oauth_credentials": false
+        },
+        "env": {
+            "RUNME_ROUTER_FALLBACK_OPENAI_API_KEY": "visr****oe8",
+            "RUNME_ROUTER_FALLBACK_ANTHROPIC_API_KEY": "visr****oe8",
+            "RUNME_ROUTER_FALLBACK_GOOGLE_API_KEY": "visr****oe8",
+            "OPENAI_BASE_URL": "https://api.visr.dev/api/router/v1/openai/v1",
+            "ANTHROPIC_BASE_URL": "https://api.visr.dev/api/router/v1/anthropic",
+            "GOOGLE_GEMINI_BASE_URL": "https://api.visr.dev/api/router/v1/google"
+        }
+    },
+    "environment": {
+        "import_path": "runme_harbor.environment:RunmeEnvironment"
+    },
+    "verifier": {
+        "env": {
+            "OPENAI_BASE_URL": "https://api.visr.dev/api/router/v1/openai/v1",
+            "ANTHROPIC_BASE_URL": "https://api.visr.dev/api/router/v1/anthropic",
+            "GOOGLE_GEMINI_BASE_URL": "https://api.visr.dev/api/router/v1/google"
+        }
+    },
+    "job_id": "1875f739-e0d2-44c0-ba77-55124fb1a262"
+}
