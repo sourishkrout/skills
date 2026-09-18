@@ -1,0 +1,10 @@
+{
+  "artifact_written": 1.0,
+  "budget_and_state_safety": 1.0,
+  "decision_quality": 1.0,
+  "evidence_quality": 1.0,
+  "skill_activation_evidence": 1.0,
+  "task_contract": 1.0,
+  "temporal_integrity": 1.0,
+  "reward": 1.0
+}

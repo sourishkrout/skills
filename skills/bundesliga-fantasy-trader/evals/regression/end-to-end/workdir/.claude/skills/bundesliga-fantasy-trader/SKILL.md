@@ -16,17 +16,17 @@ description: "Research and manage Bundesliga Fantasy squads, transfers, formatio
 
 Pure rules, fixture, or deadline questions may be answered without completing the squad-confirmation gate.
 
-## Source authority
+## Source roles and authority
 
-Use direct pages rather than search-result links and include publication or update dates when available.
+Use each source for the subject it covers best; the list below is neither a universal priority ranking nor a required research sequence. Use direct pages rather than search-result links and include publication or update dates when available.
 
-1. [Bundesliga.com](https://www.bundesliga.com/en/bundesliga) and the [DFB Datencenter](https://datencenter.dfb.de/) for published rules, fixtures, and deadlines.
-2. The Bundesliga app for current in-app rules and the user's live squad, player positions, prices, sell values, budget, and transfer legality.
-3. [Bulinews Fantasy](https://bulinews.com/fantasy) as the primary source for expert picks, scout squads, predicted XIs, and Fantasy Show analysis.
-4. [LigaInsider](https://www.ligainsider.de/), official club reports and press conferences, and [FotMob](https://www.fotmob.com/leagues/54/overview/bundesliga) to corroborate lineup and availability claims.
-5. [TheFantasyTool](https://thefantasytool.com/optimal-teams-bl) as an occasional projection and value-model supplement.
+- **Published rules, fixtures, and deadlines:** use [Bundesliga.com](https://www.bundesliga.com/en/bundesliga) and the [DFB Datencenter](https://datencenter.dfb.de/).
+- **Live game state and trade feasibility:** use the Bundesliga app for current in-app rules, the user's squad, player positions, prices, sell values, budget, and transfer legality.
+- **Fantasy trade judgment:** use [Bulinews Fantasy](https://bulinews.com/fantasy) as the primary source for expert picks, scout squads, predicted XIs, and Fantasy Show analysis.
+- **Availability and expected minutes:** use official club reports and press conferences for confirmations; use [LigaInsider](https://www.ligainsider.de/) and [FotMob](https://www.fotmob.com/leagues/54/overview/bundesliga) to corroborate lineup and availability claims.
+- **Projection and value cross-checks:** use [TheFantasyTool](https://thefantasytool.com/optimal-teams-bl) only as an occasional supplement.
 
-Resolve source conflicts by subject:
+When sources overlap or conflict, resolve the claim according to its subject:
 
 - Prefer the newest dated Bundesliga or DFB publication for published rules and schedules.
 - Prefer the Bundesliga app when its current rule text or enforced behavior differs from an article, and for all live game state.
