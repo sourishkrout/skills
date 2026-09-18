@@ -122,9 +122,3 @@ Sources:
   in the app at the cutoff.
 - `Estimated`: every other price above, with its dated source.
 - `Unknown`: every current sell value not directly visible in the app.
-
-A valid report may recommend a package conditionally, but must show the exact
-minimum combined sell value or maximum purchase price that makes it legal. It
-must also give one cheaper fallback when crossing that threshold would make
-the preferred package unaffordable. It must not infer individual sell values
-from the `155.13M` total squad value.

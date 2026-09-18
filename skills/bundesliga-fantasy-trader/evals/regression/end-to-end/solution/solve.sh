@@ -17,7 +17,7 @@ Evidence cutoff: Thursday, September 17, 2026, 8:48 a.m. America/Los_Angeles. Ma
 
 ## What to do now
 
-Execution order after verifying the live prices: first stage Ebnoutalib → Hložek, then stage Juranović → Katić.
+Try this highest-potential slate in order: first stage Ebnoutalib → Hložek, then stage Juranović → Katić. If the app reports that it is unaffordable, return with the shortfall and revise the lowest-impact move.
 
 1. **Proposed:** Younes Ebnoutalib → Adam Hložek. Ebnoutalib is projected for only 30 minutes and 60 points, while Hložek has 183 projected points in the round's second-strongest attacking fixture ([TheFantasyTool, model data September 14](https://thefantasytool.com/previews/bundesliga-fantasy-matchday-4-captain-picks-best-buys)).
 2. **Proposed:** Josip Juranović → Nikola Katić. Union face Bayern's slate-leading 3.81 expected goals, while Katić is a 5.9M estimated route into the round's third-best clean-sheet line ([TheFantasyTool, model data September 14](https://thefantasytool.com/previews/bundesliga-fantasy-matchday-4-captain-picks-best-buys)).
@@ -56,15 +56,7 @@ Confirmed: 15 players, 3.34M bank, 0/5 transfers used, 155.13M displayed squad m
 - Hložek purchase price: `9.2M estimated`.
 - Katić purchase price: `5.9M estimated`.
 
-Budget condition:
-
-`3.34M bank + Ebnoutalib live sale + Juranović live sale - 15.10M estimated purchases = remaining bank`
-
-The package is feasible when the two live sale values total at least **11.76M**. At the dated estimates (`5.50M + 6.43M`), it leaves approximately **0.17M**, so verify those two sale values before staging the moves. It uses 2 of 5 transfers, retains 2 GK / 4 DEF / 6 MID / 3 FOR, and leaves every club at or below three players.
-
-## Fallback package
-
-**Trigger:** If the preferred package is unaffordable, use Ebnoutalib → Marvin Pieringer and Juranović → Katić only when `3.34M bank + the two live sale values` is at least the verified live cost of Pieringer plus Katić. At the dated `3.0M + 5.9M = 8.90M` purchase estimates, that requires combined sales of at least **5.56M**; using the dated outgoing estimates would leave about **6.37M**. If the combined sales are below 5.56M—or the verified live fallback prices exceed the available bank plus sales—make no transfers rather than stage an unaffordable package. Pieringer was the preview's best-value budget forward and replaces Hložek in the fallback XI. This is the cheaper fallback, not an additional menu of targets ([TheFantasyTool, September 14 model data](https://thefantasytool.com/previews/bundesliga-fantasy-matchday-4-captain-picks-best-buys)).
+At the dated estimates, the two sales plus the 3.34M bank narrowly cover the two estimated purchases. The live sale values are unknown, so try this slate first and report the app's shortfall if it does not fit; do not collect every sell value in advance. It uses 2 of 5 transfers, retains 2 GK / 4 DEF / 6 MID / 3 FOR, and leaves every club at or below three players.
 
 ## Formation and stars
 
